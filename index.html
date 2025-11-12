@@ -1,0 +1,2826 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ketmon - Sayohat Agentligi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background:#17223B;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #fff;
+            color: #0a4d68;
+        }
+
+        .main-header {
+            padding: 20px 0;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #088395;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10, 77, 104, 0.35);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10, 77, 104, 0.35);
+        }
+
+        /* no cta-group */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 650px;
+            background: linear-gradient(135deg, #17223B 0%, #0a4d68 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%230a4d68" width="1200" height="600"/><circle fill="%23088395" cx="200" cy="100" r="80" opacity="0.3"/><circle fill="%2305445e" cx="800" cy="400" r="120" opacity="0.3"/><circle fill="%23088395" cx="1000" cy="150" r="100" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            max-width: 700px;
+        }
+
+        .hero-world {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 55%;
+            display: none; /* hidden on small screens */
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-world img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.28;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.25));
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            background: #fff;
+            color: #17223B;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,255,255,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        .btn-outline:hover {
+            background: #fff;
+            color: #17223B;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Search Bar */
+        .search-section {
+            background: #fff;
+            padding: 40px 0;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .search-input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-input label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .search-input input, .search-input select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+
+        .search-input input:focus, .search-input select:focus {
+            outline: none;
+            border-color: #088395;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 24px;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Destinations */
+        .destinations {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #17223B;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .destination-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .destination-img {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #088395 0%, #0a4d68 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+        }
+
+        .destination-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .destination-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, #ffffff 100%);
+            color: #0f172a;
+            padding: 10px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: .2px;
+            backdrop-filter: blur(2px);
+        }
+        .destination-badge::before{
+            content: "★";
+            color: #f59e0b; /* amber star */
+            text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .destination-info {
+            padding: 25px;
+        }
+
+        .destination-title {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #17223B;
+            font-weight: 700;
+        }
+
+        .destination-desc {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .destination-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            gap: 12px;
+        }
+
+        .price {
+            font-size: 28px;
+            color: #17223B;
+            font-weight: bold;
+        }
+
+        .price-label {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .agency-tag {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0a4d68;
+            background: rgba(10,77,104,0.1);
+            padding: 6px 12px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        /* Services */
+        .services {
+            padding: 100px 0;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 60px;
+            margin-bottom: 25px;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #17223B;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: #fff;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .author-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .stars {
+            color: #17223B;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #17223B;
+        }
+
+        .newsletter p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 15px;
+        }
+
+        .newsletter-form button {
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .agency-section {
+            padding: 80px 0;
+            background: #f0f4f9;
+        }
+        .ai-assistant {
+            padding: 80px 0;
+            background: #f8fbff;
+        }
+        .ai-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 20px 55px rgba(11, 66, 125, 0.18);
+            padding: 32px;
+        }
+        .ai-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .ai-icon {
+            font-size: 36px;
+            background: rgba(10, 77, 104, 0.1);
+            color: #0a4d68;
+            border-radius: 16px;
+            padding: 14px;
+        }
+        .ai-form {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        .ai-field {
+            display: flex;
+            flex-direction: column;
+        }
+        .ai-field label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .ai-field input,
+        .ai-field select {
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            border-radius: 14px;
+            padding: 12px;
+            font-size: 15px;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        .ai-field input:focus,
+        .ai-field select:focus {
+            outline: none;
+            border-color: #0a4d68;
+            box-shadow: 0 0 0 2px rgba(10, 77, 104, 0.15);
+        }
+        .ai-submit {
+            align-self: end;
+        }
+        .ai-response {
+            margin-top: 24px;
+            background: rgba(10, 77, 104, 0.05);
+            border-radius: 14px;
+            padding: 18px;
+            color: #0f172a;
+            line-height: 1.6;
+            min-height: 72px;
+        }
+        .about-section {
+            padding: 90px 0;
+            background: #ffffff;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            align-items: start;
+        }
+        .about-story {
+            background: rgba(10,77,104,0.05);
+            padding: 28px;
+            border-radius: 22px;
+            box-shadow: 0 15px 40px rgba(8, 64, 112, 0.12);
+        }
+        .about-story h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #0a4d68;
+        }
+        .about-story p {
+            color: #475569;
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+        .about-bullets {
+            list-style: none;
+            padding: 0;
+            margin-top: 14px;
+        }
+        .about-bullets li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        .about-bullets li span {
+            color: #0a4d68;
+            font-weight: 700;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+        .about-stat {
+            background: #fff;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(148,163,184,0.2);
+            text-align: center;
+        }
+        .about-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a4d68;
+        }
+        .about-stat-label {
+            margin-top: 8px;
+            color: #475569;
+        }
+        .contact-section {
+            padding: 90px 0;
+            background: linear-gradient(135deg, rgba(10,77,104,0.05) 0%, rgba(255,255,255,0.8) 100%);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            align-items: stretch;
+        }
+        .contact-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 32px;
+            box-shadow: 0 15px 45px rgba(9, 36, 64, 0.15);
+        }
+        .contact-details {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+            display: grid;
+            gap: 18px;
+        }
+        .contact-details li {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            color: #1e293b;
+        }
+        .contact-details li span.icon {
+            font-size: 22px;
+            color: #0a4d68;
+        }
+        .contact-details strong {
+            display: block;
+            color: #0a4d68;
+        }
+        .contact-form {
+            background: rgba(255,255,255,0.95);
+            border-radius: 22px;
+            padding: 32px;
+            box-shadow: 0 15px 40px rgba(12, 74, 110, 0.12);
+            border: 1px solid rgba(148,163,184,0.25);
+            display: grid;
+            gap: 18px;
+        }
+        .contact-form label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(148,163,184,0.4);
+            font-size: 15px;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #0a4d68;
+            box-shadow: 0 0 0 2px rgba(10,77,104,0.15);
+        }
+        .contact-status {
+            font-size: 14px;
+            color: #0a4d68;
+            margin-top: -8px;
+        }
+        .contact-status.error {
+            color: #dc2626;
+        }
+        .agency-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .agency-toolbar button {
+            border: none;
+            background: rgba(10,77,104,0.1);
+            color: #0a4d68;
+            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+        .agency-toolbar button.active {
+            background: #0a4d68;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(10,77,104,0.25);
+        }
+        .agency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .agency-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 8px 30px rgba(13,42,85,0.12);
+            border: 1px solid rgba(15,23,42,0.05);
+            cursor: pointer;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .agency-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(13,42,85,0.18);
+        }
+        .agency-card.active {
+            border-color: #0a4d68;
+            box-shadow: 0 14px 38px rgba(10,77,104,0.22);
+        }
+        .agency-card.active {
+            border-color: #0a4d68;
+            box-shadow: 0 14px 38px rgba(10,77,104,0.22);
+        }
+        .agency-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(38,132,255,0.08);
+            color: #0f172a;
+            font-size: 12px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        .agency-card h3 {
+            margin-top: 16px;
+            font-size: 20px;
+            color: #0f172a;
+            position: relative;
+            z-index: 1;
+        }
+        .agency-card p {
+            margin-top: 10px;
+            color: #475569;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+        .agency-card .cta {
+            margin-top: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #0a4d68;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        .agency-flair {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10,77,104,0.12) 0%, rgba(10,77,104,0) 55%);
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+        .agency-card:hover .agency-flair,
+        .agency-card.active .agency-flair {
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 25px;
+            color: #17223B;
+            font-size: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #17223B;
+        }
+
+        .footer-section p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(8, 131, 149, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #17223B;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #17223B;
+        }
+
+        /* Modal (Tour Details) */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal {
+            width: 100%;
+            max-width: 760px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            border-bottom: 1px solid #eee;
+            background: linear-gradient(135deg,#f8fafc 0%,#ffffff 100%);
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #0f172a;
+        }
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            padding: 18px 22px 22px;
+        }
+        .modal-image {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .modal-info p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        .modal-form {
+            display: grid;
+            gap: 12px;
+            padding: 18px 22px 22px;
+        }
+        .form-field {
+            display: grid;
+            gap: 6px;
+        }
+        .form-field label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .form-field input {
+            padding: 12px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .segmented {
+            display: inline-flex;
+            background: #f1f5f9;
+            border-radius: 999px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .segmented button {
+            border: none;
+            background: transparent;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #0f172a;
+        }
+        .segmented button.active {
+            background: #E6FB00;
+            box-shadow: 0 6px 18px rgba(230,251,0,0.35);
+        }
+        .hidden { display: none; }
+        .modal-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 10px 0 14px;
+        }
+        .meta-chip {
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .modal .btn-primary {
+            background: #E6FB00;
+            color: #0f172a;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .modal .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(230,251,0,0.35);
+        }
+        @media (max-width: 720px) {
+            .modal-body { grid-template-columns: 1fr; }
+            .modal-image { height: 200px; }
+        }
+
+        @media (max-width: 968px) {
+            .hero-world { display: none; }
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+            }
+
+            nav.active {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                padding: 20px;
+            }
+
+            nav.active ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (min-width: 969px) {
+            .hero-world { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span>📞 <span data-text="phone">+998 93 301 52 18</span></span>
+                <span>✉️ <span data-text="email">info@ketmon.uz</span></span>
+            </div>
+            <div class="lang-selector">
+                <button class="lang-btn active" onclick="changeLang('uz')">UZ</button>
+                <button class="lang-btn" onclick="changeLang('ru')">RU</button>
+                <button class="lang-btn" onclick="changeLang('en')">EN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header>
+        <div class="main-header">
+            <div class="container">
+                <a href="#" class="logo">KETMON</a>
+                <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#home" data-text="nav_home">Bosh sahifa</a></li>
+                        <li><a href="#destinations" data-text="nav_destinations">Yo'nalishlar</a></li>
+                        <li><a href="#services" data-text="nav_services">Xizmatlar</a></li>
+                        <li><a href="#about" data-text="nav_about">Biz haqimizda</a></li>
+                        <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
+                    </ul>
+                </nav>
+                <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
+                <a id="headerLoginBtn" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
+                <a id="headerRegisterBtn" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-text="hero_title">Dunyo Bo'ylab Unutilmas Sayohatlar</h1>
+                <p data-text="hero_subtitle">Hayotingizning eng yaxshi tajribasini biz bilan kashf eting</p>
+                <div class="hero-buttons">
+                    <a href="#destinations" class="btn" data-text="hero_btn1">Yo'nalishlarni Ko'rish</a>
+                    <a href="#contact" class="btn btn-outline" data-text="hero_btn2">Maslahat Olish</a>
+                </div>
+            </div>
+        </div>
+        <!-- World map visual (licensed Wikimedia image) -->
+        <div class="hero-world">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png" alt="World map illustration showing worldwide travel" loading="eager">
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section" id="search">
+        <div class="container">
+            <div class="search-box">
+                <div class="search-input">
+                    <label data-text="search_destination">Yo'nalish</label>
+                    <input type="text" placeholder="Qayerga bormoqchisiz?" data-placeholder="search_destination_placeholder">
+                </div>
+                <div class="search-input">
+                    <label data-text="search_date">Sana</label>
+                    <input type="date">
+                </div>
+                <div class="search-input">
+                    <label data-text="search_duration">Davomiyligi</label>
+                    <select>
+                        <option data-text="duration_3">3 kun</option>
+                        <option data-text="duration_7">7 kun</option>
+                        <option data-text="duration_14">14 kun</option>
+                        <option data-text="duration_custom">Boshqa</option>
+                    </select>
+                </div>
+                <div class="search-input">
+                    <label data-text="search_agency">Agentlik</label>
+                    <select id="agencyFilter">
+                        <option value="all" data-text="agency_select_all">Barcha agentliklar</option>
+                        <option value="atlas" data-text="agency_atlas_name">Atlas Travel</option>
+                        <option value="samarqand" data-text="agency_samarqand_name">Samarqand Tours</option>
+                        <option value="nomad" data-text="agency_nomad_name">Nomad Explorer</option>
+                        <option value="silk" data-text="agency_silk_name">Silk Road Elite</option>
+                        <option value="azialux" data-text="agency_azialux_name">AziaLux Travel</option>
+                        <option value="clubtravel" data-text="agency_clubtravel_name">ClubTravel UZ</option>
+                        <option value="globalvoyage" data-text="agency_globalvoyage_name">Global Voyage Hub</option>
+                    </select>
+                </div>
+                <div class="search-input">
+                    <label data-text="search_guests">Odamlar soni</label>
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3-5</option>
+                        <option>6+</option>
+                    </select>
+                </div>
+                <button class="search-btn" data-text="search_btn">Qidirish</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant Section -->
+    <section class="ai-assistant" id="ai">
+        <div class="container">
+            <div class="ai-card">
+                <div class="ai-header">
+                    <span class="ai-icon">🤖</span>
+                    <div>
+                        <h3 data-text="ai_assistant_title">Smart AI yordamchi</h3>
+                        <p data-text="ai_assistant_subtitle">Budjetingiz, yo‘nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.</p>
+                    </div>
+                </div>
+                <form class="ai-form" id="aiForm">
+                    <div class="ai-field">
+                        <label for="aiBudget" data-text="ai_budget_label">Budjet (USD)</label>
+                        <input type="number" id="aiBudget" placeholder="1500" data-placeholder="ai_budget_placeholder" min="100">
+                    </div>
+                    <div class="ai-field">
+                        <label for="aiDestination" data-text="ai_destination_label">Qiziqqan yo‘nalish</label>
+                        <input type="text" id="aiDestination" placeholder="Osiyo, Yevropa..." data-placeholder="ai_destination_placeholder">
+                    </div>
+                    <div class="ai-field">
+                        <label for="aiSeason" data-text="ai_season_label">Qaysi oylar</label>
+                        <select id="aiSeason">
+                            <option value="summer" data-text="ai_season_summer">Yoz</option>
+                            <option value="autumn" data-text="ai_season_autumn">Kuz</option>
+                            <option value="winter" data-text="ai_season_winter">Qish</option>
+                            <option value="spring" data-text="ai_season_spring">Bahor</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-gradient ai-submit" data-text="ai_generate_btn">Tavsiyalarni ko‘rish</button>
+                </form>
+                <div class="ai-response" id="aiResponse" data-text="ai_response_placeholder">Savolingizni kiriting va AI yordamchidan tavsiyalar oling.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Agencies -->
+    <section class="agency-section" id="agencies">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-text="agency_section_title">Hamkor Agentliklar</h2>
+                <p class="section-subtitle" data-text="agency_section_subtitle">Eng ishonchli sayohat hamkorlarini tanlang</p>
+            </div>
+            <div class="agency-toolbar">
+                <button type="button" class="active" data-filter="all" data-text="agency_filter_all">Barcha hamkorlar</button>
+                <button type="button" data-filter="local" data-text="agency_filter_local">O'zbek sayyohlari uchun</button>
+                <button type="button" data-filter="international" data-text="agency_filter_global">Xorijiy sayyohlar uchun</button>
+            </div>
+            <div class="agency-grid">
+                <div class="agency-card" data-agency="atlas" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_atlas_name">Atlas Travel</h3>
+                    <p data-text="agency_atlas_desc">Markaziy Osiyodan dunyoning 40+ manziliga premium paketlar va VIP xizmatlar.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="samarqand" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_samarqand_name">Samarqand Tours</h3>
+                    <p data-text="agency_samarqand_desc">Madaniy sayohatlar, tarixiy gidlar va mahalliy tajribalar bo'yicha mutaxassis.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="nomad" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_nomad_name">Nomad Explorer</h3>
+                    <p data-text="agency_nomad_desc">Aktiv sayohatlar, tog' yurishlari va ekologik turizm bo'yicha mutaxassis.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="clubtravel" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_clubtravel_name">ClubTravel UZ</h3>
+                    <p data-text="agency_clubtravel_desc">Oila va guruhlar uchun hamyonbop paketlar, Toshkentdan charter reyslar.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="silk" data-type="international">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_silk_name">Silk Road Elite</h3>
+                    <p data-text="agency_silk_desc">Luks mehmonxonalar, TNPL rejalar va shaxsiy gidlar bilan premium xizmat.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="azialux" data-type="international">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_azialux_name">AziaLux Travel</h3>
+                    <p data-text="agency_azialux_desc">Osiyo va Yevropadagi eksklyuziv gastro-turlar, premium servis va gidlar.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="globalvoyage" data-type="international">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_globalvoyage_name">Global Voyage Hub</h3>
+                    <p data-text="agency_globalvoyage_desc">Xalqaro konferensiya va MICE turlar, 24/7 qo'llab-quvvatlash va viza xizmati.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations -->
+    <section class="destinations" id="destinations">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-text="destinations_title">Mashhur Yo'nalishlar</h2>
+                <p class="section-subtitle" data-text="destinations_subtitle">Eng yaxshi takliflarimiz</p>
+            </div>
+            <div class="destination-grid">
+                <div class="destination-card" data-agency="atlas" data-type="local">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop" alt="Dubai skyline and city view">
+                        <div class="destination-badge" data-text="badge_popular">Mashhur</div>
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest1_name">Dubay, BAA</h3>
+                        <p class="destination-desc" data-text="dest1_desc">Zamonaviy arxitektura va qadimiy an'analarning ajoyib uyg'unligi</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$1,200</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_atlas_name">Atlas Travel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="samarqand" data-type="local">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop" alt="Paris Eiffel Tower">
+                        <div class="destination-badge" data-text="badge_sale">Chegirma</div>
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest2_name">Parij, Fransiya</h3>
+                        <p class="destination-desc" data-text="dest2_desc">Sevgi va romantika poytaxti, go'zal arxitektura</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$1,500</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_samarqand_name">Samarqand Tours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="nomad" data-type="local">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1200&auto=format&fit=crop" alt="Istanbul Bosphorus and mosque">
+                        <div class="destination-badge" data-text="badge_new">Yangi</div>
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest3_name">Istanbul, Turkiya</h3>
+                        <p class="destination-desc" data-text="dest3_desc">Sharq va G'arb madaniyatining ajoyib qo'shilishi</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$800</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_nomad_name">Nomad Explorer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="silk" data-type="international">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1504194104404-433180773017?q=80&w=1200&auto=format&fit=crop" alt="Switzerland Alps mountain landscape">
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest4_name">Shveysariya</h3>
+                        <p class="destination-desc" data-text="dest4_desc">Alp tog'lari va kristal toza ko'llar</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$2,000</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_silk_name">Silk Road Elite</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="atlas" data-type="local">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1200&auto=format&fit=crop" alt="Tokyo city with nature scenery">
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest5_name">Tokio, Yaponiya</h3>
+                        <p class="destination-desc" data-text="dest5_desc">Texnologiya va an'analarning noyob uyg'unligi</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$1,800</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_atlas_name">Atlas Travel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="samarqand" data-type="local">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?q=80&w=1200&auto=format&fit=crop" alt="Rome historical architecture">
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest6_name">Rim, Italiya</h3>
+                        <p class="destination-desc" data-text="dest6_desc">Qadimiy tarix va ajoyib arxitektura</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$1,400</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_samarqand_name">Samarqand Tours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="azialux" data-type="international">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80" alt="Bangkok night markets">
+                        <div class="destination-badge" data-text="badge_popular">Mashhur</div>
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest7_name">Bangkok Gourmet, Tailand</h3>
+                        <p class="destination-desc" data-text="dest7_desc">Gastro sayohatlar, Michelin restoranlari va shaxsiy gidlar.</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$1,650</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_azialux_name">AziaLux Travel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="clubtravel" data-type="local">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80" alt="Baku evening skyline">
+                        <div class="destination-badge" data-text="badge_sale">Chegirma</div>
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest9_name">Boku Weekend, Ozarbayjon</h3>
+                        <p class="destination-desc" data-text="dest9_desc">Toshkentdan to'g'ridan-to'g'ri reys, 4* mehmonxona va shahar sayohati.</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$690</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_clubtravel_name">ClubTravel UZ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-agency="globalvoyage" data-type="international">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1200&q=80" alt="London business skyline">
+                        <div class="destination-badge" data-text="badge_new">Yangi</div>
+                    </div>
+                    <div class="destination-info">
+                        <h3 class="destination-title" data-text="dest8_name">London Summit, Buyuk Britaniya</h3>
+                        <p class="destination-desc" data-text="dest8_desc">Biznes konferensiya paketi, premium mehmonxona va transferlar.</p>
+                        <div class="destination-footer">
+                            <div>
+                                <div class="price">$2,450</div>
+                                <div class="price-label" data-text="price_per_person">kishi uchun</div>
+                            </div>
+                            <span class="agency-tag" data-text="agency_globalvoyage_name">Global Voyage Hub</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-text="services_title">Bizning Xizmatlarimiz</h2>
+                <p class="section-subtitle" data-text="services_subtitle">Sizning qulayligingiz uchun</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-icon">✈️</div>
+                    <h3 data-text="service1_title">Aviachiptalar</h3>
+                    <p data-text="service1_desc">Eng arzon narxlarda aviachiptalar bron qilish xizmati</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏨</div>
+                    <h3 data-text="service2_title">Mehmonxonalar</h3>
+                    <p data-text="service2_desc">Dunyoning istalgan joyida qulay mehmonxonalar</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎫</div>
+                    <h3 data-text="service3_title">Ekskursiyalar</h3>
+                    <p data-text="service3_desc">Professional gidlar bilan qiziqarli sayohatlar</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3 data-text="service4_title">Viza Xizmati</h3>
+                    <p data-text="service4_desc">Viza olish
+                    </p>
+                </div>
+            </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-text="about_title">KETMON haqida</h2>
+                <p class="section-subtitle" data-text="about_subtitle">Markaziy Osiyoning eng ishonchli sayohat marketpleysida agentliklar va sayohatchilar birlashadi.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-story">
+                    <h3 data-text="about_story_title">Missiyamiz</h3>
+                    <p data-text="about_story_body1">Ketmon qadriyatlaridan ilhomlanib, biz doimo mehnatsevarlik va taraqqiyot ramzini xizmatlarimiz markaziga qo‘yamiz.</p>
+                    <p data-text="about_story_body2">Platformamizda tasdiqlangan agentliklar, shaffof narxlar va TNPL imkoniyatlari yordamida sayohatchilar vaqtini va byudjetini tejashadi.</p>
+                    <ul class="about-bullets">
+                        <li><span>•</span><span data-text="about_bullet_network">Hamkorlarimiz real vaqt rejimida paketlarni yangilaydi va video-reels orqali yo‘nalishlarni jonlantiradi.</span></li>
+                        <li><span>•</span><span data-text="about_bullet_support">24/7 yordam, integratsiyalangan chat va Telegram bildirishnomalari bilan agentliklar mijozlar bilan tezkor aloqa qiladi.</span></li>
+                        <li><span>•</span><span data-text="about_bullet_ai">AI tavsiyalari shaxsiylashgan marshrutlarni taklif etib, sayohatchilarga tez qaror qabul qilishga yordam beradi.</span></li>
+                    </ul>
+                </div>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <div class="about-stat-value" data-text="about_stat_partners_value">120+</div>
+                        <div class="about-stat-label" data-text="about_stat_partners_label">hamkor agentliklar</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-value" data-text="about_stat_tours_value">650+</div>
+                        <div class="about-stat-label" data-text="about_stat_tours_label">faol tur paketlar</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-value" data-text="about_stat_travelers_value">45k+</div>
+                        <div class="about-stat-label" data-text="about_stat_travelers_label">mamnun sayohatchilar</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-value" data-text="about_stat_languages_value">8</div>
+                        <div class="about-stat-label" data-text="about_stat_languages_label">tilda qo‘llab-quvvatlash</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Contact (anchor target) -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-text="contact_title">Aloqada bo‘laylik</h2>
+                    <p class="section-subtitle" data-text="contact_subtitle">Savol va takliflaringizni qoldiring — jamoamiz 24/7 yordam beradi.</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h3 data-text="contact_info_title">Nega KETMON?</h3>
+                        <p data-text="contact_info_body">Ketmon orqali siz tasdiqlangan agentliklar bilan ishlaysiz, narxlarni solishtirasiz va TNPL orqali to‘lovlarni bo‘lib-bo‘lib amalga oshirasiz. Mijozlar va agentliklar uchun yagona panel barcha jarayonlarni bir joyga jamlaydi.</p>
+                        <ul class="contact-details">
+                            <li>
+                                <span class="icon">📞</span>
+                                <div>
+                                    <strong data-text="contact_phone_label">Telefon</strong>
+                                    <span data-text="contact_phone_value">+998 90 765 43 21</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="icon">✉️</span>
+                                <div>
+                                    <strong data-text="contact_email_label">Email</strong>
+                                    <span data-text="contact_email_value">support@ketmon.uz</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="icon">📍</span>
+                                <div>
+                                    <strong data-text="contact_address_label">Manzil</strong>
+                                    <span data-text="contact_address_value">Toshkent, Navoiy ko‘chasi 12, KETMON HUB</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div>
+                            <label for="contactName" data-text="contact_form_name_label">Ism</label>
+                            <input type="text" id="contactName" name="name" placeholder="Ismingiz" data-placeholder="contact_form_name_placeholder" required>
+                        </div>
+                        <div>
+                            <label for="contactEmail" data-text="contact_form_email_label">Email</label>
+                            <input type="email" id="contactEmail" name="email" placeholder="you@example.com" data-placeholder="contact_form_email_placeholder" required>
+                        </div>
+                        <div>
+                            <label for="contactMessage" data-text="contact_form_message_label">Xabar</label>
+                            <textarea id="contactMessage" name="message" rows="4" placeholder="Savolingizni yozing..." data-placeholder="contact_form_message_placeholder" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-gradient" data-text="contact_submit_btn">Yuborish</button>
+                        <div class="contact-status" id="contactStatus" data-text="contact_status_placeholder">Yuborilgan xabarlarimizga odatda 30 daqiqada javob beramiz.</div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tour Details Modal -->
+        <div class="modal-backdrop" id="tourModal">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tourModalTitle">
+                <div class="modal-header">
+                    <div class="modal-title" id="tourModalTitle">Tour</div>
+                    <button class="modal-close" aria-label="Close" id="tourModalClose">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image">
+                        <img id="tourModalImage" src="" alt="Tour image">
+                    </div>
+                    <div class="modal-info">
+                        <p id="tourModalDescription">Description</p>
+                        <div class="modal-meta" id="tourModalMeta">
+                            <!-- chips injected -->
+                        </div>
+                        <div class="modal-actions">
+                            <button class="btn-primary" id="tourBookBtn" data-text="nav_book">Bron qilish</button>
+                            <a href="#contact" class="btn-primary" style="text-decoration:none;" data-text="hero_btn2">Maslahat Olish</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Modal -->
+        <div class="modal-backdrop" id="loginModal">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+                <div class="modal-header">
+                    <div class="modal-title" id="loginModalTitle" data-text="nav_login">Kirish</div>
+                    <button class="modal-close" aria-label="Close" id="loginModalClose">×</button>
+                </div>
+                <form class="modal-form" id="loginForm">
+                    <div class="form-field">
+                        <label for="loginEmail" data-text="login_email_label">Email</label>
+                        <input id="loginEmail" type="email" placeholder="you@example.com" data-placeholder="login_email_placeholder" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="loginPassword" data-text="login_password_label">Parol</label>
+                        <input id="loginPassword" type="password" placeholder="••••••••" data-placeholder="login_password_placeholder" minlength="4" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" data-text="nav_login">Kirish</button>
+                        <button type="button" class="btn-primary" id="loginToRegister" data-text="register_switch">Ro'yxatdan o'tish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div class="modal-backdrop" id="registerModal">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
+                <div class="modal-header">
+                    <div class="modal-title" id="registerModalTitle" data-text="nav_register">Ro'yxatdan o'tish</div>
+                    <button class="modal-close" aria-label="Close" id="registerModalClose">×</button>
+                </div>
+                <form class="modal-form" id="registerForm">
+                    <div class="form-field" style="margin-bottom:4px;">
+                        <label data-text="register_role_label">Ro'l tanlang</label>
+                        <div class="segmented" role="tablist" aria-label="Register type">
+                            <button type="button" id="regTabCustomer" class="active" aria-selected="true" data-text="register_customer_tab">Mijoz</button>
+                            <button type="button" id="regTabAgency" aria-selected="false" data-text="register_agency_tab">Agentlik</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="regRole" value="customer">
+                    <div id="regFieldsCustomer">
+                        <div class="form-field">
+                            <label for="regName" data-text="register_name_label">Ism</label>
+                            <input id="regName" type="text" placeholder="Ismingiz" data-placeholder="register_name_placeholder" minlength="2" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="regEmail" data-text="register_email_label">Email</label>
+                            <input id="regEmail" type="email" placeholder="you@example.com" data-placeholder="register_email_placeholder" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="regPassword" data-text="register_password_label">Parol</label>
+                            <input id="regPassword" type="password" placeholder="••••••••" data-placeholder="register_password_placeholder" minlength="6" required>
+                        </div>
+                    </div>
+                    <div id="regFieldsAgency" class="hidden">
+                        <div class="form-field">
+                            <label for="regAgencyName" data-text="register_agency_name_label">Agentlik nomi</label>
+                            <input id="regAgencyName" type="text" placeholder="Agentlik nomi" data-placeholder="register_agency_name_placeholder" minlength="2">
+                        </div>
+                        <div class="form-field">
+                            <label for="regLicense" data-text="register_license_label">Litsenziya raqami</label>
+                            <input id="regLicense" type="text" placeholder="ABC-123456" data-placeholder="register_license_placeholder">
+                        </div>
+                        <div class="form-field">
+                            <label for="regAgencyEmail" data-text="register_agency_email_label">Agentlik Email</label>
+                            <input id="regAgencyEmail" type="email" placeholder="agency@example.com" data-placeholder="register_agency_email_placeholder">
+                        </div>
+                        <div class="form-field">
+                            <label for="regAgencyPhone" data-text="register_agency_phone_label">Telefon</label>
+                            <input id="regAgencyPhone" type="tel" placeholder="+998 xx xxx xx xx" data-placeholder="register_agency_phone_placeholder">
+                        </div>
+                        <div class="form-field">
+                            <label for="regAgencyPassword" data-text="register_agency_password_label">Parol</label>
+                            <input id="regAgencyPassword" type="password" placeholder="••••••••" data-placeholder="register_agency_password_placeholder" minlength="6">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" data-text="register_submit">Yaratish</button>
+                        <button type="button" class="btn-primary" id="registerToLogin" data-text="nav_login">Kirish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            // Smooth scroll for internal links
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('a[href^="#"]');
+                if (!target) return;
+                const hash = target.getAttribute('href');
+                if (!hash || hash === '#') return;
+                const el = document.querySelector(hash);
+                if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            // Mobile menu toggle
+            function toggleMenu() {
+                var nav = document.getElementById('mainNav');
+                if (nav) nav.classList.toggle('active');
+            }
+            window.toggleMenu = toggleMenu;
+
+            // Language switcher (minimal demo)
+            (function(){
+                var i18n = {
+                    uz: {
+                        phone: "+998 93 301 52 18",
+                        email: "info@ketmon.uz",
+                        nav_home: "Bosh sahifa",
+                        nav_destinations: "Yo'nalishlar",
+                        nav_services: "Xizmatlar",
+                        nav_about: "Biz haqimizda",
+                        nav_contact: "Aloqa",
+                        nav_book: "Bron qilish",
+                        nav_login: "Kirish",
+                        nav_register: "Ro'yxatdan o'tish",
+                        login_email_label: "Email",
+                        login_email_placeholder: "you@example.com",
+                        login_password_label: "Parol",
+                        login_password_placeholder: "••••••••",
+                        register_switch: "Ro'yxatdan o'tish",
+                        register_role_label: "Ro'l tanlang",
+                        register_customer_tab: "Mijoz",
+                        register_agency_tab: "Agentlik",
+                        register_name_label: "Ism",
+                        register_name_placeholder: "Ismingiz",
+                        register_email_label: "Email",
+                        register_email_placeholder: "you@example.com",
+                        register_password_label: "Parol",
+                        register_password_placeholder: "••••••••",
+                        register_agency_name_label: "Agentlik nomi",
+                        register_agency_name_placeholder: "Agentlik nomi",
+                        register_license_label: "Litsenziya raqami",
+                        register_license_placeholder: "ABC-123456",
+                        register_agency_email_label: "Agentlik Email",
+                        register_agency_email_placeholder: "agency@example.com",
+                        register_agency_phone_label: "Telefon",
+                        register_agency_phone_placeholder: "+998 xx xxx xx xx",
+                        register_agency_password_label: "Parol",
+                        register_agency_password_placeholder: "••••••••",
+                        register_submit: "Yaratish",
+                        hero_title: "Dunyo Bo'ylab Unutilmas Sayohatlar",
+                        hero_subtitle: "Hayotingizning eng yaxshi tajribasini biz bilan kashf eting",
+                        hero_btn1: "Yo'nalishlarni Ko'rish",
+                        hero_btn2: "Maslahat Olish",
+                        search_destination: "Yo'nalish",
+                        search_destination_placeholder: "Qayerga bormoqchisiz?",
+                        search_date: "Sana",
+                        search_duration: "Davomiyligi",
+                        duration_3: "3 kun",
+                        duration_7: "7 kun",
+                        duration_14: "14 kun",
+                        duration_custom: "Boshqa",
+                        search_agency: "Agentlik",
+                        agency_select_all: "Barcha agentliklar",
+                        agency_section_title: "Hamkor Agentliklar",
+                        agency_section_subtitle: "Eng ishonchli sayohat hamkorlarini tanlang",
+                        agency_filter_all: "Barcha hamkorlar",
+                        agency_filter_local: "O'zbek sayyohlari uchun",
+                        agency_filter_global: "Xorijiy sayyohlar uchun",
+                        agency_badge_verified: "Tasdiqlangan",
+                        agency_view_tours: "Agentlik turlarini ko'rish",
+                        agency_atlas_name: "Atlas Travel",
+                        agency_atlas_desc: "Markaziy Osiyodan dunyoning 40+ manziliga premium paketlar va VIP xizmatlar.",
+                        agency_samarqand_name: "Samarqand Tours",
+                        agency_samarqand_desc: "Madaniy sayohatlar, tarixiy gidlar va mahalliy tajribalar bo'yicha mutaxassis.",
+                        agency_nomad_name: "Nomad Explorer",
+                        agency_nomad_desc: "Aktiv sayohatlar, tog' yurishlari va ekologik turizm bo'yicha mutaxassis.",
+                        agency_silk_name: "Silk Road Elite",
+                        agency_silk_desc: "Luks mehmonxonalar, TNPL rejalar va shaxsiy gidlar bilan premium xizmat.",
+                        agency_clubtravel_name: "ClubTravel UZ",
+                        agency_clubtravel_desc: "Oila va guruhlar uchun hamyonbop paketlar, Toshkentdan charter reyslar.",
+                        agency_azialux_name: "AziaLux Travel",
+                        agency_azialux_desc: "Osiyo va Yevropadagi eksklyuziv gastro-turlar, premium servis va gidlar.",
+                        agency_globalvoyage_name: "Global Voyage Hub",
+                        agency_globalvoyage_desc: "Xalqaro konferensiya va MICE turlar, 24/7 qo'llab-quvvatlash va viza xizmati.",
+                        about_title: "KETMON haqida",
+                        about_subtitle: "Markaziy Osiyoning eng ishonchli sayohat marketpleysida agentliklar va sayohatchilar birlashadi.",
+                        about_story_title: "Missiyamiz",
+                        about_story_body1: "Ketmon qadriyatlaridan ilhomlanib, biz doimo mehnatsevarlik va taraqqiyot ramzini xizmatlarimiz markaziga qo‘yamiz.",
+                        about_story_body2: "Platformamizda tasdiqlangan agentliklar, shaffof narxlar va TNPL imkoniyatlari yordamida sayohatchilar vaqtini va byudjetini tejashadi.",
+                        about_bullet_network: "Hamkorlarimiz real vaqt rejimida paketlarni yangilaydi va video-reels orqali yo‘nalishlarni jonlantiradi.",
+                        about_bullet_support: "24/7 yordam, integratsiyalangan chat va Telegram bildirishnomalari bilan agentliklar mijozlar bilan tezkor aloqa qiladi.",
+                        about_bullet_ai: "AI tavsiyalari shaxsiylashgan marshrutlarni taklif etib, sayohatchilarga tez qaror qabul qilishga yordam beradi.",
+                        about_stat_partners_value: "120+",
+                        about_stat_partners_label: "hamkor agentliklar",
+                        about_stat_tours_value: "650+",
+                        about_stat_tours_label: "faol tur paketlar",
+                        about_stat_travelers_value: "45k+",
+                        about_stat_travelers_label: "mamnun sayohatchilar",
+                        about_stat_languages_value: "8",
+                        about_stat_languages_label: "tilda qo‘llab-quvvatlash",
+                        contact_title: "Aloqada bo‘laylik",
+                        contact_subtitle: "Savol va takliflaringizni qoldiring — jamoamiz 24/7 yordam beradi.",
+                        contact_info_title: "Nega KETMON?",
+                        contact_info_body: "Ketmon orqali siz tasdiqlangan agentliklar bilan ishlaysiz, narxlarni solishtirasiz va TNPL orqali to‘lovlarni bo‘lib-bo‘lib amalga oshirasiz. Mijozlar va agentliklar uchun yagona panel barcha jarayonlarni bir joyga jamlaydi.",
+                        contact_phone_label: "Telefon",
+                        contact_phone_value: "+998 90 765 43 21",
+                        contact_email_label: "Email",
+                        contact_email_value: "support@ketmon.uz",
+                        contact_address_label: "Manzil",
+                        contact_address_value: "Toshkent, Navoiy ko‘chasi 12, KETMON HUB",
+                        contact_form_name_label: "Ism",
+                        contact_form_name_placeholder: "Ismingiz",
+                        contact_form_email_label: "Email",
+                        contact_form_email_placeholder: "you@example.com",
+                        contact_form_message_label: "Xabar",
+                        contact_form_message_placeholder: "Savolingizni yozing...",
+                        contact_submit_btn: "Yuborish",
+                        contact_status_placeholder: "Yuborilgan xabarlarimizga odatda 30 daqiqada javob beramiz.",
+                        contact_success_message: "Xabaringiz qabul qilindi! Tez orada siz bilan bog'lanamiz.",
+                        contact_error_message: "Iltimos, barcha maydonlarni to‘liq kiriting.",
+                        ai_assistant_title: "Smart AI yordamchi",
+                        ai_assistant_subtitle: "Budjetingiz, yo‘nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.",
+                        ai_budget_label: "Budjet (USD)",
+                        ai_budget_placeholder: "1500",
+                        ai_destination_label: "Qiziqqan yo‘nalish",
+                        ai_destination_placeholder: "Osiyo, Yevropa...",
+                        ai_season_label: "Qaysi oylar",
+                        ai_season_summer: "Yoz",
+                        ai_season_autumn: "Kuz",
+                        ai_season_winter: "Qish",
+                        ai_season_spring: "Bahor",
+                        ai_generate_btn: "Tavsiyalarni ko‘rish",
+                        ai_response_placeholder: "Savolingizni kiriting va AI yordamchidan tavsiyalar oling.",
+                        search_guests: "Odamlar soni",
+                        search_btn: "Qidirish",
+                        destinations_title: "Mashhur Yo'nalishlar",
+                        destinations_subtitle: "Eng yaxshi takliflarimiz",
+                        badge_popular: "Mashhur",
+                        badge_sale: "Chegirma",
+                        badge_new: "Yangi",
+                        btn_details: "Batafsil",
+                        price_per_person: "kishi uchun",
+                        dest1_name: "Dubay, BAA",
+                        dest1_desc: "Zamonaviy arxitektura va qadimiy an'analarning ajoyib uyg'unligi",
+                        dest2_name: "Parij, Fransiya",
+                        dest2_desc: "Sevgi va romantika poytaxti, go'zal arxitektura",
+                        dest3_name: "Istanbul, Turkiya",
+                        dest3_desc: "Sharq va G'arb madaniyatining ajoyib qo'shilishi",
+                        dest4_name: "Shveysariya",
+                        dest4_desc: "Alp tog'lari va kristal toza ko'llar",
+                        dest5_name: "Tokio, Yaponiya",
+                        dest5_desc: "Texnologiya va an'analarning noyob uyg'unligi",
+                        dest6_name: "Rim, Italiya",
+                        dest6_desc: "Qadimiy tarix va ajoyib arxitektura",
+                        dest7_name: "Bangkok Gourmet, Tailand",
+                        dest7_desc: "Gastro sayohatlar, Michelin restoranlari va shaxsiy gidlar.",
+                        dest8_name: "London Summit, Buyuk Britaniya",
+                        dest8_desc: "Biznes konferensiya paketi, premium mehmonxona va transferlar.",
+                        dest9_name: "Boku Weekend, Ozarbayjon",
+                        dest9_desc: "Toshkentdan to'g'ridan-to'g'ri reys, 4* mehmonxona va shahar sayohati.",
+                        services_title: "Bizning Xizmatlarimiz",
+                        services_subtitle: "Sizning qulayligingiz uchun",
+                        service1_title: "Aviachiptalar",
+                        service1_desc: "Eng arzon narxlarda aviachiptalar bron qilish xizmati",
+                        service2_title: "Mehmonxonalar",
+                        service2_desc: "Dunyoning istalgan joyida qulay mehmonxonalar",
+                        service3_title: "Ekskursiyalar",
+                        service3_desc: "Professional gidlar bilan qiziqarli sayohatlar",
+                        service4_title: "Viza Xizmati",
+                        service4_desc: "Viza olish"
+                    },
+                    ru: {
+                        phone: "+998 93 301 52 18",
+                        email: "info@ketmon.uz",
+                        nav_home: "Главная",
+                        nav_destinations: "Направления",
+                        nav_services: "Услуги",
+                        nav_about: "О нас",
+                        nav_contact: "Контакты",
+                        nav_book: "Бронирование",
+                        nav_login: "Войти",
+                        nav_register: "Регистрация",
+                        login_email_label: "Email",
+                        login_email_placeholder: "you@example.com",
+                        login_password_label: "Пароль",
+                        login_password_placeholder: "••••••••",
+                        register_switch: "Регистрация",
+                        register_role_label: "Выберите роль",
+                        register_customer_tab: "Клиент",
+                        register_agency_tab: "Агентство",
+                        register_name_label: "Имя",
+                        register_name_placeholder: "Ваше имя",
+                        register_email_label: "Email",
+                        register_email_placeholder: "you@example.com",
+                        register_password_label: "Пароль",
+                        register_password_placeholder: "••••••••",
+                        register_agency_name_label: "Название агентства",
+                        register_agency_name_placeholder: "Название агентства",
+                        register_license_label: "Номер лицензии",
+                        register_license_placeholder: "ABC-123456",
+                        register_agency_email_label: "Email агентства",
+                        register_agency_email_placeholder: "agency@example.com",
+                        register_agency_phone_label: "Телефон",
+                        register_agency_phone_placeholder: "+998 xx xxx xx xx",
+                        register_agency_password_label: "Пароль",
+                        register_agency_password_placeholder: "••••••••",
+                        register_submit: "Создать",
+                        hero_title: "Незабываемые путешествия по всему миру",
+                        hero_subtitle: "Откройте лучшие впечатления вместе с нами",
+                        hero_btn1: "Смотреть направления",
+                        hero_btn2: "Получить консультацию",
+                        search_destination: "Направление",
+                        search_destination_placeholder: "Куда хотите поехать?",
+                        search_date: "Дата",
+                        search_duration: "Продолжительность",
+                        duration_3: "3 дня",
+                        duration_7: "7 дней",
+                        duration_14: "14 дней",
+                        duration_custom: "Другое",
+                        search_agency: "Агентство",
+                        agency_select_all: "Все агентства",
+                        agency_section_title: "Партнерские агентства",
+                        agency_section_subtitle: "Выберите надежного партнера для путешествия",
+                        agency_filter_all: "Все партнеры",
+                        agency_filter_local: "Для путешественников Узбекистана",
+                        agency_filter_global: "Для иностранных гостей",
+                        agency_badge_verified: "Проверено",
+                        agency_view_tours: "Посмотреть туры агентства",
+                        agency_atlas_name: "Atlas Travel",
+                        agency_atlas_desc: "Премиальные пакеты и VIP-сервис в 40+ направлениях по всему миру.",
+                        agency_samarqand_name: "Samarqand Tours",
+                        agency_samarqand_desc: "Эксперты по культурным путешествиям, историческим гидам и местному опыту.",
+                        agency_nomad_name: "Nomad Explorer",
+                        agency_nomad_desc: "Активные туры, треккинг и экологический туризм.",
+                        agency_silk_name: "Silk Road Elite",
+                        agency_silk_desc: "Лакшери-отели, TNPL планы и персональные гиды премиум-класса.",
+                        agency_clubtravel_name: "ClubTravel UZ",
+                        agency_clubtravel_desc: "Доступные пакеты для семей и групп, чартеры из Ташкента.",
+                        agency_azialux_name: "AziaLux Travel",
+                        agency_azialux_desc: "Эксклюзивные гастротуры по Азии и Европе, премиум-сервис.",
+                        agency_globalvoyage_name: "Global Voyage Hub",
+                        agency_globalvoyage_desc: "Международные конференции и MICE-туры, поддержка 24/7 и визовая помощь.",
+                        about_title: "О платформе KETMON",
+                        about_subtitle: "Надёжный маркетплейс путешествий Центральной Азии, объединяющий агентства и путешественников.",
+                        about_story_title: "Наша миссия",
+                        about_story_body1: "Вдохновляясь символом кетмона, мы ставим трудолюбие и рост в основу каждого продукта и сервиса.",
+                        about_story_body2: "На платформе собраны проверенные агентства, прозрачные цены и TNPL — всё, чтобы экономить время и бюджет путешественников.",
+                        about_bullet_network: "Партнёры обновляют пакеты в реальном времени и рассказывают о направлениях через видео и сторис.",
+                        about_bullet_support: "Круглосуточная поддержка, встроенный чат и уведомления в Telegram помогают агентствам оставаться на связи с клиентами.",
+                        about_bullet_ai: "AI-рекомендации предлагают персональные маршруты и ускоряют выбор тура.",
+                        about_stat_partners_value: "120+",
+                        about_stat_partners_label: "партнёрских агентств",
+                        about_stat_tours_value: "650+",
+                        about_stat_tours_label: "активных турпакетов",
+                        about_stat_travelers_value: "45k+",
+                        about_stat_travelers_label: "довольных путешественников",
+                        about_stat_languages_value: "8",
+                        about_stat_languages_label: "языков поддержки",
+                        contact_title: "Свяжитесь с нами",
+                        contact_subtitle: "Оставьте вопрос или предложение — мы на связи 24/7.",
+                        contact_info_title: "Почему KETMON?",
+                        contact_info_body: "С KETMON вы сотрудничаете только с проверенными агентствами, сравниваете цены и используете TNPL для рассрочки. Единая панель упрощает работу и для клиентов, и для агентств.",
+                        contact_phone_label: "Телефон",
+                        contact_phone_value: "+998 90 765 43 21",
+                        contact_email_label: "Email",
+                        contact_email_value: "support@ketmon.uz",
+                        contact_address_label: "Адрес",
+                        contact_address_value: "Ташкент, ул. Навои 12, KETMON HUB",
+                        contact_form_name_label: "Имя",
+                        contact_form_name_placeholder: "Ваше имя",
+                        contact_form_email_label: "Email",
+                        contact_form_email_placeholder: "you@example.com",
+                        contact_form_message_label: "Сообщение",
+                        contact_form_message_placeholder: "Опишите запрос...",
+                        contact_submit_btn: "Отправить",
+                        contact_status_placeholder: "Обычно отвечаем в течение 30 минут.",
+                        contact_success_message: "Ваше сообщение принято! Мы свяжемся с вами в ближайшее время.",
+                        contact_error_message: "Заполните, пожалуйста, все поля формы.",
+                        ai_assistant_title: "Умный AI помощник",
+                        ai_assistant_subtitle: "Подбирает турпакеты по вашему бюджету, направлениям и датам.",
+                        ai_budget_label: "Бюджет (USD)",
+                        ai_budget_placeholder: "1500",
+                        ai_destination_label: "Интересующие направления",
+                        ai_destination_placeholder: "Азия, Европа...",
+                        ai_season_label: "Желаемый сезон",
+                        ai_season_summer: "Лето",
+                        ai_season_autumn: "Осень",
+                        ai_season_winter: "Зима",
+                        ai_season_spring: "Весна",
+                        ai_generate_btn: "Получить рекомендации",
+                        ai_response_placeholder: "Введите запрос и получите рекомендации от AI помощника.",
+                        search_guests: "Количество людей",
+                        search_btn: "Искать",
+                        destinations_title: "Популярные направления",
+                        destinations_subtitle: "Наши лучшие предложения",
+                        badge_popular: "Популярно",
+                        badge_sale: "Скидка",
+                        badge_new: "Новинка",
+                        btn_details: "Подробнее",
+                        price_per_person: "за человека",
+                        dest1_name: "Дубай, ОАЭ",
+                        dest1_desc: "Современная архитектура и древние традиции",
+                        dest2_name: "Париж, Франция",
+                        dest2_desc: "Столица любви и романтики, прекрасная архитектура",
+                        dest3_name: "Стамбул, Турция",
+                        dest3_desc: "Удивительное сочетание Востока и Запада",
+                        dest4_name: "Швейцария",
+                        dest4_desc: "Альпы и кристально чистые озера",
+                        dest5_name: "Токио, Япония",
+                        dest5_desc: "Уникальное сочетание технологий и традиций",
+                        dest6_name: "Рим, Италия",
+                        dest6_desc: "Древняя история и потрясающая архитектура",
+                        dest7_name: "Bangkok Gourmet, Таиланд",
+                        dest7_desc: "Гастротуры, рестораны Michelin и персональные гиды.",
+                        dest8_name: "London Summit, Великобритания",
+                        dest8_desc: "Пакет для бизнес-конференции, премиум-отель и трансферы.",
+                        dest9_name: "Baku Weekend, Азербайджан",
+                        dest9_desc: "Прямой рейс из Ташкента, 4* отель и обзорная экскурсия по городу.",
+                        services_title: "Наши услуги",
+                        services_subtitle: "Для вашего удобства",
+                        service1_title: "Авиабилеты",
+                        service1_desc: "Бронирование авиабилетов по выгодным ценам",
+                        service2_title: "Отели",
+                        service2_desc: "Удобные отели по всему миру",
+                        service3_title: "Экскурсии",
+                        service3_desc: "Интересные туры с профессиональными гидами",
+                        service4_title: "Визовая поддержка",
+                        service4_desc: "Оформление виз"
+                    },
+                    en: {
+                        phone: "+998 93 301 52 18",
+                        email: "info@ketmon.uz",
+                        nav_home: "Home",
+                        nav_destinations: "Destinations",
+                        nav_services: "Services",
+                        nav_about: "About",
+                        nav_contact: "Contact",
+                        nav_book: "Book Now",
+                        nav_login: "Login",
+                        nav_register: "Register",
+                        login_email_label: "Email",
+                        login_email_placeholder: "you@example.com",
+                        login_password_label: "Password",
+                        login_password_placeholder: "••••••••",
+                        register_switch: "Register",
+                        register_role_label: "Select role",
+                        register_customer_tab: "Customer",
+                        register_agency_tab: "Agency",
+                        register_name_label: "Full name",
+                        register_name_placeholder: "Your name",
+                        register_email_label: "Email",
+                        register_email_placeholder: "you@example.com",
+                        register_password_label: "Password",
+                        register_password_placeholder: "••••••••",
+                        register_agency_name_label: "Agency name",
+                        register_agency_name_placeholder: "Agency name",
+                        register_license_label: "License number",
+                        register_license_placeholder: "ABC-123456",
+                        register_agency_email_label: "Agency email",
+                        register_agency_email_placeholder: "agency@example.com",
+                        register_agency_phone_label: "Phone",
+                        register_agency_phone_placeholder: "+998 xx xxx xx xx",
+                        register_agency_password_label: "Password",
+                        register_agency_password_placeholder: "••••••••",
+                        register_submit: "Create",
+                        hero_title: "Unforgettable Journeys Around the World",
+                        hero_subtitle: "Discover your best experiences with us",
+                        hero_btn1: "View Destinations",
+                        hero_btn2: "Get a Consultation",
+                        search_destination: "Destination",
+                        search_destination_placeholder: "Where do you want to go?",
+                        search_date: "Date",
+                        search_duration: "Duration",
+                        duration_3: "3 days",
+                        duration_7: "7 days",
+                        duration_14: "14 days",
+                        duration_custom: "Custom",
+                        search_agency: "Agency",
+                        agency_select_all: "All agencies",
+                        agency_section_title: "Partner Agencies",
+                        agency_section_subtitle: "Choose the most trusted travel partner for your trip",
+                        agency_filter_all: "All partners",
+                        agency_filter_local: "For Uzbek travelers",
+                        agency_filter_global: "For international visitors",
+                        agency_badge_verified: "Verified",
+                        agency_view_tours: "View agency tours",
+                        agency_atlas_name: "Atlas Travel",
+                        agency_atlas_desc: "Premium packages and VIP service to 40+ destinations worldwide.",
+                        agency_samarqand_name: "Samarqand Tours",
+                        agency_samarqand_desc: "Experts in cultural journeys, historical guides and authentic experiences.",
+                        agency_nomad_name: "Nomad Explorer",
+                        agency_nomad_desc: "Adventure tours, mountain trekking and eco experiences.",
+                        agency_silk_name: "Silk Road Elite",
+                        agency_silk_desc: "Luxury stays, TNPL plans and personal guides with premium service.",
+                        agency_clubtravel_name: "ClubTravel UZ",
+                        agency_clubtravel_desc: "Value-friendly packages for families and groups, charters from Tashkent.",
+                        agency_azialux_name: "AziaLux Travel",
+                        agency_azialux_desc: "Exclusive gastro tours across Asia and Europe with premium guides.",
+                        agency_globalvoyage_name: "Global Voyage Hub",
+                        agency_globalvoyage_desc: "International conferences and MICE tours with 24/7 support and visa help.",
+                        about_title: "About KETMON",
+                        about_subtitle: "The most trusted travel marketplace in Central Asia connecting agencies and travellers.",
+                        about_story_title: "Our Mission",
+                        about_story_body1: "Inspired by the ketmon spirit, we put dedication and growth at the heart of our services.",
+                        about_story_body2: "Verified agencies, transparent pricing, and TNPL financing help travellers save time and budget with confidence.",
+                        about_bullet_network: "Partners refresh packages in real time and bring destinations to life with reels and stories.",
+                        about_bullet_support: "24/7 support, integrated chat, and Telegram alerts keep agencies in sync with their customers.",
+                        about_bullet_ai: "AI recommendations surface personalised itineraries so guests can decide faster.",
+                        about_stat_partners_value: "120+",
+                        about_stat_partners_label: "partner agencies",
+                        about_stat_tours_value: "650+",
+                        about_stat_tours_label: "active tour packages",
+                        about_stat_travelers_value: "45k+",
+                        about_stat_travelers_label: "happy travellers",
+                        about_stat_languages_value: "8",
+                        about_stat_languages_label: "languages supported",
+                        contact_title: "Let’s stay in touch",
+                        contact_subtitle: "Share your questions or ideas — our team replies within minutes.",
+                        contact_info_title: "Why KETMON?",
+                        contact_info_body: "Collaborate with verified agencies, compare offers, and split payments via TNPL. A single dashboard streamlines the journey for both travellers and partners.",
+                        contact_phone_label: "Phone",
+                        contact_phone_value: "+998 90 765 43 21",
+                        contact_email_label: "Email",
+                        contact_email_value: "support@ketmon.uz",
+                        contact_address_label: "Address",
+                        contact_address_value: "Tashkent, Navoi Street 12, KETMON HUB",
+                        contact_form_name_label: "Name",
+                        contact_form_name_placeholder: "Your name",
+                        contact_form_email_label: "Email",
+                        contact_form_email_placeholder: "you@example.com",
+                        contact_form_message_label: "Message",
+                        contact_form_message_placeholder: "Tell us how we can help...",
+                        contact_submit_btn: "Send message",
+                        contact_status_placeholder: "We usually reply within 30 minutes.",
+                        contact_success_message: "Thanks for reaching out! We will get back to you shortly.",
+                        contact_error_message: "Please fill in every field before sending.",
+                        ai_assistant_title: "Smart AI Assistant",
+                        ai_assistant_subtitle: "Get tailored tour ideas based on budget, destinations, and travel season.",
+                        ai_budget_label: "Budget (USD)",
+                        ai_budget_placeholder: "1500",
+                        ai_destination_label: "Preferred destinations",
+                        ai_destination_placeholder: "Asia, Europe...",
+                        ai_season_label: "Travel season",
+                        ai_season_summer: "Summer",
+                        ai_season_autumn: "Autumn",
+                        ai_season_winter: "Winter",
+                        ai_season_spring: "Spring",
+                        ai_generate_btn: "Show recommendations",
+                        ai_response_placeholder: "Ask the AI assistant for personalised tour ideas.",
+                        search_guests: "Guests",
+                        search_btn: "Search",
+                        destinations_title: "Popular Destinations",
+                        destinations_subtitle: "Our best offers",
+                        badge_popular: "Popular",
+                        badge_sale: "Sale",
+                        badge_new: "New",
+                        btn_details: "Details",
+                        price_per_person: "per person",
+                        dest1_name: "Dubai, UAE",
+                        dest1_desc: "Modern architecture meets ancient traditions",
+                        dest2_name: "Paris, France",
+                        dest2_desc: "City of love and romance, beautiful architecture",
+                        dest3_name: "Istanbul, Turkey",
+                        dest3_desc: "A stunning blend of East and West",
+                        dest4_name: "Switzerland",
+                        dest4_desc: "Alps and crystal-clear lakes",
+                        dest5_name: "Tokyo, Japan",
+                        dest5_desc: "A unique mix of technology and tradition",
+                        dest6_name: "Rome, Italy",
+                        dest6_desc: "Ancient history and magnificent architecture",
+                        dest7_name: "Bangkok Gourmet, Thailand",
+                        dest7_desc: "Gastronomic adventures, Michelin dining and personal guides.",
+                        dest8_name: "London Summit, United Kingdom",
+                        dest8_desc: "Business conference package, premium hotel and private transfers.",
+                        dest9_name: "Baku Weekend, Azerbaijan",
+                        dest9_desc: "Direct flight from Tashkent, 4* hotel and guided city tour.",
+                        services_title: "Our Services",
+                        services_subtitle: "For your convenience",
+                        service1_title: "Flights",
+                        service1_desc: "Book flight tickets at great prices",
+                        service2_title: "Hotels",
+                        service2_desc: "Comfortable hotels worldwide",
+                        service3_title: "Excursions",
+                        service3_desc: "Exciting tours with professional guides",
+                        service4_title: "Visa Service",
+                        service4_desc: "Visa processing"
+                    }
+                };
+
+                function applyTranslations(lang) {
+                    var dict = i18n[lang] || i18n.uz;
+                    // Replace inner text for all [data-text]
+                    document.querySelectorAll('[data-text]').forEach(function(el){
+                        var key = el.getAttribute('data-text');
+                        if (key && dict[key] !== undefined) {
+                            el.textContent = dict[key];
+                        }
+                    });
+                    // Replace placeholders for all elements declaring [data-placeholder]
+                    document.querySelectorAll('[data-placeholder]').forEach(function(el){
+                        var key = el.getAttribute('data-placeholder');
+                        if (key && dict[key] !== undefined && 'placeholder' in el) {
+                            el.placeholder = dict[key];
+                        }
+                    });
+                }
+
+                function changeLang(lang) {
+                    var buttons = document.querySelectorAll('.lang-btn');
+                    buttons.forEach(function(b){ b.classList.remove('active'); });
+                    var btn = Array.from(buttons).find(function(b){ return b.textContent.trim().toLowerCase() === lang; });
+                    if (btn) btn.classList.add('active');
+                    applyTranslations(lang);
+                    localStorage.setItem('ketmon_lang', lang);
+                }
+                window.changeLang = changeLang;
+
+                // Init language on load
+                document.addEventListener('DOMContentLoaded', function(){
+                    var saved = localStorage.getItem('ketmon_lang') || 'uz';
+                    changeLang(saved);
+                });
+            })();
+
+            // Search button interaction
+            (function(){
+                var btn = document.querySelector('.search-btn');
+                if (!btn) return;
+                btn.addEventListener('click', function(){
+                    var destination = document.querySelector('[data-placeholder=\"search_destination_placeholder\"]')?.value || '';
+                    var date = document.querySelector('.search-input input[type=\"date\"]')?.value || '';
+                    var duration = document.querySelectorAll('.search-input select')[0]?.value || '';
+                    var guests = document.querySelectorAll('.search-input select')[1]?.value || '';
+                    console.log('Search:', { destination, date, duration, guests });
+                    // Navigate to destinations
+                    var dest = document.getElementById('destinations');
+                    if (dest) dest.scrollIntoView({ behavior: 'smooth' });
+                });
+            })();
+
+            // Tour Modal functionality
+            (function(){
+                var modal = document.getElementById('tourModal');
+                var closeBtn = document.getElementById('tourModalClose');
+                var titleEl = document.getElementById('tourModalTitle');
+                var imgEl = document.getElementById('tourModalImage');
+                var descEl = document.getElementById('tourModalDescription');
+                var metaEl = document.getElementById('tourModalMeta');
+                var bookBtn = document.getElementById('tourBookBtn');
+
+                function openModal() {
+                    modal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                }
+                function closeModal() {
+                    modal.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+                closeBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', function(e){
+                    if (e.target === modal) closeModal();
+                });
+                document.addEventListener('keydown', function(e){
+                    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+                });
+
+                // Attach to all "Batafsil" buttons in destination cards
+                document.querySelectorAll('.destination-card').forEach(function(card){
+                    card.addEventListener('click', function(){
+                        var title = card.querySelector('.destination-title')?.textContent?.trim() || 'Tour';
+                        var desc = card.querySelector('.destination-desc')?.textContent?.trim() || 'Tour description';
+                        var price = card.querySelector('.price')?.textContent?.trim() || '';
+                        var badge = card.querySelector('.destination-badge')?.textContent?.trim() || '';
+                        var agencyValue = card.getAttribute('data-agency');
+                        var agencyNameEl = document.querySelector('.agency-card[data-agency="' + agencyValue + '"] h3');
+                        var agencyName = agencyNameEl ? agencyNameEl.textContent.trim() : '';
+                        var img = card.querySelector('.destination-img img')?.getAttribute('src') || '';
+
+                        titleEl.textContent = title;
+                        descEl.textContent = desc + (price ? ' • ' + price : '');
+                        metaEl.innerHTML = '';
+                        if (badge) {
+                            var chip = document.createElement('span');
+                            chip.className = 'meta-chip';
+                            chip.textContent = badge;
+                            metaEl.appendChild(chip);
+                        }
+                        if (price) {
+                            var chip2 = document.createElement('span');
+                            chip2.className = 'meta-chip';
+                            chip2.textContent = price;
+                            metaEl.appendChild(chip2);
+                        }
+                        if (agencyName) {
+                            var chip3 = document.createElement('span');
+                            chip3.className = 'meta-chip';
+                            chip3.textContent = agencyName;
+                            metaEl.appendChild(chip3);
+                        }
+                        if (img) {
+                            imgEl.src = img;
+                            imgEl.alt = title + ' image';
+                        } else {
+                            imgEl.src = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop';
+                            imgEl.alt = 'Tour image';
+                        }
+
+                        // Booking button scrolls to search
+                        bookBtn.onclick = function(){
+                            closeModal();
+                            var anchor = document.querySelector('.search-section');
+                            if (anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+                        };
+
+                        openModal();
+                    });
+                });
+            })();
+
+            // Header CTAs interactions
+            (function(){
+                var book = document.querySelector('header [data-text=\"nav_book\"]');
+                var login = document.getElementById('headerLoginBtn');
+                var register = document.getElementById('headerRegisterBtn');
+                if (book) book.addEventListener('click', function(e){
+                    // Scroll to search section as a booking entry point
+                    var anchor = document.getElementById('search');
+                    if (anchor) { e.preventDefault(); anchor.scrollIntoView({ behavior: 'smooth' }); }
+                });
+                // Open login/register modals
+                var loginModal = document.getElementById('loginModal');
+                var registerModal = document.getElementById('registerModal');
+                function open(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
+                function close(el){ el.classList.remove('open'); document.body.style.overflow=''; }
+                if (login) login.addEventListener('click', function(e){ e.preventDefault(); open(loginModal); });
+                if (register) register.addEventListener('click', function(e){ e.preventDefault(); open(registerModal); });
+
+                // Close buttons and backdrop clicks
+                document.getElementById('loginModalClose').addEventListener('click', function(){ close(loginModal); });
+                document.getElementById('registerModalClose').addEventListener('click', function(){ close(registerModal); });
+                loginModal.addEventListener('click', function(e){ if (e.target === loginModal) close(loginModal); });
+                registerModal.addEventListener('click', function(e){ if (e.target === registerModal) close(registerModal); });
+
+                // Switch between modals
+                document.getElementById('loginToRegister').addEventListener('click', function(){ close(loginModal); open(registerModal); });
+                document.getElementById('registerToLogin').addEventListener('click', function(){ close(registerModal); open(loginModal); });
+
+                // Handle submit (demo)
+                document.getElementById('loginForm').addEventListener('submit', function(e){
+                    e.preventDefault();
+                    var email = document.getElementById('loginEmail').value || '';
+                    close(loginModal);
+                    alert('Xush kelibsiz: ' + email);
+                });
+                document.getElementById('registerForm').addEventListener('submit', function(e){
+                    e.preventDefault();
+                    var role = document.getElementById('regRole').value;
+                    if (role === 'agency') {
+                        var aname = document.getElementById('regAgencyName').value || '';
+                        var lic = document.getElementById('regLicense').value || '';
+                        close(registerModal);
+                        alert("Agentlik ro'yxatdan o'tdi: " + (aname || 'Agentlik') + (lic ? " • Litsenziya: " + lic : ''));
+                    } else {
+                        var name = document.getElementById('regName').value || '';
+                        close(registerModal);
+                        alert("Ro'yxatdan o'tildi: " + name);
+                    }
+                });
+
+                // Esc key to close auth modals
+                document.addEventListener('keydown', function(e){
+                    if (e.key === 'Escape') {
+                        if (loginModal.classList.contains('open')) close(loginModal);
+                        if (registerModal.classList.contains('open')) close(registerModal);
+                    }
+                });
+
+                // Register tabs toggle
+                var regRoleInput = document.getElementById('regRole');
+                var tabCustomer = document.getElementById('regTabCustomer');
+                var tabAgency = document.getElementById('regTabAgency');
+                var fieldsCustomer = document.getElementById('regFieldsCustomer');
+                var fieldsAgency = document.getElementById('regFieldsAgency');
+                function setRole(role){
+                    regRoleInput.value = role;
+                    if (role === 'agency') {
+                        tabAgency.classList.add('active'); tabAgency.setAttribute('aria-selected','true');
+                        tabCustomer.classList.remove('active'); tabCustomer.setAttribute('aria-selected','false');
+                        fieldsAgency.classList.remove('hidden'); fieldsCustomer.classList.add('hidden');
+                        // Relax required on hidden fields
+                        document.getElementById('regName').required = false;
+                        document.getElementById('regEmail').required = false;
+                        document.getElementById('regPassword').required = false;
+                        // Agency fields not strictly required for demo
+                    } else {
+                        tabCustomer.classList.add('active'); tabCustomer.setAttribute('aria-selected','true');
+                        tabAgency.classList.remove('active'); tabAgency.setAttribute('aria-selected','false');
+                        fieldsCustomer.classList.remove('hidden'); fieldsAgency.classList.add('hidden');
+                        document.getElementById('regName').required = true;
+                        document.getElementById('regEmail').required = true;
+                        document.getElementById('regPassword').required = true;
+                    }
+                }
+                tabCustomer.addEventListener('click', function(){ setRole('customer'); });
+                tabAgency.addEventListener('click', function(){ setRole('agency'); });
+                // ensure default state
+                setRole('customer');
+            })();
+
+            // Agency filter interactions
+            (function(){
+                var agencySelect = document.getElementById('agencyFilter');
+                var tourCards = Array.from(document.querySelectorAll('.destination-card'));
+                var agencyCards = Array.from(document.querySelectorAll('.agency-card'));
+                var agencyTypeButtons = Array.from(document.querySelectorAll('.agency-toolbar button'));
+                var currentAgency = 'all';
+                var currentType = 'all';
+
+                function syncToolbar() {
+                    agencyTypeButtons.forEach(function(btn){
+                        btn.classList.toggle('active', (btn.getAttribute('data-filter') || 'all') === currentType);
+                    });
+                }
+
+                function applyFilter() {
+                    // Filter tours
+                    tourCards.forEach(function(card){
+                        var agency = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        var agencyMatch = currentAgency === 'all' || agency === currentAgency;
+                        var typeMatch = currentType === 'all' || type === currentType;
+                        var shouldShow = agencyMatch && typeMatch;
+                        card.classList.toggle('hidden', !shouldShow);
+                    });
+
+                    // Filter agencies
+                    agencyCards.forEach(function(card){
+                        var agency = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        var typeAllowed = currentType === 'all' || type === currentType;
+                        var agencyMatch = currentAgency === 'all' || agency === currentAgency;
+                        var shouldShow = typeAllowed && (currentAgency === 'all' || agencyMatch);
+                        card.classList.toggle('hidden', !shouldShow);
+                        card.classList.toggle('active', agencyMatch);
+                    });
+                }
+
+                if (agencySelect) {
+                    agencySelect.addEventListener('change', function(){
+                        currentAgency = agencySelect.value || 'all';
+                        applyFilter();
+                    });
+                    currentAgency = agencySelect.value || 'all';
+                }
+
+                agencyTypeButtons.forEach(function(btn){
+                    btn.addEventListener('click', function(){
+                        currentType = btn.getAttribute('data-filter') || 'all';
+                        currentAgency = 'all';
+                        if (agencySelect) agencySelect.value = 'all';
+                        syncToolbar();
+                        applyFilter();
+                    });
+                });
+
+                agencyCards.forEach(function(card){
+                    card.addEventListener('click', function(){
+                        var value = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        currentAgency = value;
+                        currentType = type;
+                        if (agencySelect) {
+                            agencySelect.value = value;
+                        }
+                        syncToolbar();
+                        applyFilter();
+                        document.getElementById('destinations').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                });
+
+                // Initialize filter state
+                if (agencyTypeButtons.length) {
+                    var defaultBtn = agencyTypeButtons.find(function(btn){ return btn.classList.contains('active'); }) || agencyTypeButtons[0];
+                    currentType = defaultBtn ? defaultBtn.getAttribute('data-filter') || 'all' : 'all';
+                    syncToolbar();
+                }
+                applyFilter();
+            })();
+
+            // Contact form submission
+            (function(){
+                var contactForm = document.getElementById('contactForm');
+                var contactStatus = document.getElementById('contactStatus');
+                if (!contactForm || !contactStatus) return;
+
+                var copy = {
+                    uz: {
+                        success: "Xabaringiz qabul qilindi! Tez orada siz bilan bog'lanamiz.",
+                        invalid: "Iltimos, barcha maydonlarni to‘liq kiriting."
+                    },
+                    ru: {
+                        success: "Ваше сообщение принято! Мы свяжемся с вами в ближайшее время.",
+                        invalid: "Заполните, пожалуйста, все поля формы."
+                    },
+                    en: {
+                        success: "Thanks for reaching out! We will get back to you shortly.",
+                        invalid: "Please fill in every field before sending."
+                    }
+                };
+
+                function locale(){
+                    return localStorage.getItem('ketmon_lang') || 'uz';
+                }
+
+                contactForm.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    var strings = copy[locale()] || copy.uz;
+                    var name = contactForm.querySelector('[name="name"]').value.trim();
+                    var email = contactForm.querySelector('[name="email"]').value.trim();
+                    var message = contactForm.querySelector('[name="message"]').value.trim();
+
+                    if (!name || !email || !message) {
+                        contactStatus.textContent = strings.invalid;
+                        contactStatus.classList.add('error');
+                        return;
+                    }
+
+                    contactStatus.textContent = strings.success;
+                    contactStatus.classList.remove('error');
+                    contactForm.reset();
+                });
+            })();
+
+            // AI assistant interaction
+            (function(){
+                var aiForm = document.getElementById('aiForm');
+                var aiResponse = document.getElementById('aiResponse');
+                if (!aiForm || !aiResponse) return;
+
+                var localeCopy = {
+                    uz: {
+                        title: "AI tavsiyasi",
+                        placeholder: "Savolingizni kiriting va AI yordamchidan tavsiyalar oling.",
+                        intro: function(budget, dest, season){
+                            return season + " mavsumi uchun " + dest + " yo'nalishiga taxminan " + budget + " budjetda quyidagi variantlar mos keladi:";
+                        },
+                        bullets: function(dest){
+                            return [
+                                dest + " bo‘yicha tasdiqlangan agentliklar: Atlas Travel, Samarqand Tours, ClubTravel UZ.",
+                                "Premium tajriba uchun Silk Road Elite va AziaLux Travel takliflarini solishtiring.",
+                                "TNPL va biznes xizmatlari uchun Global Voyage Hub’dan foydalaning."
+                            ];
+                        },
+                        closing: "Agentliklardan biri bilan bog‘lanib, paketni sozlang yoki qo‘shimcha savol bering.",
+                        defaultDest: "Dubay",
+                        season: {
+                            summer: "Yozgi",
+                            autumn: "Kuzgi",
+                            winter: "Qishki",
+                            spring: "Bahorgi",
+                            all: "Mavsumiy"
+                        }
+                    },
+                    ru: {
+                        title: "AI рекомендация",
+                        placeholder: "Введите запрос и получите рекомендации от AI помощника.",
+                        intro: function(budget, dest, season){
+                            return season + " сезон для направления " + dest + " при бюджете около " + budget + ":";
+                        },
+                        bullets: function(dest){
+                            return [
+                                "Проверенные агентства для " + dest + ": Atlas Travel, Samarqand Tours, ClubTravel UZ.",
+                                "Для премиум-сервиса рассмотрите Silk Road Elite и AziaLux Travel.",
+                                "TNPL и бизнес-поездки удобнее бронировать через Global Voyage Hub."
+                            ];
+                        },
+                        closing: "Свяжитесь с подходящим агентством и уточните детали пакета.",
+                        defaultDest: "Дубай",
+                        season: {
+                            summer: "Летний",
+                            autumn: "Осенний",
+                            winter: "Зимний",
+                            spring: "Весенний",
+                            all: "Сезонный"
+                        }
+                    },
+                    en: {
+                        title: "AI Recommendation",
+                        placeholder: "Ask the AI assistant for personalised tour ideas.",
+                        intro: function(budget, dest, season){
+                            return "For a " + season + " trip to " + dest + " with a budget around " + budget + ", consider:";
+                        },
+                        bullets: function(dest){
+                            return [
+                                "Trusted partners for " + dest + ": Atlas Travel, Samarqand Tours, ClubTravel UZ.",
+                                "Compare premium experiences from Silk Road Elite and AziaLux Travel.",
+                                "Need TNPL or corporate options? Global Voyage Hub has tailored packages."
+                            ];
+                        },
+                        closing: "Reach out to a preferred agency to customise your itinerary.",
+                        defaultDest: "Dubai",
+                        season: {
+                            summer: "summer",
+                            autumn: "autumn",
+                            winter: "winter",
+                            spring: "spring",
+                            all: "seasonal"
+                        }
+                    }
+                };
+
+                function currentLocale(){
+                    return localStorage.getItem('ketmon_lang') || 'uz';
+                }
+
+                function formatBudget(value, locale){
+                    var num = parseInt(value, 10);
+                    if (isNaN(num) || num <= 0) num = 1500;
+                    var localeMap = { uz: 'en-US', ru: 'ru-RU', en: 'en-US' };
+                    var intlLocale = localeMap[locale] || 'en-US';
+                    try {
+                        return new Intl.NumberFormat(intlLocale, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+                    } catch (e) {
+                        return "$" + num.toLocaleString('en-US');
+                    }
+                }
+
+                aiForm.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    var locale = currentLocale();
+                    var t = localeCopy[locale] || localeCopy.uz;
+
+                    if (aiForm.dataset.active === "true") {
+                        aiForm.reset();
+                        delete aiForm.dataset.active;
+                        aiResponse.textContent = t.placeholder;
+                        return;
+                    }
+
+                    var budgetInput = document.getElementById('aiBudget');
+                    var destinationInput = document.getElementById('aiDestination');
+                    var seasonInput = document.getElementById('aiSeason');
+
+                    var budget = formatBudget(budgetInput ? budgetInput.value : '', locale);
+                    var destination = (destinationInput ? destinationInput.value : '').trim() || t.defaultDest;
+                    var seasonKey = seasonInput ? seasonInput.value : 'all';
+                    var seasonLabel = t.season[seasonKey] || t.season.all;
+
+                    var bullets = t.bullets(destination);
+                    aiResponse.innerHTML = "<strong>" + t.title + "</strong><p>" + t.intro(budget, destination, seasonLabel) + "</p><ul>" + bullets.map(function(item){ return "<li>" + item + "</li>"; }).join("") + "</ul><p>" + t.closing + "</p>";
+                    aiForm.dataset.active = "true";
+                });
+
+                // Initialize placeholder text according to current locale
+                var initLocale = currentLocale();
+                var initCopy = localeCopy[initLocale] || localeCopy.uz;
+                aiResponse.textContent = initCopy.placeholder;
+            })();
+
+            // Newsletter submit interaction
+            (function(){
+                var formBtn = document.querySelector('.newsletter-form button');
+                if (formBtn) {
+                    formBtn.addEventListener('click', function(e){
+                        e.preventDefault();
+                        var email = document.querySelector('.newsletter-form input')?.value || '';
+                        if (!email) {
+                            alert('Email kiriting, iltimos.');
+                            return;
+                        }
+                        alert("Obuna bo'ldingiz: " + email);
+                    });
+                }
+            })();
+        </script>
+    </body>
