@@ -2,7 +2,22 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Dunyo bo'ylab unutilmas sayohatlar - Compare tours, discover destinations, and book smarter">
+    <meta name="theme-color" content="#0a4d68">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KETMON">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Icons for different devices -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
     <title>Ketmon - Sayohat Agentligi</title>
     <style>
         * {
@@ -16,6 +31,21 @@
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Ensure touch-friendly elements */
+        button, a, input, select, textarea {
+            -webkit-tap-highlight-color: rgba(10, 77, 104, 0.2);
+        }
+
+        /* Prevent text size adjustment on iOS */
+        html {
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         /* Header */
@@ -82,6 +112,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .header-actions-desktop {
+            display: flex;
+        }
+
+        /* Hide mobile menu buttons on desktop */
+        nav .header-actions {
+            display: none;
+        }
+
+        /* Show mobile menu buttons when menu is active */
+        nav.active .header-actions {
+            display: flex;
         }
 
         .logo {
@@ -143,11 +196,25 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
         }
 
         .btn-gradient:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(10, 77, 104, 0.35);
+            color: #fff;
+        }
+
+        /* Hero section buttons - ensure they stand out on dark background */
+        .hero .btn-gradient {
+            padding: 16px 40px;
+            font-size: 16px;
+            min-height: 44px;
+            box-shadow: 0 4px 15px rgba(10, 77, 104, 0.3);
+        }
+
+        .hero .btn-gradient:hover {
+            box-shadow: 0 8px 25px rgba(10, 77, 104, 0.5);
         }
 
         /* no cta-group */
@@ -227,8 +294,11 @@
             border-radius: 30px;
             font-weight: 600;
             transition: all 0.3s;
-            display: inline-block;
             font-size: 16px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn:hover {
@@ -256,6 +326,51 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Search Bar */
@@ -295,6 +410,8 @@
             border-radius: 8px;
             font-size: 15px;
             transition: border 0.3s;
+            min-height: 44px;
+            width: 100%;
         }
 
         .search-input input:focus, .search-input select:focus {
@@ -312,6 +429,10 @@
             cursor: pointer;
             transition: transform 0.3s;
             margin-top: 24px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .search-btn:hover {
@@ -353,7 +474,17 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
+
+        .destination-card:nth-child(1) { animation-delay: 0.1s; }
+        .destination-card:nth-child(2) { animation-delay: 0.2s; }
+        .destination-card:nth-child(3) { animation-delay: 0.3s; }
+        .destination-card:nth-child(4) { animation-delay: 0.4s; }
+        .destination-card:nth-child(5) { animation-delay: 0.5s; }
+        .destination-card:nth-child(6) { animation-delay: 0.6s; }
 
         .destination-card:hover {
             transform: translateY(-10px);
@@ -469,16 +600,39 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
 
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+
         .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
 
         .service-icon {
-            font-size: 60px;
-            margin-bottom: 25px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(10, 77, 104, 0.2);
+        }
+
+        .service-card:hover .service-icon {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(10, 77, 104, 0.4);
         }
 
         .service-card h3 {
@@ -490,6 +644,24 @@
         .service-card p {
             color: #666;
             line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .service-advantage {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(10, 77, 104, 0.05) 0%, rgba(8, 131, 149, 0.05) 100%);
+            border-radius: 10px;
+            border-left: 3px solid #0a4d68;
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .service-advantage strong {
+            color: #0a4d68;
+            display: block;
+            margin-bottom: 5px;
         }
 
         /* Testimonials */
@@ -512,7 +684,14 @@
             padding: 35px;
             border-radius: 15px;
             border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
 
         .testimonial-text {
             font-size: 16px;
@@ -778,6 +957,14 @@
         .contact-details li span.icon {
             font-size: 22px;
             color: #0a4d68;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .contact-details li span.icon svg {
+            width: 22px;
+            height: 22px;
         }
         .contact-details strong {
             display: block;
@@ -858,7 +1045,18 @@
             transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
+
+        .agency-card:nth-child(1) { animation-delay: 0.1s; }
+        .agency-card:nth-child(2) { animation-delay: 0.2s; }
+        .agency-card:nth-child(3) { animation-delay: 0.3s; }
+        .agency-card:nth-child(4) { animation-delay: 0.4s; }
+        .agency-card:nth-child(5) { animation-delay: 0.5s; }
+        .agency-card:nth-child(6) { animation-delay: 0.6s; }
+        .agency-card:nth-child(7) { animation-delay: 0.7s; }
         .agency-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 12px 35px rgba(13,42,85,0.18);
@@ -1109,8 +1307,9 @@
             color: #0f172a;
         }
         .segmented button.active {
-            background: #E6FB00;
-            box-shadow: 0 6px 18px rgba(230,251,0,0.35);
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(10, 77, 104, 0.35);
         }
         .hidden { display: none; }
         .modal-meta {
@@ -1132,27 +1331,549 @@
             gap: 10px;
             margin-top: 8px;
         }
-        .modal .btn-primary {
-            background: #E6FB00;
-            color: #0f172a;
+        .modal .btn-primary,
+        .modal a.btn-primary,
+        .modal-actions .btn-primary,
+        .modal-actions a.btn-primary {
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%) !important;
+            color: #fff !important;
             padding: 10px 16px;
             border-radius: 10px;
-            border: none;
+            border: none !important;
             font-weight: 700;
             cursor: pointer;
             transition: transform .2s, box-shadow .2s;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none !important;
         }
-        .modal .btn-primary:hover {
+        .modal .btn-primary:hover,
+        .modal a.btn-primary:hover,
+        .modal-actions .btn-primary:hover,
+        .modal-actions a.btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 8px 20px rgba(230,251,0,0.35);
+            box-shadow: 0 8px 20px rgba(10, 77, 104, 0.35);
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%) !important;
+            color: #fff !important;
         }
-        @media (max-width: 720px) {
-            .modal-body { grid-template-columns: 1fr; }
-            .modal-image { height: 200px; }
+        /* Responsive Design - Mobile First Approach */
+        
+        /* PWA Install Button Styles */
+        #pwa-install-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(10, 77, 104, 0.3);
+            z-index: 1000;
+            font-size: 14px;
+            transition: transform 0.3s;
         }
 
-        @media (max-width: 968px) {
-            .hero-world { display: none; }
+        #pwa-install-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Extra Small Devices (phones, 480px and down) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .top-bar {
+                padding: 8px 0;
+                font-size: 12px;
+            }
+
+            .top-bar .container {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .contact-info span {
+                font-size: 11px;
+            }
+
+            .lang-selector {
+                gap: 5px;
+            }
+
+            .lang-btn {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+
+            .main-header {
+                padding: 12px 0;
+            }
+
+            .main-header .container {
+                position: relative;
+            }
+
+            .logo {
+                font-size: 24px;
+                flex: 1;
+            }
+
+            .mobile-menu-btn {
+                font-size: 24px;
+                padding: 5px 10px;
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header-actions {
+                display: none !important;
+            }
+
+            nav {
+                display: none;
+            }
+
+            nav.active {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                padding: 15px;
+                z-index: 1000;
+            }
+
+            nav.active ul {
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 15px;
+            }
+
+            nav.active a {
+                font-size: 16px;
+                padding: 12px 0;
+                display: block;
+                min-height: 44px;
+            }
+
+            /* Show header buttons in mobile menu */
+            nav.active .header-actions {
+                display: flex !important;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #eee;
+            }
+
+            nav.active .header-actions .cta-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 500px;
+                padding: 60px 0 40px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+                margin-bottom: 15px;
+                line-height: 1.3;
+            }
+
+            .hero p {
+                font-size: 16px;
+                margin-bottom: 25px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                padding: 14px 30px;
+                font-size: 14px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .search-section {
+                padding: 25px 0;
+                margin-top: -30px;
+            }
+
+            .search-box {
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .search-input label {
+                font-size: 12px;
+            }
+
+            .search-input input,
+            .search-input select {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .search-btn {
+                padding: 14px;
+                font-size: 14px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .destinations,
+            .services,
+            .testimonials,
+            .newsletter,
+            .agency-section,
+            .ai-assistant,
+            .about-section,
+            .contact-section {
+                padding: 50px 0;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .section-title {
+                font-size: 28px;
+                margin-bottom: 10px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .destination-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .destination-img {
+                height: 200px;
+            }
+
+            .destination-info {
+                padding: 20px;
+            }
+
+            .destination-title {
+                font-size: 20px;
+            }
+
+            .destination-desc {
+                font-size: 14px;
+            }
+
+            .price {
+                font-size: 24px;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .service-card {
+                padding: 30px 20px;
+            }
+
+            .service-icon {
+                font-size: 50px;
+            }
+
+            .service-card h3 {
+                font-size: 18px;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .testimonial-card {
+                padding: 25px;
+            }
+
+            .newsletter h2 {
+                font-size: 26px;
+            }
+
+            .newsletter p {
+                font-size: 14px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                padding: 14px;
+            }
+
+            .ai-card {
+                padding: 20px;
+            }
+
+            .ai-form {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-card,
+            .contact-form {
+                padding: 20px;
+            }
+
+            .agency-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .agency-card {
+                padding: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            footer {
+                padding: 50px 0 20px;
+            }
+
+            .modal {
+                width: 95%;
+                max-height: 90vh;
+                padding: 20px;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-image {
+                height: 200px;
+            }
+
+            #pwa-install-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 18px;
+                font-size: 12px;
+                }
+        }
+
+        /* Small Devices (phones, 481px to 768px) */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .top-bar .container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .contact-info {
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            .mobile-menu-btn {
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header-actions {
+                display: none !important;
+            }
+
+            nav {
+                display: none;
+            }
+
+            nav.active {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                padding: 20px;
+                z-index: 1000;
+            }
+
+            nav.active ul {
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+
+            nav.active a {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            /* Add header buttons to mobile menu */
+            nav.active .header-actions {
+                display: flex !important;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            nav.active .cta-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 550px;
+                padding: 80px 0 50px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-buttons {
+                gap: 15px;
+            }
+
+            .search-section {
+                padding: 30px 0;
+                margin-top: -40px;
+            }
+
+            .search-box {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 25px;
+            }
+
+            .destinations,
+            .services,
+            .testimonials,
+            .newsletter,
+            .agency-section,
+            .ai-assistant,
+            .about-section,
+            .contact-section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .destination-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+
+            .ai-form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .agency-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Medium Devices (tablets, 769px to 968px) */
+        @media (min-width: 769px) and (max-width: 968px) {
+            .hero-world {
+                display: none;
+            }
+
             .mobile-menu-btn {
                 display: block;
             }
@@ -1173,34 +1894,69 @@
             }
 
             nav.active ul {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 600px;
             }
 
             .hero h1 {
-                font-size: 38px;
+                font-size: 42px;
             }
 
             .hero p {
-                font-size: 18px;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 10px;
+                font-size: 20px;
             }
 
             .search-box {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .destination-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .newsletter-form {
-                flex-direction: column;
+                flex-direction: row;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
+        /* Large Devices (desktops, 969px and up) */
         @media (min-width: 969px) {
-            .hero-world { display: block; }
+            .hero-world {
+                display: block;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            nav {
+                display: block;
+            }
+        }
+
+        /* Extra Large Devices (large desktops, 1200px and up) */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
         }
     </style>
 </head>
@@ -1209,8 +1965,8 @@
     <div class="top-bar">
         <div class="container">
             <div class="contact-info">
-                <span>📞 <span data-text="phone">+998 93 301 52 18</span></span>
-                <span>✉️ <span data-text="email">info@ketmon.uz</span></span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:5px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span data-text="phone">+998 93 301 52 18</span></span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:5px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span data-text="email">info@ketmon.uz</span></span>
             </div>
             <div class="lang-selector">
                 <button class="lang-btn active" onclick="changeLang('uz')">UZ</button>
@@ -1225,7 +1981,7 @@
         <div class="main-header">
             <div class="container">
                 <a href="#" class="logo">KETMON</a>
-                <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+                <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
                 <nav id="mainNav">
                     <ul>
                         <li><a href="#home" data-text="nav_home">Bosh sahifa</a></li>
@@ -1234,10 +1990,17 @@
                         <li><a href="#about" data-text="nav_about">Biz haqimizda</a></li>
                         <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
                     </ul>
+                    <div class="header-actions">
+                        <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
+                        <a id="headerLoginBtn" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
+                        <a id="headerRegisterBtn" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                    </div>
                 </nav>
-                <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
-                <a id="headerLoginBtn" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
-                <a id="headerRegisterBtn" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                <div class="header-actions header-actions-desktop">
+                    <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
+                    <a id="headerLoginBtnDesktop" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
+                    <a id="headerRegisterBtnDesktop" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                </div>
             </div>
         </div>
     </header>
@@ -1249,8 +2012,8 @@
                 <h1 data-text="hero_title">Dunyo Bo'ylab Unutilmas Sayohatlar</h1>
                 <p data-text="hero_subtitle">Hayotingizning eng yaxshi tajribasini biz bilan kashf eting</p>
                 <div class="hero-buttons">
-                    <a href="#destinations" class="btn" data-text="hero_btn1">Yo'nalishlarni Ko'rish</a>
-                    <a href="#contact" class="btn btn-outline" data-text="hero_btn2">Maslahat Olish</a>
+                    <a href="#destinations" class="btn-gradient" data-text="hero_btn1">Yo'nalishlarni Ko'rish</a>
+                    <a href="#contact" class="btn-gradient" data-text="hero_btn2">Maslahat Olish</a>
                 </div>
             </div>
         </div>
@@ -1606,29 +2369,62 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-text="services_title">Bizning Xizmatlarimiz</h2>
-                <p class="section-subtitle" data-text="services_subtitle">Sizning qulayligingiz uchun</p>
+                <p class="section-subtitle" data-text="services_subtitle">Nega bizni tanlash kerak? Biz sizga eng yaxshi narxlar, professional xizmat va 24/7 qo'llab-quvvatlashni ta'minlaymiz</p>
             </div>
             <div class="service-grid">
                 <div class="service-card">
-                    <div class="service-icon">✈️</div>
+                    <div class="service-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                        </svg>
+                    </div>
                     <h3 data-text="service1_title">Aviachiptalar</h3>
                     <p data-text="service1_desc">Eng arzon narxlarda aviachiptalar bron qilish xizmati</p>
+                    <div class="service-advantage" data-text="service1_advantage">
+                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service1_advantage_text">Real vaqtda narxlar, 500+ aviakompaniya, tezkor bron qilish</span>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🏨</div>
+                    <div class="service-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+                            <path d="M9 21V7h6v14"/>
+                        </svg>
+                    </div>
                     <h3 data-text="service2_title">Mehmonxonalar</h3>
                     <p data-text="service2_desc">Dunyoning istalgan joyida qulay mehmonxonalar</p>
+                    <div class="service-advantage" data-text="service2_advantage">
+                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service2_advantage_text">50,000+ mehmonxona, eng yaxshi narxlar, bepul bekor qilish</span>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🎫</div>
+                    <div class="service-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
                     <h3 data-text="service3_title">Ekskursiyalar</h3>
                     <p data-text="service3_desc">Professional gidlar bilan qiziqarli sayohatlar</p>
+                    <div class="service-advantage" data-text="service3_advantage">
+                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service3_advantage_text">Mahalliy gidlar, shaxsiylashtirilgan marshrutlar, 24/7 qo'llab-quvvatlash</span>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">📋</div>
+                    <div class="service-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                            <path d="M16 13H8"/>
+                            <path d="M16 17H8"/>
+                            <path d="M10 9H8"/>
+                        </svg>
+                    </div>
                     <h3 data-text="service4_title">Viza Xizmati</h3>
-                    <p data-text="service4_desc">Viza olish
-                    </p>
+                    <p data-text="service4_desc">Viza olish</p>
+                    <div class="service-advantage" data-text="service4_advantage">
+                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service4_advantage_text">Tezkor viza olish, professional yordam, yuqori muvaffaqiyat darajasi</span>
+                    </div>
                 </div>
             </div>
     </section>
@@ -1686,24 +2482,24 @@
                         <p data-text="contact_info_body">Ketmon orqali siz tasdiqlangan agentliklar bilan ishlaysiz, narxlarni solishtirasiz va TNPL orqali to‘lovlarni bo‘lib-bo‘lib amalga oshirasiz. Mijozlar va agentliklar uchun yagona panel barcha jarayonlarni bir joyga jamlaydi.</p>
                         <ul class="contact-details">
                             <li>
-                                <span class="icon">📞</span>
+                                <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
                                 <div>
                                     <strong data-text="contact_phone_label">Telefon</strong>
                                     <span data-text="contact_phone_value">+998 90 765 43 21</span>
                                 </div>
                             </li>
                             <li>
-                                <span class="icon">✉️</span>
+                                <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
                                 <div>
                                     <strong data-text="contact_email_label">Email</strong>
                                     <span data-text="contact_email_value">support@ketmon.uz</span>
                                 </div>
                             </li>
                             <li>
-                                <span class="icon">📍</span>
+                                <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
                                 <div>
                                     <strong data-text="contact_address_label">Manzil</strong>
-                                    <span data-text="contact_address_value">Toshkent, Navoiy ko‘chasi 12, KETMON HUB</span>
+                                    <span data-text="contact_address_value">Toshkent, Navoiy ko'chasi 12, KETMON HUB</span>
                                 </div>
                             </li>
                         </ul>
@@ -1746,7 +2542,7 @@
                         </div>
                         <div class="modal-actions">
                             <button class="btn-primary" id="tourBookBtn" data-text="nav_book">Bron qilish</button>
-                            <a href="#contact" class="btn-primary" style="text-decoration:none;" data-text="hero_btn2">Maslahat Olish</a>
+                            <a href="#contact" class="btn-primary" data-text="hero_btn2">Maslahat Olish</a>
                         </div>
                     </div>
                 </div>
@@ -1854,9 +2650,59 @@
             // Mobile menu toggle
             function toggleMenu() {
                 var nav = document.getElementById('mainNav');
-                if (nav) nav.classList.toggle('active');
+                if (nav) {
+                    nav.classList.toggle('active');
+                    // Re-apply translations when menu opens (in case buttons were hidden)
+                    if (nav.classList.contains('active')) {
+                        var savedLang = localStorage.getItem('ketmon_lang') || 'uz';
+                        if (window.applyTranslations) {
+                            // Small delay to ensure DOM is updated
+                            setTimeout(function() {
+                                var dict = window.i18n && window.i18n[savedLang] || {};
+                                var headerBookBtns = nav.querySelectorAll('[data-text="nav_book"]');
+                                var headerLoginBtns = nav.querySelectorAll('[data-text="nav_login"]');
+                                var headerRegisterBtns = nav.querySelectorAll('[data-text="nav_register"]');
+                                headerBookBtns.forEach(function(btn) {
+                                    if (dict.nav_book) btn.textContent = dict.nav_book;
+                                });
+                                headerLoginBtns.forEach(function(btn) {
+                                    if (dict.nav_login) btn.textContent = dict.nav_login;
+                                });
+                                headerRegisterBtns.forEach(function(btn) {
+                                    if (dict.nav_register) btn.textContent = dict.nav_register;
+                                });
+                            }, 50);
+                        }
+                    }
+                }
             }
             window.toggleMenu = toggleMenu;
+
+            // Close mobile menu when clicking on navigation links
+            document.addEventListener('DOMContentLoaded', function() {
+                var nav = document.getElementById('mainNav');
+                if (nav) {
+                    var navLinks = nav.querySelectorAll('a');
+                    navLinks.forEach(function(link) {
+                        link.addEventListener('click', function() {
+                            // Close menu after a short delay to allow navigation
+                            setTimeout(function() {
+                                nav.classList.remove('active');
+                            }, 100);
+                        });
+                    });
+
+                    // Close menu when clicking on header action buttons in mobile menu
+                    var mobileMenuButtons = nav.querySelectorAll('.header-actions .cta-btn');
+                    mobileMenuButtons.forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            setTimeout(function() {
+                                nav.classList.remove('active');
+                            }, 100);
+                        });
+                    });
+                }
+            });
 
             // Language switcher (minimal demo)
             (function(){
@@ -2009,7 +2855,7 @@
                         dest9_name: "Boku Weekend, Ozarbayjon",
                         dest9_desc: "Toshkentdan to'g'ridan-to'g'ri reys, 4* mehmonxona va shahar sayohati.",
                         services_title: "Bizning Xizmatlarimiz",
-                        services_subtitle: "Sizning qulayligingiz uchun",
+                        services_subtitle: "Nega bizni tanlash kerak? Biz sizga eng yaxshi narxlar, professional xizmat va 24/7 qo'llab-quvvatlashni ta'minlaymiz",
                         service1_title: "Aviachiptalar",
                         service1_desc: "Eng arzon narxlarda aviachiptalar bron qilish xizmati",
                         service2_title: "Mehmonxonalar",
@@ -2017,7 +2863,12 @@
                         service3_title: "Ekskursiyalar",
                         service3_desc: "Professional gidlar bilan qiziqarli sayohatlar",
                         service4_title: "Viza Xizmati",
-                        service4_desc: "Viza olish"
+                        service4_desc: "Viza olish",
+                        service_why: "Nega biz?",
+                        service1_advantage_text: "Real vaqtda narxlar, 500+ aviakompaniya, tezkor bron qilish",
+                        service2_advantage_text: "50,000+ mehmonxona, eng yaxshi narxlar, bepul bekor qilish",
+                        service3_advantage_text: "Mahalliy gidlar, shaxsiylashtirilgan marshrutlar, 24/7 qo'llab-quvvatlash",
+                        service4_advantage_text: "Tezkor viza olish, professional yordam, yuqori muvaffaqiyat darajasi"
                     },
                     ru: {
                         phone: "+998 93 301 52 18",
@@ -2167,7 +3018,7 @@
                         dest9_name: "Baku Weekend, Азербайджан",
                         dest9_desc: "Прямой рейс из Ташкента, 4* отель и обзорная экскурсия по городу.",
                         services_title: "Наши услуги",
-                        services_subtitle: "Для вашего удобства",
+                        services_subtitle: "Почему выбирают нас? Мы предлагаем лучшие цены, профессиональный сервис и поддержку 24/7",
                         service1_title: "Авиабилеты",
                         service1_desc: "Бронирование авиабилетов по выгодным ценам",
                         service2_title: "Отели",
@@ -2175,7 +3026,12 @@
                         service3_title: "Экскурсии",
                         service3_desc: "Интересные туры с профессиональными гидами",
                         service4_title: "Визовая поддержка",
-                        service4_desc: "Оформление виз"
+                        service4_desc: "Оформление виз",
+                        service_why: "Почему мы?",
+                        service1_advantage_text: "Цены в реальном времени, 500+ авиакомпаний, быстрое бронирование",
+                        service2_advantage_text: "50,000+ отелей, лучшие цены, бесплатная отмена",
+                        service3_advantage_text: "Местные гиды, персонализированные маршруты, поддержка 24/7",
+                        service4_advantage_text: "Быстрое оформление виз, профессиональная помощь, высокий процент успеха"
                     },
                     en: {
                         phone: "+998 93 301 52 18",
@@ -2325,7 +3181,7 @@
                         dest9_name: "Baku Weekend, Azerbaijan",
                         dest9_desc: "Direct flight from Tashkent, 4* hotel and guided city tour.",
                         services_title: "Our Services",
-                        services_subtitle: "For your convenience",
+                        services_subtitle: "Why choose us? We provide the best prices, professional service, and 24/7 support",
                         service1_title: "Flights",
                         service1_desc: "Book flight tickets at great prices",
                         service2_title: "Hotels",
@@ -2333,17 +3189,27 @@
                         service3_title: "Excursions",
                         service3_desc: "Exciting tours with professional guides",
                         service4_title: "Visa Service",
-                        service4_desc: "Visa processing"
+                        service4_desc: "Visa processing",
+                        service_why: "Why us?",
+                        service1_advantage_text: "Real-time prices, 500+ airlines, instant booking",
+                        service2_advantage_text: "50,000+ hotels, best prices, free cancellation",
+                        service3_advantage_text: "Local guides, personalized itineraries, 24/7 support",
+                        service4_advantage_text: "Fast visa processing, professional assistance, high success rate"
                     }
                 };
 
                 function applyTranslations(lang) {
                     var dict = i18n[lang] || i18n.uz;
-                    // Replace inner text for all [data-text]
+                    // Replace inner text for all [data-text] - including hidden elements
                     document.querySelectorAll('[data-text]').forEach(function(el){
                         var key = el.getAttribute('data-text');
                         if (key && dict[key] !== undefined) {
+                            // Use textContent to ensure it works even if element is hidden
                             el.textContent = dict[key];
+                            // Also update innerHTML for elements that might have HTML content
+                            if (el.innerHTML && el.innerHTML.trim() === el.textContent.trim()) {
+                                el.innerHTML = dict[key];
+                            }
                         }
                     });
                     // Replace placeholders for all elements declaring [data-placeholder]
@@ -2352,6 +3218,19 @@
                         if (key && dict[key] !== undefined && 'placeholder' in el) {
                             el.placeholder = dict[key];
                         }
+                    });
+                    // Force update for header buttons specifically (in case they're in hidden containers)
+                    var headerBookBtns = document.querySelectorAll('header [data-text="nav_book"]');
+                    var headerLoginBtns = document.querySelectorAll('header [data-text="nav_login"]');
+                    var headerRegisterBtns = document.querySelectorAll('header [data-text="nav_register"]');
+                    headerBookBtns.forEach(function(btn) {
+                        if (dict.nav_book) btn.textContent = dict.nav_book;
+                    });
+                    headerLoginBtns.forEach(function(btn) {
+                        if (dict.nav_login) btn.textContent = dict.nav_login;
+                    });
+                    headerRegisterBtns.forEach(function(btn) {
+                        if (dict.nav_register) btn.textContent = dict.nav_register;
                     });
                 }
 
@@ -2364,6 +3243,8 @@
                     localStorage.setItem('ketmon_lang', lang);
                 }
                 window.changeLang = changeLang;
+                window.applyTranslations = applyTranslations;
+                window.i18n = i18n;
 
                 // Init language on load
                 document.addEventListener('DOMContentLoaded', function(){
@@ -2470,8 +3351,14 @@
             // Header CTAs interactions
             (function(){
                 var book = document.querySelector('header [data-text=\"nav_book\"]');
-                var login = document.getElementById('headerLoginBtn');
-                var register = document.getElementById('headerRegisterBtn');
+                var login = document.getElementById('headerLoginBtn') || document.getElementById('headerLoginBtnDesktop');
+                var register = document.getElementById('headerRegisterBtn') || document.getElementById('headerRegisterBtnDesktop');
+                // Also get mobile versions
+                var loginMobile = document.getElementById('headerLoginBtn');
+                var registerMobile = document.getElementById('headerRegisterBtn');
+                var loginDesktop = document.getElementById('headerLoginBtnDesktop');
+                var registerDesktop = document.getElementById('headerRegisterBtnDesktop');
+                
                 if (book) book.addEventListener('click', function(e){
                     // Scroll to search section as a booking entry point
                     var anchor = document.getElementById('search');
@@ -2482,8 +3369,14 @@
                 var registerModal = document.getElementById('registerModal');
                 function open(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
                 function close(el){ el.classList.remove('open'); document.body.style.overflow=''; }
-                if (login) login.addEventListener('click', function(e){ e.preventDefault(); open(loginModal); });
-                if (register) register.addEventListener('click', function(e){ e.preventDefault(); open(registerModal); });
+                
+                // Add event listeners to all login/register buttons
+                [loginMobile, loginDesktop].forEach(function(btn) {
+                    if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); open(loginModal); });
+                });
+                [registerMobile, registerDesktop].forEach(function(btn) {
+                    if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); open(registerModal); });
+                });
 
                 // Close buttons and backdrop clicks
                 document.getElementById('loginModalClose').addEventListener('click', function(){ close(loginModal); });
@@ -2499,8 +3392,21 @@
                 document.getElementById('loginForm').addEventListener('submit', function(e){
                     e.preventDefault();
                     var email = document.getElementById('loginEmail').value || '';
+                    var userData = JSON.parse(localStorage.getItem('ketmon_user') || '{}');
+                    
                     close(loginModal);
                     alert('Xush kelibsiz: ' + email);
+                    
+                    // Redirect based on role
+                    if (userData.role === 'agency') {
+                        setTimeout(function() {
+                            window.location.href = 'agency-panel.html';
+                        }, 500);
+                    } else if (userData.role === 'customer' || userData.email) {
+                        setTimeout(function() {
+                            window.location.href = 'profile.html';
+                        }, 500);
+                    }
                 });
                 document.getElementById('registerForm').addEventListener('submit', function(e){
                     e.preventDefault();
@@ -2508,12 +3414,42 @@
                     if (role === 'agency') {
                         var aname = document.getElementById('regAgencyName').value || '';
                         var lic = document.getElementById('regLicense').value || '';
+                        var email = document.getElementById('regAgencyEmail').value || '';
+                        var phone = document.getElementById('regAgencyPhone').value || '';
+                        
+                        // Save agency data
+                        var agencyData = {
+                            name: aname,
+                            license: lic,
+                            email: email,
+                            phone: phone,
+                            role: 'agency'
+                        };
+                        localStorage.setItem('ketmon_agency', JSON.stringify(agencyData));
+                        localStorage.setItem('ketmon_user', JSON.stringify({...agencyData, name: aname, email: email}));
+                        
                         close(registerModal);
-                        alert("Agentlik ro'yxatdan o'tdi: " + (aname || 'Agentlik') + (lic ? " • Litsenziya: " + lic : ''));
+                        alert("Agentlik ro'yxatdan o'tdi! Agentlik paneliga yo'naltirilmoqdasiz...");
+                        setTimeout(function() {
+                            window.location.href = 'agency-panel.html';
+                        }, 1000);
                     } else {
                         var name = document.getElementById('regName').value || '';
+                        var email = document.getElementById('regEmail').value || '';
+                        
+                        // Save customer data
+                        var userData = {
+                            name: name,
+                            email: email,
+                            role: 'customer'
+                        };
+                        localStorage.setItem('ketmon_user', JSON.stringify(userData));
+                        
                         close(registerModal);
-                        alert("Ro'yxatdan o'tildi: " + name);
+                        alert("Ro'yxatdan o'tdingiz! Profilga yo'naltirilmoqdasiz...");
+                        setTimeout(function() {
+                            window.location.href = 'profile.html';
+                        }, 1000);
                     }
                 });
 
@@ -2821,6 +3757,112 @@
                         alert("Obuna bo'ldingiz: " + email);
                     });
                 }
+            })();
+        </script>
+
+        <!-- Service Worker Registration for PWA -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then((registration) => {
+                            console.log('Service Worker registered successfully:', registration.scope);
+                            
+                            // Check for updates
+                            registration.addEventListener('updatefound', () => {
+                                const newWorker = registration.installing;
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        // New service worker available
+                                        if (confirm('Yangi versiya mavjud. Yangilashni xohlaysizmi?')) {
+                                            newWorker.postMessage({ action: 'skipWaiting' });
+                                            window.location.reload();
+                                        }
+                                    }
+                                });
+                            });
+                        })
+                        .catch((error) => {
+                            console.log('Service Worker registration failed:', error);
+                        });
+                });
+
+                // Listen for service worker messages
+                navigator.serviceWorker.addEventListener('message', (event) => {
+                    if (event.data && event.data.type === 'SW_UPDATED') {
+                        if (confirm('Yangi versiya mavjud. Yangilashni xohlaysizmi?')) {
+                            window.location.reload();
+                        }
+                    }
+                });
+
+                // Handle beforeinstallprompt event (for install banner)
+                let deferredPrompt;
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    // Prevent the mini-infobar from appearing on mobile
+                    e.preventDefault();
+                    // Stash the event so it can be triggered later
+                    deferredPrompt = e;
+                    // Show custom install button if needed
+                    showInstallButton();
+                });
+
+                function showInstallButton() {
+                    // Create install button if it doesn't exist
+                    if (!document.getElementById('pwa-install-btn')) {
+                        const installBtn = document.createElement('button');
+                        installBtn.id = 'pwa-install-btn';
+                        installBtn.innerHTML = '📱 Ilovani O\'rnatish';
+                        installBtn.addEventListener('click', async () => {
+                            if (deferredPrompt) {
+                                deferredPrompt.prompt();
+                                const { outcome } = await deferredPrompt.userChoice;
+                                console.log(`User response: ${outcome}`);
+                                deferredPrompt = null;
+                                installBtn.style.display = 'none';
+                            }
+                        });
+                        document.body.appendChild(installBtn);
+                    }
+                }
+
+                // Track app installation
+                window.addEventListener('appinstalled', () => {
+                    console.log('PWA was installed');
+                    deferredPrompt = null;
+                });
+            }
+
+            // Scroll animations using Intersection Observer
+            (function() {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animated');
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all sections
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.add('animate-on-scroll');
+                    observer.observe(section);
+                });
+
+                // Observe cards that don't have initial animation
+                setTimeout(function() {
+                    document.querySelectorAll('.destination-card, .service-card, .testimonial-card, .agency-card').forEach(card => {
+                        if (!card.style.animation) {
+                            card.classList.add('animate-on-scroll');
+                            observer.observe(card);
+                        }
+                    });
+                }, 100);
             })();
         </script>
     </body>
