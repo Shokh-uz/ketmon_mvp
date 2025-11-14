@@ -158,6 +158,162 @@
             position: relative;
         }
 
+        /* Mobile Performance Optimizations */
+        @media (max-width: 768px) {
+            /* Disable heavy background effects on mobile */
+            body {
+                background-attachment: scroll;
+                background-image: none;
+                background: var(--bg-primary);
+            }
+
+            [data-theme="dark"] body {
+                background-image: none;
+                background: var(--bg-primary);
+            }
+
+            /* Optimize animations on mobile - keep essential, reduce heavy ones */
+            .destination-card,
+            .service-card,
+            .testimonial-card,
+            .agency-card,
+            .hero h1,
+            .hero p,
+            .hero-buttons {
+                animation: none !important;
+                animation-duration: 0s !important;
+                animation-delay: 0s !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            /* Keep transitions but make them faster */
+            * {
+                transition-duration: 0.15s !important;
+                transition-delay: 0s !important;
+            }
+
+            /* Disable glow and pulse animations */
+            .service-icon,
+            .agency-tag,
+            .btn-gradient {
+                animation: none !important;
+            }
+
+            /* Simplify backdrop filters - but keep for mobile menu */
+            * {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+
+            /* Exception: Keep backdrop filter for mobile menu */
+            nav.active {
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+            }
+
+            /* Reduce box shadows */
+            .destination-card,
+            .service-card,
+            .testimonial-card,
+            .agency-card,
+            .property-card,
+            .ai-card,
+            .search-box {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+
+            /* Disable hover effects on mobile */
+            .destination-card:hover,
+            .service-card:hover,
+            .service-card:hover .service-icon,
+            .testimonial-card:hover,
+            .agency-card:hover {
+                transform: none !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+
+            /* Simplify gradients */
+            .btn-gradient,
+            .theme-toggle {
+                background: var(--accent-primary) !important;
+            }
+
+            /* Optimize carousel */
+            .carousel-track {
+                will-change: auto !important;
+                animation-duration: 25s !important;
+            }
+
+            .destination-card-carousel,
+            .explore-card,
+            .deal-card {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: var(--card-bg) !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                transition: none !important;
+            }
+
+            .destination-card-carousel:hover,
+            .explore-card:hover,
+            .deal-card:hover {
+                transform: none !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+
+
+            /* Simplify header */
+            .main-header {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: var(--header-bg) !important;
+            }
+
+            /* Mobile menu backdrop is handled above in performance optimizations */
+
+            /* Disable complex filters */
+            .hero-world img {
+                filter: none !important;
+            }
+
+            /* Simplify modal */
+            .modal {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+            }
+
+            /* Disable theme toggle animations */
+            .theme-toggle:hover {
+                transform: none !important;
+            }
+
+            /* Simplify AI card */
+            .ai-card {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: var(--card-bg) !important;
+            }
+
+            /* Optimize images */
+            img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+
+            /* Reduce repaints */
+            .container,
+            section {
+                contain: layout style paint;
+            }
+
+            /* Simplify search box */
+            .search-box {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: var(--card-bg) !important;
+            }
+        }
+
         [data-theme="dark"] body {
             background-image: 
                 radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
@@ -2896,12 +3052,22 @@
                 padding: 5px 10px;
                 min-width: 44px;
                 min-height: 44px;
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 justify-content: center;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--text-primary);
             }
 
-            .header-actions {
+            /* Hide desktop header actions on mobile */
+            .header-actions-desktop {
+                display: none !important;
+            }
+
+            /* Hide header actions outside nav on mobile */
+            .main-header .container > .header-actions {
                 display: none !important;
             }
 
@@ -2910,7 +3076,7 @@
             }
 
             nav.active {
-                display: block;
+                display: block !important;
                 position: fixed;
                 top: 60px;
                 left: 0;
@@ -2930,6 +3096,13 @@
                 flex-direction: column;
                 gap: 12px;
                 margin-bottom: 15px;
+                list-style: none;
+                padding: 0;
+                margin: 0 0 15px 0;
+            }
+
+            nav.active ul li {
+                margin: 0;
             }
 
             nav.active a {
@@ -2937,9 +3110,11 @@
                 padding: 12px 0;
                 display: block;
                 min-height: 44px;
+                color: var(--text-primary);
+                text-decoration: none;
             }
 
-            /* Show header buttons in mobile menu */
+            /* Show header buttons in mobile menu - IMPORTANT */
             nav.active .header-actions {
                 display: flex !important;
                 flex-direction: column;
@@ -2947,18 +3122,23 @@
                 width: 100%;
                 margin-top: 15px;
                 padding-top: 15px;
-                border-top: 1px solid #eee;
+                border-top: 1px solid rgba(0,0,0,0.1);
             }
 
             nav.active .header-actions .cta-btn {
                 padding: 12px 20px;
                 font-size: 14px;
                 min-height: 44px;
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 justify-content: center;
                 width: 100%;
                 text-align: center;
+                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+                color: #fff;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
             }
 
             .hero {
@@ -3369,12 +3549,23 @@
             .mobile-menu-btn {
                 min-width: 44px;
                 min-height: 44px;
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 justify-content: center;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--text-primary);
+                font-size: 24px;
             }
 
-            .header-actions {
+            /* Hide desktop header actions on mobile */
+            .header-actions-desktop {
+                display: none !important;
+            }
+
+            /* Hide header actions outside nav on mobile */
+            .main-header .container > .header-actions {
                 display: none !important;
             }
 
@@ -3383,12 +3574,12 @@
             }
 
             nav.active {
-                display: block;
+                display: block !important;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: #fff;
+                background: var(--header-bg);
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
                 padding: 20px;
                 z-index: 1000;
@@ -3398,12 +3589,16 @@
                 flex-direction: column;
                 gap: 15px;
                 margin-bottom: 15px;
+                list-style: none;
+                padding: 0;
             }
 
             nav.active a {
                 min-height: 44px;
                 display: flex;
                 align-items: center;
+                color: var(--text-primary);
+                text-decoration: none;
             }
 
             /* Add header buttons to mobile menu */
@@ -3412,17 +3607,24 @@
                 flex-direction: column;
                 gap: 10px;
                 width: 100%;
-                margin-top: 10px;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid rgba(0,0,0,0.1);
             }
 
-            nav.active .cta-btn {
+            nav.active .header-actions .cta-btn {
                 padding: 12px 20px;
                 font-size: 14px;
                 min-height: 44px;
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 justify-content: center;
                 width: 100%;
+                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+                color: #fff;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
             }
 
             .hero {
