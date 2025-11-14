@@ -2340,6 +2340,73 @@
             transform: translateY(-2px);
         }
 
+        /* Very Small Phones (320px and down) */
+        @media (max-width: 320px) {
+            html {
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .section-subtitle {
+                font-size: 13px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .trip-category-btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+
+            .destination-card-carousel,
+            .explore-card,
+            .deal-card {
+                min-width: 180px;
+            }
+
+            .ai-card {
+                padding: 15px;
+            }
+
+            .search-box {
+                padding: 15px;
+            }
+        }
+
+        /* Small Phones (321px to 375px) */
+        @media (min-width: 321px) and (max-width: 375px) {
+            html {
+                font-size: 13.5px;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .destination-card-carousel,
+            .explore-card,
+            .deal-card {
+                min-width: 190px;
+            }
+        }
+
         /* Extra Small Devices (phones, 480px and down) */
         @media (max-width: 480px) {
             .container {
@@ -2354,91 +2421,246 @@
             .explore-card,
             .deal-card {
                 min-width: 200px;
+                flex-shrink: 0;
             }
 
             .carousel-track {
-                gap: 15px;
+                gap: 12px;
+            }
+
+            .carousel-container {
+                margin: 25px -15px;
+                padding: 0 15px;
+                overflow: hidden;
+            }
+
+            .carousel-track {
+                will-change: transform;
+            }
+
+            /* Prevent horizontal scroll on mobile */
+            body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+
+            table, img, video, iframe {
+                max-width: 100%;
             }
 
             .trending-destinations,
             .explore-uzbekistan,
             .property-type-section,
             .trip-planner-section,
-            .weekend-deals-section {
+            .weekend-deals-section,
+            .destinations,
+            .services,
+            .testimonials,
+            .newsletter,
+            .agency-section,
+            .ai-assistant,
+            .about-section,
+            .contact-section {
                 padding: 40px 0;
             }
 
+            .section-header {
+                margin-bottom: 25px;
+            }
+
             .section-title {
-                font-size: 24px;
+                font-size: 22px;
                 line-height: 1.3;
+                margin-bottom: 10px;
             }
 
             .section-subtitle {
-                font-size: 14px;
+                font-size: 13px;
+                line-height: 1.5;
             }
 
             .trip-categories {
                 gap: 8px;
                 margin: 25px 0;
+                flex-wrap: wrap;
+                justify-content: flex-start;
             }
 
             .trip-category-btn {
-                padding: 8px 14px;
+                padding: 10px 16px;
                 font-size: 12px;
                 border-radius: 20px;
+                min-height: 40px;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
 
             .trip-destinations-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
+                margin-top: 25px;
             }
 
-            .destination-card-carousel .destination-img {
+            .trip-destination-card {
+                width: 100%;
+            }
+
+            .trip-dest-img {
                 height: 180px;
             }
 
+            .trip-dest-info {
+                padding: 15px;
+            }
+
+            .trip-dest-info h3 {
+                font-size: 18px;
+                margin-bottom: 6px;
+            }
+
+            .trip-dest-info p {
+                font-size: 13px;
+            }
+
+            .destination-card-carousel .destination-img {
+                height: 160px;
+            }
+
             .destination-card-carousel h3 {
+                font-size: 15px;
+            }
+
+            .destination-info {
+                padding: 12px;
+            }
+
+            .explore-img {
+                height: 160px;
+            }
+
+            .explore-info {
+                padding: 15px;
+            }
+
+            .explore-info h3 {
+                font-size: 18px;
+                margin-bottom: 6px;
+            }
+
+            .explore-info p {
+                font-size: 13px;
+            }
+
+            .deal-img {
+                height: 160px;
+            }
+
+            .deal-info {
+                padding: 15px;
+            }
+
+            .deal-info h4 {
                 font-size: 16px;
+                margin-bottom: 6px;
+            }
+
+            .deal-price {
+                font-size: 14px;
             }
 
             .ai-card {
-                padding: 20px;
+                padding: 18px;
                 border-radius: 16px;
+                margin: 0 10px;
+            }
+
+            .ai-header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
             }
 
             .ai-icon {
-                font-size: 28px;
-                padding: 10px;
+                font-size: 32px;
+                padding: 12px;
+                margin: 0 auto;
             }
 
             .ai-header h3 {
                 font-size: 18px;
+                margin-bottom: 6px;
             }
 
             .ai-header p {
                 font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .ai-form {
+                margin-top: 20px;
+                gap: 12px;
+            }
+
+            .ai-field label {
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+
+            .ai-field input,
+            .ai-field select {
+                padding: 11px;
+                font-size: 14px;
+            }
+
+            .ai-submit {
+                padding: 12px 24px;
+                font-size: 14px;
+                width: 100%;
+            }
+
+            .ai-response {
+                padding: 15px;
+                font-size: 13px;
+                min-height: 60px;
+            }
+
+            .search-section {
+                padding: 25px 0;
+                margin-top: -30px;
             }
 
             .search-box {
                 grid-template-columns: 1fr;
-                padding: 20px;
-                gap: 15px;
+                padding: 18px;
+                gap: 12px;
+            }
+
+            .search-input {
+                width: 100%;
             }
 
             .search-input label {
-                font-size: 13px;
+                font-size: 12px;
+                margin-bottom: 6px;
+                display: block;
             }
 
             .search-input input,
             .search-input select {
                 padding: 12px;
                 font-size: 14px;
+                width: 100%;
+                box-sizing: border-box;
+                min-height: 44px;
             }
 
             .search-btn {
                 padding: 14px 24px;
                 font-size: 15px;
-                min-height: 44px;
+                min-height: 48px;
+                width: 100%;
+                margin-top: 5px;
             }
 
             .cta-btn,
@@ -2455,30 +2677,86 @@
             .destination-grid,
             .service-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 18px;
+            }
+
+            .destination-card,
+            .service-card {
+                width: 100%;
+                margin: 0;
+            }
+
+            .destination-img {
+                width: 100%;
+                height: 200px;
+            }
+
+            .destination-img img {
+                object-fit: cover;
+            }
+
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+
+            .service-card {
+                padding: 25px 18px;
+            }
+
+            .service-card h3 {
+                font-size: 18px;
+            }
+
+            .service-card p {
+                font-size: 13px;
             }
 
             .testimonial-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 18px;
+            }
+
+            .testimonial-card {
+                padding: 20px;
             }
 
             .agency-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 18px;
+            }
+
+            .agency-card {
+                padding: 18px;
+            }
+
+            .agency-card h3 {
+                font-size: 18px;
+            }
+
+            .agency-card p {
+                font-size: 13px;
             }
 
             .property-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                gap: 12px;
             }
 
             .property-card {
-                padding: 20px;
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            .property-img {
+                height: 120px;
+                margin-bottom: 10px;
             }
 
             .property-card h3 {
-                font-size: 16px;
+                font-size: 14px;
+                text-align: center;
             }
 
             .top-bar .container {
@@ -2507,16 +2785,26 @@
             }
 
             .main-header {
-                padding: 12px 0;
+                padding: 10px 0;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                background: var(--header-bg);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
             }
 
             .main-header .container {
                 position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
             }
 
             .logo {
-                font-size: 24px;
+                font-size: 22px;
                 flex: 1;
+                min-width: 0;
             }
 
             .mobile-menu-btn {
@@ -2539,14 +2827,19 @@
 
             nav.active {
                 display: block;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 60px;
                 left: 0;
                 right: 0;
-                background: #fff;
+                bottom: 0;
+                background: var(--header-bg);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                padding: 15px;
-                z-index: 1000;
+                padding: 20px 15px;
+                z-index: 999;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             nav.active ul {
@@ -2585,14 +2878,9 @@
             }
 
             .hero {
-                height: auto;
-                min-height: 500px;
-                padding: 60px 0 40px;
-            }
-
-            .hero {
-                padding: 60px 0 40px;
+                padding: 50px 0 30px;
                 min-height: 400px;
+                height: auto;
             }
 
             .hero h1 {
@@ -2615,40 +2903,127 @@
                 width: 100%;
                 padding: 14px 24px;
                 font-size: 15px;
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                padding: 0 5px;
+                text-align: center;
+            }
+
+            .hero-world {
+                display: none;
             }
 
             .btn {
                 padding: 14px 30px;
                 font-size: 14px;
                 width: 100%;
+                min-height: 48px;
                 text-align: center;
             }
 
-            .search-section {
-                padding: 25px 0;
-                margin-top: -30px;
+            .modal {
+                width: 95%;
+                max-width: 95%;
+                margin: 10px;
+                padding: 15px;
             }
 
-            .search-box {
-                padding: 20px;
-                gap: 15px;
+            .modal-header {
+                padding: 12px 15px;
             }
 
-            .search-input label {
+            .modal-header h2 {
+                font-size: 18px;
+            }
+
+            .modal-body {
+                padding: 15px;
+                grid-template-columns: 1fr;
+            }
+
+            .modal-image {
+                height: 200px;
+                border-radius: 12px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .newsletter-form input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                text-align: center;
+            }
+
+            .footer-section h4 {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+
+            .footer-section ul li {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .about-stat {
+                padding: 18px;
+            }
+
+            .about-stat-value {
+                font-size: 24px;
+            }
+
+            .about-stat-label {
                 font-size: 12px;
             }
 
-            .search-input input,
-            .search-input select {
-                padding: 10px;
+            .contact-card,
+            .contact-form {
+                padding: 18px;
+            }
+
+            .contact-card h3 {
+                font-size: 18px;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                padding: 12px;
                 font-size: 14px;
             }
 
-            .search-btn {
-                padding: 14px;
-                font-size: 14px;
+            .contact-form button {
                 width: 100%;
-                margin-top: 10px;
+                padding: 14px;
+            }
+
+            #pwa-install-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 18px;
+                font-size: 12px;
             }
 
             .destinations,
