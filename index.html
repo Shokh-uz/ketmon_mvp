@@ -10,6 +10,15 @@
     <meta name="apple-mobile-web-app-title" content="KETMON">
     <meta name="mobile-web-app-capable" content="yes">
     
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
     
@@ -20,6 +29,90 @@
     
     <title>Ketmon - Sayohat Agentligi</title>
     <style>
+        /* CSS Variables for Futuristic Light/Dark Mode */
+        :root {
+            --bg-primary: #f0f4ff;
+            --bg-secondary: #e8f0ff;
+            --bg-tertiary: #0a0e27;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-inverse: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.85);
+            --header-shadow: rgba(10, 77, 104, 0.15);
+            --nav-link-color: #1a1a2e;
+            --nav-link-hover: #00d4ff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-border: rgba(0, 212, 255, 0.3);
+            --border-color: rgba(0, 212, 255, 0.2);
+            --input-bg: rgba(255, 255, 255, 0.95);
+            --input-border: rgba(0, 212, 255, 0.3);
+            --accent-primary: #00d4ff;
+            --accent-secondary: #088395;
+            --accent-glow: rgba(0, 212, 255, 0.5);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00d4ff 100%);
+            --gradient-secondary: linear-gradient(135deg, #0a4d68 0%, #088395 50%, #00d4ff 100%);
+            --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,244,255,0.9) 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #0f1629;
+            --bg-tertiary: #1a1a2e;
+            --text-primary: #e0f2ff;
+            --text-secondary: #a0b8d0;
+            --text-inverse: #ffffff;
+            --header-bg: rgba(10, 14, 39, 0.85);
+            --header-shadow: rgba(0, 212, 255, 0.2);
+            --nav-link-color: #e0f2ff;
+            --nav-link-hover: #00d4ff;
+            --card-bg: rgba(15, 22, 41, 0.7);
+            --card-border: rgba(0, 212, 255, 0.4);
+            --border-color: rgba(0, 212, 255, 0.3);
+            --input-bg: rgba(15, 22, 41, 0.8);
+            --input-border: rgba(0, 212, 255, 0.4);
+            --accent-primary: #00d4ff;
+            --accent-secondary: #00f5ff;
+            --accent-glow: rgba(0, 212, 255, 0.6);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00d4ff 100%);
+            --gradient-secondary: linear-gradient(135deg, #0a4d68 0%, #088395 50%, #00d4ff 100%);
+            --gradient-card: linear-gradient(135deg, rgba(15, 22, 41, 0.8) 0%, rgba(10, 14, 39, 0.6) 100%);
+        }
+
+        /* Animated Background Pattern */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 60px var(--accent-glow);
+            }
+            50% { 
+                box-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow), 0 0 90px var(--accent-glow);
+            }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: var(--accent-primary); }
+            50% { border-color: var(--accent-secondary); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideCarousel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 10px)); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -29,10 +122,26 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            background-size: 100% 100%, 100% 100%, 100% 100%;
+            background-attachment: fixed;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            position: relative;
+        }
+
+        [data-theme="dark"] body {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(118, 75, 162, 0.15) 0%, transparent 50%);
         }
 
         /* Ensure touch-friendly elements */
@@ -48,20 +157,49 @@
             text-size-adjust: 100%;
         }
 
-        /* Header */
+        /* Theme Toggle Button - Simple for White Header */
+        .theme-toggle {
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            border: none;
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            box-shadow: 0 2px 8px rgba(10, 77, 104, 0.2);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px) rotate(15deg);
+            box-shadow: 0 4px 12px rgba(10, 77, 104, 0.35);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0) rotate(15deg) scale(0.95);
+        }
+
+        /* Header - Always White (like in image) */
         header {
-            background: #fff;
+            background: #ffffff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: box-shadow 0.3s ease;
         }
 
         .top-bar {
-            background:#17223B;
-            color: #fff;
+            background: var(--bg-tertiary);
+            color: var(--text-inverse);
             padding: 10px 0;
             font-size: 14px;
+            transition: background-color 0.3s ease;
         }
 
         .top-bar .container {
@@ -112,19 +250,91 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 15px;
+        }
+
+        .main-header .container .logo {
+            flex-shrink: 0;
+        }
+
+        .main-header .container .header-right-group {
+            flex-shrink: 0;
+        }
+
+        .main-header .container > * {
+            display: flex;
+            align-items: center;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
         }
 
         .header-actions-desktop {
             display: flex;
+        }
+
+        .header-right-group {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-shrink: 0;
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        @media (min-width: 969px) {
+            .desktop-nav {
+                display: block;
+            }
+
+            .desktop-nav ul {
+                display: flex;
+                list-style: none;
+                gap: 35px;
+                margin: 0;
+                padding: 0;
+            }
+
+            .desktop-nav a {
+                text-decoration: none;
+                color: #333333;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-size: 15px;
+                position: relative;
+                padding: 5px 0;
+            }
+
+            .desktop-nav a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+                transition: width 0.3s ease;
+            }
+
+            .desktop-nav a:hover {
+                color: #088395;
+            }
+
+            .desktop-nav a:hover::after {
+                width: 100%;
+            }
+
+            nav#mainNav {
+                display: none;
+            }
         }
 
         /* Hide mobile menu buttons on desktop */
@@ -146,6 +356,11 @@
             background-clip: text;
             text-decoration: none;
             letter-spacing: 2px;
+            transition: filter 0.3s ease;
+        }
+
+        .logo:hover {
+            filter: brightness(1.1);
         }
 
         nav ul {
@@ -156,14 +371,31 @@
 
         nav a {
             text-decoration: none;
-            color: #333;
+            color: #333333;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
             font-size: 15px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            transition: width 0.3s ease;
         }
 
         nav a:hover {
             color: #088395;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .cta-btn {
@@ -177,6 +409,10 @@
             display: inline-block;
             border: none;
             cursor: pointer;
+            white-space: nowrap;
+            min-width: 120px;
+            text-align: center;
+            box-sizing: border-box;
         }
 
         .cta-btn:hover {
@@ -185,23 +421,48 @@
         }
 
         .btn-gradient {
-            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            background: var(--gradient-secondary);
+            background-size: 200% 200%;
             color: #fff;
             padding: 12px 28px;
             border-radius: 25px;
             font-weight: 600;
-            border: none;
+            border: 1px solid var(--accent-primary);
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--accent-glow), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-gradient:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(10, 77, 104, 0.35);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px var(--accent-glow), 0 0 40px var(--accent-glow), inset 0 0 30px rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-secondary);
+            animation: gradientShift 1s ease infinite;
             color: #fff;
         }
 
@@ -225,17 +486,37 @@
             padding: 0 20px;
         }
 
-        /* Hero Section */
+        /* Hero Section - Futuristic */
         .hero {
             position: relative;
             height: 650px;
-            background: linear-gradient(135deg, #17223B 0%, #0a4d68 100%),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%230a4d68" width="1200" height="600"/><circle fill="%23088395" cx="200" cy="100" r="80" opacity="0.3"/><circle fill="%2305445e" cx="800" cy="400" r="120" opacity="0.3"/><circle fill="%23088395" cx="1000" cy="150" r="100" opacity="0.3"/></svg>');
-            background-size: cover;
+            background: var(--gradient-secondary);
+            background-size: 200% 200%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+            background-size: 200% 200%, 200% 200%, 200% 200%;
             background-position: center;
             display: flex;
             align-items: center;
             overflow: hidden;
+            animation: gradientShift 8s ease infinite;
+            box-shadow: inset 0 0 100px rgba(0, 212, 255, 0.2);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            animation: float 10s ease-in-out infinite;
+            pointer-events: none;
         }
 
         .hero-content {
@@ -270,6 +551,11 @@
             font-weight: 700;
             line-height: 1.2;
             animation: fadeInUp 0.8s ease;
+            text-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow);
+            background: linear-gradient(135deg, #ffffff 0%, rgba(0, 212, 255, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
@@ -288,8 +574,8 @@
 
         .btn {
             padding: 16px 40px;
-            background: #fff;
-            color: #17223B;
+            background: var(--card-bg);
+            color: var(--text-primary);
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
@@ -375,16 +661,23 @@
 
         /* Search Bar */
         .search-section {
-            background: #fff;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 40px 0;
             margin-top: -50px;
             position: relative;
             z-index: 10;
+            transition: background-color 0.3s ease;
         }
 
         .search-box {
-            background: #fff;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
             border-radius: 15px;
+            transition: all 0.3s ease;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             padding: 30px;
             display: grid;
@@ -399,24 +692,32 @@
 
         .search-input label {
             font-size: 13px;
-            color: #666;
+            color: var(--text-secondary);
             margin-bottom: 8px;
             font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .search-input input, .search-input select {
             padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border: 2px solid var(--input-border);
+            border-radius: 12px;
             font-size: 15px;
-            transition: border 0.3s;
+            transition: all 0.3s ease;
             min-height: 44px;
             width: 100%;
+            background: var(--input-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
         .search-input input:focus, .search-input select:focus {
             outline: none;
-            border-color: #088395;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-glow), 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: borderGlow 2s ease-in-out infinite;
         }
 
         .search-btn {
@@ -442,7 +743,8 @@
         /* Destinations */
         .destinations {
             padding: 100px 0;
-            background: #f8f9fa;
+            background: var(--bg-primary);
+            transition: background-color 0.3s ease;
         }
 
         .section-header {
@@ -453,12 +755,14 @@
         .section-title {
             font-size: 42px;
             margin-bottom: 15px;
-            color: #17223B;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
 
         .section-subtitle {
             font-size: 18px;
-            color: #666;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .destination-grid {
@@ -468,15 +772,40 @@
         }
 
         .destination-card {
-            background: #fff;
-            border-radius: 15px;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 32px var(--header-shadow), 0 0 0 1px var(--card-border);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             cursor: pointer;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.6s ease forwards;
+            position: relative;
+        }
+
+        .destination-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .destination-card:hover::before {
+            opacity: 1;
         }
 
         .destination-card:nth-child(1) { animation-delay: 0.1s; }
@@ -487,8 +816,9 @@
         .destination-card:nth-child(6) { animation-delay: 0.6s; }
 
         .destination-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 0 2px var(--accent-primary);
+            animation: float 3s ease-in-out infinite;
         }
 
         .destination-img {
@@ -513,23 +843,25 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, #ffffff 100%);
-            color: #0f172a;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-primary);
             padding: 10px 16px;
             border-radius: 999px;
             font-size: 13px;
             font-weight: 700;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+            box-shadow: 0 6px 20px var(--header-shadow), 0 0 0 1px var(--card-border);
             display: inline-flex;
             align-items: center;
             gap: 8px;
             letter-spacing: .2px;
-            backdrop-filter: blur(2px);
+            transition: all 0.3s ease;
         }
         .destination-badge::before{
             content: "★";
             color: #f59e0b; /* amber star */
-            text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
             font-size: 14px;
             line-height: 1;
         }
@@ -541,14 +873,16 @@
         .destination-title {
             font-size: 24px;
             margin-bottom: 12px;
-            color: #17223B;
+            color: var(--text-primary);
             font-weight: 700;
+            transition: color 0.3s ease;
         }
 
         .destination-desc {
-            color: #666;
+            color: var(--text-secondary);
             margin-bottom: 20px;
             line-height: 1.7;
+            transition: color 0.3s ease;
         }
 
         .destination-footer {
@@ -556,29 +890,372 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 15px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border-color);
             gap: 12px;
+            transition: border-color 0.3s ease;
         }
 
         .price {
             font-size: 28px;
-            color: #17223B;
+            color: var(--text-primary);
             font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         .price-label {
             font-size: 13px;
-            color: #999;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .agency-tag {
             font-size: 13px;
             font-weight: 600;
-            color: #0a4d68;
-            background: rgba(10,77,104,0.1);
+            color: var(--accent-primary);
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
             padding: 6px 12px;
             border-radius: 999px;
             white-space: nowrap;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Late Escape Deals Section */
+        .late-escape-section {
+            padding: 60px 0;
+            background: var(--bg-primary);
+        }
+
+        .late-escape-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 8px 32px var(--header-shadow), 0 0 0 1px var(--card-border);
+            align-items: center;
+        }
+
+        .late-escape-content h2 {
+            font-size: 36px;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .late-escape-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .late-escape-image {
+            border-radius: 16px;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .late-escape-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            margin: 40px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            animation: slideCarousel 30s linear infinite;
+            width: fit-content;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        .destination-card-carousel,
+        .explore-card,
+        .deal-card {
+            min-width: 280px;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px var(--header-shadow), 0 0 0 1px var(--card-border);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .destination-card-carousel:hover,
+        .explore-card:hover,
+        .deal-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px var(--accent-glow);
+        }
+
+        .destination-card-carousel .destination-img,
+        .explore-img,
+        .deal-img {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .destination-card-carousel .destination-img img,
+        .explore-img img,
+        .deal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .destination-card-carousel .destination-info,
+        .explore-info,
+        .deal-info {
+            padding: 20px;
+        }
+
+        .destination-card-carousel .destination-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .destination-card-carousel h3,
+        .explore-info h3,
+        .deal-info h4 {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .flag {
+            font-size: 24px;
+        }
+
+        .explore-info p,
+        .deal-price {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .deal-heart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .deal-heart:hover {
+            transform: scale(1.2);
+        }
+
+        /* Trending Destinations Section */
+        .trending-destinations {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        /* Explore Uzbekistan Section */
+        .explore-uzbekistan {
+            padding: 80px 0;
+            background: var(--bg-primary);
+        }
+
+        /* Property Type Section */
+        .property-type-section {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .property-card {
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px var(--header-shadow), 0 0 0 1px var(--card-border);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px var(--accent-glow);
+        }
+
+        .property-img {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .property-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover .property-img img {
+            transform: scale(1.1);
+        }
+
+        .property-card h3 {
+            padding: 20px;
+            font-size: 20px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        /* Trip Planner Section */
+        .trip-planner-section {
+            padding: 80px 0;
+            background: var(--bg-primary);
+        }
+
+        .trip-categories {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .trip-category-btn {
+            padding: 12px 24px;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .trip-category-btn:hover,
+        .trip-category-btn.active {
+            background: var(--gradient-primary);
+            border-color: var(--accent-primary);
+            color: #fff;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .trip-destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .trip-destination-card {
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px var(--header-shadow), 0 0 0 1px var(--card-border);
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+            cursor: pointer;
+        }
+
+        .trip-destination-card.hidden {
+            display: none;
+        }
+
+        .trip-destination-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px var(--accent-glow);
+        }
+
+        .trip-dest-img {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .trip-dest-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .trip-destination-card:hover .trip-dest-img img {
+            transform: scale(1.1);
+        }
+
+        .trip-dest-info {
+            padding: 20px;
+        }
+
+        .trip-dest-info h3 {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .trip-dest-info p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Weekend Deals Section */
+        .weekend-deals-section {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .late-escape-card {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+
+            .carousel-track {
+                animation-duration: 20s;
+            }
+
+            .destination-card-carousel,
+            .explore-card,
+            .deal-card {
+                min-width: 240px;
+            }
+
+            .property-grid,
+            .trip-destinations-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
         }
 
         /* Services */
@@ -596,13 +1273,33 @@
         .service-card {
             text-align: center;
             padding: 40px 30px;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--header-shadow), 0 0 0 1px var(--card-border);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.6s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover::after {
+            opacity: 0.3;
         }
 
         .service-card:nth-child(1) { animation-delay: 0.1s; }
@@ -611,38 +1308,62 @@
         .service-card:nth-child(4) { animation-delay: 0.4s; }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 60px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 0 2px var(--accent-primary);
+            animation: float 3s ease-in-out infinite;
         }
 
         .service-icon {
             width: 80px;
             height: 80px;
             margin: 0 auto 25px;
-            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            background: var(--gradient-secondary);
+            background-size: 200% 200%;
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 36px;
             color: #fff;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(10, 77, 104, 0.2);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 15px var(--accent-glow), inset 0 0 20px rgba(255, 255, 255, 0.2);
+            position: relative;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .service-icon::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 22px;
+            padding: 2px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover .service-icon::before {
+            opacity: 1;
         }
 
         .service-card:hover .service-icon {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(10, 77, 104, 0.4);
+            transform: translateY(-8px) scale(1.15) rotate(5deg);
+            box-shadow: 0 10px 30px var(--accent-glow), 0 0 40px var(--accent-glow), inset 0 0 30px rgba(255, 255, 255, 0.3);
+            animation: gradientShift 1s ease infinite, glowPulse 2s ease-in-out infinite;
         }
 
         .service-card h3 {
             font-size: 22px;
             margin-bottom: 15px;
-            color: #17223B;
+            color: var(--text-primary);
         }
 
         .service-card p {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.7;
             margin-bottom: 15px;
         }
@@ -736,7 +1457,8 @@
         /* Newsletter */
         .newsletter {
             padding: 80px 0;
-            background: #f8f9fa;
+            background: var(--bg-secondary);
+            transition: background-color 0.3s ease;
         }
 
         .newsletter-content {
@@ -748,13 +1470,15 @@
         .newsletter h2 {
             font-size: 36px;
             margin-bottom: 20px;
-            color: #17223B;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
 
         .newsletter p {
             font-size: 18px;
-            color: #666;
+            color: var(--text-secondary);
             margin-bottom: 35px;
+            transition: color 0.3s ease;
         }
 
         .newsletter-form {
@@ -767,9 +1491,20 @@
         .newsletter-form input {
             flex: 1;
             padding: 15px 20px;
-            border: 1px solid #ddd;
+            border: 2px solid var(--input-border);
             border-radius: 30px;
             font-size: 15px;
+            background: var(--input-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
         .newsletter-form button {
@@ -793,19 +1528,24 @@
 
         .agency-section {
             padding: 80px 0;
-            background: #f0f4f9;
+            background: var(--bg-secondary);
+            transition: background-color 0.3s ease;
         }
         .ai-assistant {
             padding: 80px 0;
-            background: #f8fbff;
+            background: var(--bg-primary);
+            transition: background-color 0.3s ease;
         }
         .ai-card {
             max-width: 900px;
             margin: 0 auto;
-            background: #fff;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 24px;
-            box-shadow: 0 20px 55px rgba(11, 66, 125, 0.18);
+            box-shadow: 0 20px 55px var(--header-shadow), 0 0 0 1px var(--card-border);
             padding: 32px;
+            transition: all 0.3s ease;
         }
         .ai-header {
             display: flex;
@@ -814,16 +1554,41 @@
         }
         .ai-icon {
             font-size: 36px;
-            background: rgba(10, 77, 104, 0.1);
-            color: #0a4d68;
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            color: var(--accent-primary);
             border-radius: 16px;
             padding: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
         .ai-form {
             margin-top: 24px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
+        }
+
+        .season-month-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            grid-column: span 1;
+        }
+
+        .ai-form .ai-submit {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .ai-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .season-month-row {
+                grid-column: 1;
+                grid-template-columns: 1fr;
+            }
         }
         .ai-field {
             display: flex;
@@ -831,39 +1596,47 @@
         }
         .ai-field label {
             font-size: 13px;
-            color: #475569;
+            color: var(--text-primary);
             font-weight: 600;
             margin-bottom: 6px;
+            transition: color 0.3s ease;
         }
         .ai-field input,
         .ai-field select {
-            border: 1px solid rgba(148, 163, 184, 0.5);
+            border: 2px solid var(--input-border);
             border-radius: 14px;
+            background: var(--input-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-primary);
             padding: 12px;
             font-size: 15px;
-            transition: border-color .2s ease, box-shadow .2s ease;
+            transition: all 0.3s ease;
         }
         .ai-field input:focus,
         .ai-field select:focus {
             outline: none;
-            border-color: #0a4d68;
-            box-shadow: 0 0 0 2px rgba(10, 77, 104, 0.15);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
         .ai-submit {
             align-self: end;
         }
         .ai-response {
             margin-top: 24px;
-            background: rgba(10, 77, 104, 0.05);
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
             border-radius: 14px;
             padding: 18px;
-            color: #0f172a;
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 72px;
+            transition: all 0.3s ease;
         }
         .about-section {
             padding: 90px 0;
-            background: #ffffff;
+            background: var(--bg-primary);
+            transition: background-color 0.3s ease;
         }
         .about-grid {
             display: grid;
@@ -872,18 +1645,19 @@
             align-items: start;
         }
         .about-story {
-            background: rgba(10,77,104,0.05);
+            background: var(--bg-secondary);
             padding: 28px;
             border-radius: 22px;
-            box-shadow: 0 15px 40px rgba(8, 64, 112, 0.12);
+            box-shadow: 0 15px 40px var(--header-shadow);
+            transition: background-color 0.3s ease;
         }
         .about-story h3 {
             font-size: 22px;
             margin-bottom: 12px;
-            color: #0a4d68;
+            color: var(--nav-link-hover);
         }
         .about-story p {
-            color: #475569;
+            color: var(--text-secondary);
             margin-bottom: 12px;
             line-height: 1.7;
         }
@@ -897,11 +1671,13 @@
             gap: 10px;
             align-items: flex-start;
             margin-bottom: 10px;
-            color: #1f2937;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
         .about-bullets li span {
-            color: #0a4d68;
+            color: var(--accent-primary);
             font-weight: 700;
+            transition: color 0.3s ease;
         }
         .about-stats {
             display: grid;
@@ -909,25 +1685,27 @@
             gap: 16px;
         }
         .about-stat {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 18px;
             padding: 24px;
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-            border: 1px solid rgba(148,163,184,0.2);
+            box-shadow: 0 12px 30px var(--header-shadow);
+            border: 1px solid var(--border-color);
             text-align: center;
+            transition: background-color 0.3s ease;
         }
         .about-stat-value {
             font-size: 28px;
             font-weight: 700;
-            color: #0a4d68;
+            color: var(--nav-link-hover);
         }
         .about-stat-label {
             margin-top: 8px;
-            color: #475569;
+            color: var(--text-secondary);
         }
         .contact-section {
             padding: 90px 0;
-            background: linear-gradient(135deg, rgba(10,77,104,0.05) 0%, rgba(255,255,255,0.8) 100%);
+            background: var(--bg-secondary);
+            transition: background-color 0.3s ease;
         }
         .contact-grid {
             display: grid;
@@ -936,10 +1714,13 @@
             align-items: stretch;
         }
         .contact-card {
-            background: #fff;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 22px;
             padding: 32px;
-            box-shadow: 0 15px 45px rgba(9, 36, 64, 0.15);
+            box-shadow: 0 15px 45px var(--header-shadow), 0 0 0 1px var(--card-border);
+            transition: all 0.3s ease;
         }
         .contact-details {
             list-style: none;
@@ -952,14 +1733,16 @@
             display: flex;
             gap: 16px;
             align-items: flex-start;
-            color: #1e293b;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
         .contact-details li span.icon {
             font-size: 22px;
-            color: #0a4d68;
+            color: var(--accent-primary);
             display: flex;
             align-items: center;
             flex-shrink: 0;
+            transition: color 0.3s ease;
         }
 
         .contact-details li span.icon svg {
@@ -968,41 +1751,51 @@
         }
         .contact-details strong {
             display: block;
-            color: #0a4d68;
+            color: var(--accent-primary);
+            transition: color 0.3s ease;
         }
         .contact-form {
-            background: rgba(255,255,255,0.95);
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 22px;
             padding: 32px;
-            box-shadow: 0 15px 40px rgba(12, 74, 110, 0.12);
-            border: 1px solid rgba(148,163,184,0.25);
+            box-shadow: 0 15px 40px var(--header-shadow), 0 0 0 1px var(--card-border);
+            border: 1px solid var(--card-border);
             display: grid;
             gap: 18px;
+            transition: all 0.3s ease;
         }
         .contact-form label {
             font-size: 13px;
             font-weight: 600;
-            color: #475569;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
         .contact-form input,
         .contact-form textarea {
             width: 100%;
             padding: 12px 14px;
             border-radius: 14px;
-            border: 1px solid rgba(148,163,184,0.4);
+            border: 2px solid var(--input-border);
             font-size: 15px;
-            transition: border-color .2s ease, box-shadow .2s ease;
+            background: var(--input-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
         }
         .contact-form input:focus,
         .contact-form textarea:focus {
             outline: none;
-            border-color: #0a4d68;
-            box-shadow: 0 0 0 2px rgba(10,77,104,0.15);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
         .contact-status {
             font-size: 14px;
-            color: #0a4d68;
+            color: var(--accent-primary);
             margin-top: -8px;
+            transition: color 0.3s ease;
         }
         .contact-status.error {
             color: #dc2626;
@@ -1015,19 +1808,31 @@
             margin-top: 24px;
         }
         .agency-toolbar button {
-            border: none;
-            background: rgba(10,77,104,0.1);
-            color: #0a4d68;
+            border: 1px solid var(--card-border);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             font-weight: 600;
             padding: 10px 22px;
             border-radius: 999px;
             cursor: pointer;
-            transition: all .25s ease;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
+
+        .agency-toolbar button:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
         .agency-toolbar button.active {
-            background: #0a4d68;
+            background: var(--gradient-secondary);
+            background-size: 200% 200%;
             color: #fff;
-            box-shadow: 0 10px 25px rgba(10,77,104,0.25);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 25px var(--accent-glow), 0 0 20px var(--accent-glow);
+            animation: gradientShift 3s ease infinite;
         }
         .agency-grid {
             display: grid;
@@ -1036,18 +1841,50 @@
             margin-top: 40px;
         }
         .agency-card {
-            background: #fff;
-            border-radius: 18px;
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 8px 30px rgba(13,42,85,0.12);
-            border: 1px solid rgba(15,23,42,0.05);
+            box-shadow: 0 8px 32px var(--header-shadow), 0 0 0 1px var(--card-border);
+            border: 1px solid var(--card-border);
             cursor: pointer;
-            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .agency-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .agency-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .agency-card:nth-child(1) { animation-delay: 0.1s; }
@@ -1057,17 +1894,29 @@
         .agency-card:nth-child(5) { animation-delay: 0.5s; }
         .agency-card:nth-child(6) { animation-delay: 0.6s; }
         .agency-card:nth-child(7) { animation-delay: 0.7s; }
+        
         .agency-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 35px rgba(13,42,85,0.18);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 0 2px var(--accent-primary);
+            animation: float 3s ease-in-out infinite;
         }
-        .agency-card.active {
-            border-color: #0a4d68;
-            box-shadow: 0 14px 38px rgba(10,77,104,0.22);
+
+        .agency-card:hover::before {
+            opacity: 1;
         }
+
+        .agency-card:hover::after {
+            opacity: 0.3;
+        }
+
         .agency-card.active {
-            border-color: #0a4d68;
-            box-shadow: 0 14px 38px rgba(10,77,104,0.22);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 60px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 0 2px var(--accent-primary);
+            animation: float 3s ease-in-out infinite, glowPulse 2s ease-in-out infinite;
+        }
+
+        .agency-card.active::before {
+            opacity: 1;
         }
         .agency-badge {
             display: inline-flex;
@@ -1075,54 +1924,90 @@
             gap: 6px;
             padding: 6px 10px;
             border-radius: 999px;
-            background: rgba(38,132,255,0.08);
-            color: #0f172a;
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
             font-size: 12px;
             font-weight: 600;
             position: relative;
             z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
+
+        .agency-card:hover .agency-badge {
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: scale(1.05);
+        }
+
         .agency-card h3 {
             margin-top: 16px;
             font-size: 20px;
-            color: #0f172a;
+            color: var(--text-primary);
             position: relative;
             z-index: 1;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
+
+        .agency-card:hover h3 {
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
         .agency-card p {
             margin-top: 10px;
-            color: #475569;
+            color: var(--text-secondary);
             line-height: 1.6;
             position: relative;
             z-index: 1;
+            transition: color 0.3s ease;
         }
+
         .agency-card .cta {
             margin-top: 18px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            color: #0a4d68;
+            color: var(--accent-primary);
             font-weight: 600;
             position: relative;
             z-index: 1;
+            transition: all 0.3s ease;
         }
+
+        .agency-card .cta span:last-child {
+            transition: transform 0.3s ease;
+        }
+
+        .agency-card:hover .cta {
+            color: var(--accent-secondary);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .agency-card:hover .cta span:last-child {
+            transform: translateX(5px);
+        }
+
         .agency-flair {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(10,77,104,0.12) 0%, rgba(10,77,104,0) 55%);
+            background: var(--gradient-primary);
             opacity: 0;
-            transition: opacity .25s ease;
+            transition: opacity 0.4s ease;
+            border-radius: 20px;
+            filter: blur(20px);
         }
+
         .agency-card:hover .agency-flair,
         .agency-card.active .agency-flair {
-            opacity: 1;
+            opacity: 0.2;
         }
 
         /* Footer */
         footer {
-            background: #1a1a1a;
-            color: #fff;
+            background: var(--bg-tertiary);
+            color: var(--text-inverse);
             padding: 80px 0 30px;
+            transition: background-color 0.3s ease;
         }
 
         .footer-content {
@@ -1134,8 +2019,9 @@
 
         .footer-section h3 {
             margin-bottom: 25px;
-            color: #17223B;
+            color: var(--text-inverse);
             font-size: 20px;
+            transition: color 0.3s ease;
         }
 
         .footer-section ul {
@@ -1147,18 +2033,19 @@
         }
 
         .footer-section a {
-            color: #ccc;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .footer-section a:hover {
-            color: #17223B;
+            color: var(--text-inverse);
         }
 
         .footer-section p {
-            color: #ccc;
+            color: rgba(255, 255, 255, 0.7);
             line-height: 1.8;
+            transition: color 0.3s ease;
         }
 
         .social-links {
@@ -1180,15 +2067,16 @@
         }
 
         .social-links a:hover {
-            background: #17223B;
+            background: var(--nav-link-hover);
             transform: translateY(-3px);
         }
 
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #333;
-            color: #888;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            transition: border-color 0.3s ease, color 0.3s ease;
         }
 
         /* Mobile Menu */
@@ -1216,30 +2104,38 @@
         .modal {
             width: 100%;
             max-width: 760px;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            background: var(--gradient-card);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px var(--header-shadow), 0 0 0 1px var(--card-border), 0 0 40px var(--accent-glow);
             overflow: hidden;
+            transition: all 0.5s ease;
+            border: 2px solid var(--card-border);
+            animation: float 6s ease-in-out infinite;
         }
         .modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 18px 22px;
-            border-bottom: 1px solid #eee;
-            background: linear-gradient(135deg,#f8fafc 0%,#ffffff 100%);
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         .modal-title {
             font-size: 20px;
             font-weight: 700;
-            color: #0f172a;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
         .modal-close {
             background: none;
             border: none;
             font-size: 22px;
             cursor: pointer;
-            color: #0f172a;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
         .modal-body {
             display: grid;
@@ -1252,7 +2148,8 @@
             height: 220px;
             border-radius: 12px;
             overflow: hidden;
-            background: #f1f5f9;
+            background: var(--bg-secondary);
+            transition: background-color 0.3s ease;
         }
         .modal-image img {
             width: 100%;
@@ -1261,9 +2158,10 @@
             display: block;
         }
         .modal-info p {
-            color: #475569;
+            color: var(--text-secondary);
             line-height: 1.7;
             margin-bottom: 10px;
+            transition: color 0.3s ease;
         }
         .modal-form {
             display: grid;
@@ -1277,13 +2175,17 @@
         .form-field label {
             font-size: 13px;
             font-weight: 600;
-            color: #0f172a;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
         .form-field input {
             padding: 12px 12px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--input-border);
             border-radius: 10px;
             font-size: 14px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
         .form-actions {
             display: flex;
@@ -1292,10 +2194,12 @@
         }
         .segmented {
             display: inline-flex;
-            background: #f1f5f9;
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
             border-radius: 999px;
             padding: 4px;
             gap: 4px;
+            transition: all 0.3s ease;
         }
         .segmented button {
             border: none;
@@ -1304,12 +2208,15 @@
             border-radius: 999px;
             font-weight: 700;
             cursor: pointer;
-            color: #0f172a;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
         }
         .segmented button.active {
-            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            background: var(--gradient-secondary);
+            background-size: 200% 200%;
             color: #fff;
-            box-shadow: 0 6px 18px rgba(10, 77, 104, 0.35);
+            box-shadow: 0 6px 18px var(--accent-glow);
+            animation: gradientShift 3s ease infinite;
         }
         .hidden { display: none; }
         .modal-meta {
@@ -1319,12 +2226,14 @@
             margin: 10px 0 14px;
         }
         .meta-chip {
-            background: #f1f5f9;
-            color: #0f172a;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
             padding: 6px 10px;
             border-radius: 999px;
             font-size: 12px;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
         .modal-actions {
             display: flex;
@@ -1994,12 +2903,25 @@
                         <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
                         <a id="headerLoginBtn" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
                         <a id="headerRegisterBtn" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
                     </div>
                 </nav>
-                <div class="header-actions header-actions-desktop">
-                    <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
-                    <a id="headerLoginBtnDesktop" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
-                    <a id="headerRegisterBtnDesktop" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                <div class="header-right-group">
+                    <nav class="desktop-nav">
+                        <ul>
+                            <li><a href="#home" data-text="nav_home">Bosh sahifa</a></li>
+                            <li><a href="#destinations" data-text="nav_destinations">Yo'nalishlar</a></li>
+                            <li><a href="#services" data-text="nav_services">Xizmatlar</a></li>
+                            <li><a href="#about" data-text="nav_about">Biz haqimizda</a></li>
+                            <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
+                        </ul>
+                    </nav>
+                    <div class="header-actions header-actions-desktop">
+                        <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
+                        <a id="headerLoginBtnDesktop" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
+                        <a id="headerRegisterBtnDesktop" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2091,18 +3013,125 @@
                         <label for="aiDestination" data-text="ai_destination_label">Qiziqqan yo‘nalish</label>
                         <input type="text" id="aiDestination" placeholder="Osiyo, Yevropa..." data-placeholder="ai_destination_placeholder">
                     </div>
-                    <div class="ai-field">
-                        <label for="aiSeason" data-text="ai_season_label">Qaysi oylar</label>
-                        <select id="aiSeason">
-                            <option value="summer" data-text="ai_season_summer">Yoz</option>
-                            <option value="autumn" data-text="ai_season_autumn">Kuz</option>
-                            <option value="winter" data-text="ai_season_winter">Qish</option>
-                            <option value="spring" data-text="ai_season_spring">Bahor</option>
-                        </select>
+                    <div class="ai-field season-month-row">
+                        <div class="ai-field">
+                            <label for="aiSeason" data-text="ai_season_label">Qaysi fasllar</label>
+                            <select id="aiSeason">
+                                <option value="summer" data-text="ai_season_summer">Yoz</option>
+                                <option value="autumn" data-text="ai_season_autumn">Kuz</option>
+                                <option value="winter" data-text="ai_season_winter">Qish</option>
+                                <option value="spring" data-text="ai_season_spring">Bahor</option>
+                            </select>
+                        </div>
+                        <div class="ai-field" id="aiMonthField" style="display: none;">
+                            <label for="aiMonth" data-text="ai_month_label">Oy</label>
+                            <select id="aiMonth">
+                                <option value="" data-text="ai_month_select">Tanlang</option>
+                                <option value="january" data-text="ai_month_january">Yanvar</option>
+                                <option value="february" data-text="ai_month_february">Fevral</option>
+                                <option value="march" data-text="ai_month_march">Mart</option>
+                                <option value="april" data-text="ai_month_april">Aprel</option>
+                                <option value="may" data-text="ai_month_may">May</option>
+                                <option value="june" data-text="ai_month_june">Iyun</option>
+                                <option value="july" data-text="ai_month_july">Iyul</option>
+                                <option value="august" data-text="ai_month_august">Avgust</option>
+                                <option value="september" data-text="ai_month_september">Sentabr</option>
+                                <option value="october" data-text="ai_month_october">Oktabr</option>
+                                <option value="november" data-text="ai_month_november">Noyabr</option>
+                                <option value="december" data-text="ai_month_december">Dekabr</option>
+                            </select>
+                        </div>
                     </div>
                     <button type="submit" class="btn-gradient ai-submit" data-text="ai_generate_btn">Tavsiyalarni ko‘rish</button>
                 </form>
                 <div class="ai-response" id="aiResponse" data-text="ai_response_placeholder">Savolingizni kiriting va AI yordamchidan tavsiyalar oling.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Destinations Section -->
+    <section class="trending-destinations">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-text="trending_title">Trending destinations</h2>
+                <p class="section-subtitle" data-text="trending_subtitle">Most popular choices for travellers from Uzbekistan</p>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-track" id="trendingCarousel">
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Tashkent" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_tashkent">Toshkent</h3>
+                            <span class="flag">🇺🇿</span>
+                        </div>
+                    </div>
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Samarkand" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_samarkand">Samarqand</h3>
+                            <span class="flag">🇺🇿</span>
+                        </div>
+                    </div>
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=800&auto=format&fit=crop" alt="Istanbul" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_istanbul">Istanbul</h3>
+                            <span class="flag">🇹🇷</span>
+                        </div>
+                    </div>
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Bukhara" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_bukhara">Buxoro</h3>
+                            <span class="flag">🇺🇿</span>
+                        </div>
+                    </div>
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop" alt="Dubai" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_dubai">Dubai</h3>
+                            <span class="flag">🇦🇪</span>
+                        </div>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Tashkent" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_tashkent">Toshkent</h3>
+                            <span class="flag">🇺🇿</span>
+                        </div>
+                    </div>
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Samarkand" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_samarkand">Samarqand</h3>
+                            <span class="flag">🇺🇿</span>
+                        </div>
+                    </div>
+                    <div class="destination-card-carousel">
+                        <div class="destination-img">
+                            <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=800&auto=format&fit=crop" alt="Istanbul" loading="lazy">
+                        </div>
+                        <div class="destination-info">
+                            <h3 data-text="dest_istanbul">Istanbul</h3>
+                            <span class="flag">🇹🇷</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2634,6 +3663,12 @@
         </div>
 
         <script>
+            // Initialize theme immediately to prevent flash
+            (function() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            })();
+
             // Smooth scroll for internal links
             document.addEventListener('click', function(e) {
                 const target = e.target.closest('a[href^="#"]');
@@ -2679,6 +3714,54 @@
             window.toggleMenu = toggleMenu;
 
             // Close mobile menu when clicking on navigation links
+            // Theme Toggle Functionality
+            (function() {
+                // Get theme from localStorage or default to light
+                function getTheme() {
+                    return localStorage.getItem('theme') || 'light';
+                }
+
+                // Set theme
+                function setTheme(theme) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    updateThemeIcons(theme);
+                }
+
+                // Update theme toggle button icons
+                function updateThemeIcons(theme) {
+                    const icon = theme === 'dark' ? '☀️' : '🌙';
+                    const toggleMobile = document.getElementById('themeToggleMobile');
+                    const toggleDesktop = document.getElementById('themeToggleDesktop');
+                    if (toggleMobile) toggleMobile.textContent = icon;
+                    if (toggleDesktop) toggleDesktop.textContent = icon;
+                }
+
+                // Toggle theme
+                function toggleTheme() {
+                    const currentTheme = getTheme();
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    setTheme(newTheme);
+                }
+
+                // Initialize theme on page load
+                document.addEventListener('DOMContentLoaded', function() {
+                    const savedTheme = getTheme();
+                    setTheme(savedTheme);
+
+                    // Add event listeners to toggle buttons
+                    const toggleMobile = document.getElementById('themeToggleMobile');
+                    const toggleDesktop = document.getElementById('themeToggleDesktop');
+                    
+                    if (toggleMobile) {
+                        toggleMobile.addEventListener('click', toggleTheme);
+                    }
+                    if (toggleDesktop) {
+                        toggleDesktop.addEventListener('click', toggleTheme);
+                    }
+                });
+            })();
+
             document.addEventListener('DOMContentLoaded', function() {
                 var nav = document.getElementById('mainNav');
                 if (nav) {
@@ -2820,15 +3903,81 @@
                         ai_budget_placeholder: "1500",
                         ai_destination_label: "Qiziqqan yo‘nalish",
                         ai_destination_placeholder: "Osiyo, Yevropa...",
-                        ai_season_label: "Qaysi oylar",
+                        ai_season_label: "Qaysi fasllar",
                         ai_season_summer: "Yoz",
                         ai_season_autumn: "Kuz",
                         ai_season_winter: "Qish",
                         ai_season_spring: "Bahor",
-                        ai_generate_btn: "Tavsiyalarni ko‘rish",
+                        ai_month_label: "Oy",
+                        ai_month_select: "Tanlang",
+                        ai_month_january: "Yanvar",
+                        ai_month_february: "Fevral",
+                        ai_month_march: "Mart",
+                        ai_month_april: "Aprel",
+                        ai_month_may: "May",
+                        ai_month_june: "Iyun",
+                        ai_month_july: "Iyul",
+                        ai_month_august: "Avgust",
+                        ai_month_september: "Sentabr",
+                        ai_month_october: "Oktabr",
+                        ai_month_november: "Noyabr",
+                        ai_month_december: "Dekabr",
+                        ai_generate_btn: "Tavsiyalarni ko'rish",
                         ai_response_placeholder: "Savolingizni kiriting va AI yordamchidan tavsiyalar oling.",
                         search_guests: "Odamlar soni",
                         search_btn: "Qidirish",
+                        late_escape_title: "Yaxshi vaqt o'tkazish, uzoq emas",
+                        late_escape_subtitle: "Yozning oxirgi kunlarini kamida 15% chegirma bilan foydalaning",
+                        late_escape_btn: "Topish",
+                        trending_title: "Trend yo'nalishlar",
+                        trending_subtitle: "O'zbekiston sayohatchilari uchun eng mashhur tanlovlar",
+                        explore_uz_title: "O'zbekistanni kashf eting",
+                        explore_uz_subtitle: "Bu mashhur yo'nalishlar ko'p narsa taklif qiladi",
+                        explore_properties: "ob'ektlar",
+                        property_type_title: "Ob'ekt turi bo'yicha qidiruv",
+                        property_hotels: "Mehmonxonalar",
+                        property_apartments: "Kvartiralar",
+                        property_resorts: "Kurortlar",
+                        property_villas: "Villalar",
+                        trip_planner_title: "Tez va oson sayohat rejalashtiruvchi",
+                        trip_planner_subtitle: "Mavzuni tanlang va O'zbekistondagi eng yaxshi yo'nalishlarni kashf eting",
+                        trip_festivals: "Festivallar",
+                        trip_shopping: "Sotib olish va hunarmandchilik",
+                        trip_gastronomic: "Gastronomik sayohatlar",
+                        trip_cultural: "Madaniy tadqiqot",
+                        trip_architecture: "Arxitektura turlari",
+                        trip_historical: "Tarixiy joylar",
+                        weekend_deals_title: "Dam olish kunlari uchun takliflar",
+                        weekend_deals_subtitle: "14-16 noyabr kunlari uchun yashash joylarida tejang",
+                        dest_tashkent: "Toshkent",
+                        dest_samarkand: "Samarqand",
+                        dest_istanbul: "Istanbul",
+                        dest_bukhara: "Buxoro",
+                        dest_dubai: "Dubai",
+                        dest_khiva: "Xiva",
+                        dest_chimgan: "Chimgan",
+                        dest_fergana: "Farg'ona",
+                        dest_kokand: "Qo'qon",
+                        explore_tashkent_props: "1,409 ob'ektlar",
+                        explore_samarkand_props: "914 ob'ektlar",
+                        explore_bukhara_props: "587 ob'ektlar",
+                        explore_khiva_props: "163 ob'ektlar",
+                        explore_chimgan_props: "20 ob'ektlar",
+                        explore_fergana_props: "46 ob'ektlar",
+                        trip_tashkent_distance: "7 km uzoqlikda",
+                        trip_kokand_distance: "165 km uzoqlikda",
+                        trip_fergana_distance: "237 km uzoqlikda",
+                        trip_samarkand_distance: "262 km uzoqlikda",
+                        trip_bukhara_distance: "438 km uzoqlikda",
+                        trip_khiva_distance: "739 km uzoqlikda",
+                        deal_premium_hotel: "Premium mehmonxona",
+                        deal_luxury_apartment: "Luks kvartira",
+                        deal_resort_stay: "Kurort mehmonxonasi",
+                        deal_villa_retreat: "Villa dam olish maskani",
+                        deal_price_89: "$89/kecha",
+                        deal_price_75: "$75/kecha",
+                        deal_price_120: "$120/kecha",
+                        deal_price_150: "$150/kecha",
                         destinations_title: "Mashhur Yo'nalishlar",
                         destinations_subtitle: "Eng yaxshi takliflarimiz",
                         badge_popular: "Mashhur",
@@ -2988,10 +4137,76 @@
                         ai_season_autumn: "Осень",
                         ai_season_winter: "Зима",
                         ai_season_spring: "Весна",
+                        ai_month_label: "Месяц",
+                        ai_month_select: "Выберите",
+                        ai_month_january: "Январь",
+                        ai_month_february: "Февраль",
+                        ai_month_march: "Март",
+                        ai_month_april: "Апрель",
+                        ai_month_may: "Май",
+                        ai_month_june: "Июнь",
+                        ai_month_july: "Июль",
+                        ai_month_august: "Август",
+                        ai_month_september: "Сентябрь",
+                        ai_month_october: "Октябрь",
+                        ai_month_november: "Ноябрь",
+                        ai_month_december: "Декабрь",
                         ai_generate_btn: "Получить рекомендации",
                         ai_response_placeholder: "Введите запрос и получите рекомендации от AI помощника.",
                         search_guests: "Количество людей",
                         search_btn: "Искать",
+                        late_escape_title: "Хорошее время, а не долгое",
+                        late_escape_subtitle: "Выжмите последнее из лета со скидкой не менее 15%",
+                        late_escape_btn: "Найти",
+                        trending_title: "Популярные направления",
+                        trending_subtitle: "Самые популярные выборы для путешественников из Узбекистана",
+                        explore_uz_title: "Исследуйте Узбекистан",
+                        explore_uz_subtitle: "Эти популярные направления предлагают многое",
+                        explore_properties: "объектов",
+                        property_type_title: "Поиск по типу недвижимости",
+                        property_hotels: "Отели",
+                        property_apartments: "Апартаменты",
+                        property_resorts: "Курорты",
+                        property_villas: "Виллы",
+                        trip_planner_title: "Быстрый и простой планировщик поездок",
+                        trip_planner_subtitle: "Выберите настроение и исследуйте лучшие направления в Узбекистане",
+                        trip_festivals: "Фестивали",
+                        trip_shopping: "Шопинг и ремесла",
+                        trip_gastronomic: "Гастрономические путешествия",
+                        trip_cultural: "Культурное исследование",
+                        trip_architecture: "Архитектурные туры",
+                        trip_historical: "Исторические места",
+                        weekend_deals_title: "Предложения на выходные",
+                        weekend_deals_subtitle: "Экономьте на проживании с 14 по 16 ноября",
+                        dest_tashkent: "Ташкент",
+                        dest_samarkand: "Самарканд",
+                        dest_istanbul: "Стамбул",
+                        dest_bukhara: "Бухара",
+                        dest_dubai: "Дубай",
+                        dest_khiva: "Хива",
+                        dest_chimgan: "Чимган",
+                        dest_fergana: "Фергана",
+                        dest_kokand: "Коканд",
+                        explore_tashkent_props: "1,409 объектов",
+                        explore_samarkand_props: "914 объектов",
+                        explore_bukhara_props: "587 объектов",
+                        explore_khiva_props: "163 объекта",
+                        explore_chimgan_props: "20 объектов",
+                        explore_fergana_props: "46 объектов",
+                        trip_tashkent_distance: "7 км",
+                        trip_kokand_distance: "165 км",
+                        trip_fergana_distance: "237 км",
+                        trip_samarkand_distance: "262 км",
+                        trip_bukhara_distance: "438 км",
+                        trip_khiva_distance: "739 км",
+                        deal_premium_hotel: "Премиум отель",
+                        deal_luxury_apartment: "Роскошная квартира",
+                        deal_resort_stay: "Курортный отель",
+                        deal_villa_retreat: "Вилла для отдыха",
+                        deal_price_89: "$89/ночь",
+                        deal_price_75: "$75/ночь",
+                        deal_price_120: "$120/ночь",
+                        deal_price_150: "$150/ночь",
                         destinations_title: "Популярные направления",
                         destinations_subtitle: "Наши лучшие предложения",
                         badge_popular: "Популярно",
@@ -3151,10 +4366,76 @@
                         ai_season_autumn: "Autumn",
                         ai_season_winter: "Winter",
                         ai_season_spring: "Spring",
+                        ai_month_label: "Month",
+                        ai_month_select: "Select",
+                        ai_month_january: "January",
+                        ai_month_february: "February",
+                        ai_month_march: "March",
+                        ai_month_april: "April",
+                        ai_month_may: "May",
+                        ai_month_june: "June",
+                        ai_month_july: "July",
+                        ai_month_august: "August",
+                        ai_month_september: "September",
+                        ai_month_october: "October",
+                        ai_month_november: "November",
+                        ai_month_december: "December",
                         ai_generate_btn: "Show recommendations",
                         ai_response_placeholder: "Ask the AI assistant for personalised tour ideas.",
                         search_guests: "Guests",
                         search_btn: "Search",
+                        late_escape_title: "Go for a good time, not a long time",
+                        late_escape_subtitle: "Squeeze out the last bit of summer at least 15% off",
+                        late_escape_btn: "Find",
+                        trending_title: "Trending destinations",
+                        trending_subtitle: "Most popular choices for travellers from Uzbekistan",
+                        explore_uz_title: "Explore Uzbekistan",
+                        explore_uz_subtitle: "These popular destinations have a lot to offer",
+                        explore_properties: "properties",
+                        property_type_title: "Browse by property type",
+                        property_hotels: "Hotels",
+                        property_apartments: "Apartments",
+                        property_resorts: "Resorts",
+                        property_villas: "Villas",
+                        trip_planner_title: "Quick and easy trip planner",
+                        trip_planner_subtitle: "Pick a vibe and explore the top destinations in Uzbekistan",
+                        trip_festivals: "Festivals",
+                        trip_shopping: "Shopping & Crafts",
+                        trip_gastronomic: "Gastronomic Journeys",
+                        trip_cultural: "Cultural Exploration",
+                        trip_architecture: "Architecture Tours",
+                        trip_historical: "Historical Sites",
+                        weekend_deals_title: "Deals for the weekend",
+                        weekend_deals_subtitle: "Save on stays for 14 November - 16 November",
+                        dest_tashkent: "Tashkent",
+                        dest_samarkand: "Samarkand",
+                        dest_istanbul: "Istanbul",
+                        dest_bukhara: "Bukhara",
+                        dest_dubai: "Dubai",
+                        dest_khiva: "Khiva",
+                        dest_chimgan: "Chimgan",
+                        dest_fergana: "Fergana",
+                        dest_kokand: "Kokand",
+                        explore_tashkent_props: "1,409 properties",
+                        explore_samarkand_props: "914 properties",
+                        explore_bukhara_props: "587 properties",
+                        explore_khiva_props: "163 properties",
+                        explore_chimgan_props: "20 properties",
+                        explore_fergana_props: "46 properties",
+                        trip_tashkent_distance: "7 km away",
+                        trip_kokand_distance: "165 km away",
+                        trip_fergana_distance: "237 km away",
+                        trip_samarkand_distance: "262 km away",
+                        trip_bukhara_distance: "438 km away",
+                        trip_khiva_distance: "739 km away",
+                        deal_premium_hotel: "Premium Hotel",
+                        deal_luxury_apartment: "Luxury Apartment",
+                        deal_resort_stay: "Resort Stay",
+                        deal_villa_retreat: "Villa Retreat",
+                        deal_price_89: "$89/night",
+                        deal_price_75: "$75/night",
+                        deal_price_120: "$120/night",
+                        deal_price_150: "$150/night",
                         destinations_title: "Popular Destinations",
                         destinations_subtitle: "Our best offers",
                         badge_popular: "Popular",
@@ -3200,18 +4481,35 @@
 
                 function applyTranslations(lang) {
                     var dict = i18n[lang] || i18n.uz;
-                    // Replace inner text for all [data-text] - including hidden elements
-                    document.querySelectorAll('[data-text]').forEach(function(el){
+                    
+                    // Get all elements with data-text attribute, process from deepest to shallowest
+                    // This ensures child elements are translated before parent elements
+                    var allElements = Array.from(document.querySelectorAll('[data-text]'));
+                    // Sort by depth (deepest first) to avoid overwriting child translations
+                    allElements.sort(function(a, b) {
+                        var depthA = 0, depthB = 0;
+                        var tempA = a, tempB = b;
+                        while (tempA.parentNode) { depthA++; tempA = tempA.parentNode; }
+                        while (tempB.parentNode) { depthB++; tempB = tempB.parentNode; }
+                        return depthB - depthA;
+                    });
+                    
+                    // Replace inner text for all [data-text] elements
+                    allElements.forEach(function(el){
                         var key = el.getAttribute('data-text');
                         if (key && dict[key] !== undefined) {
-                            // Use textContent to ensure it works even if element is hidden
-                            el.textContent = dict[key];
-                            // Also update innerHTML for elements that might have HTML content
-                            if (el.innerHTML && el.innerHTML.trim() === el.textContent.trim()) {
-                                el.innerHTML = dict[key];
+                            // Only update if this element doesn't have child elements with data-text
+                            // (to avoid overwriting child translations)
+                            var hasTranslatableChildren = Array.from(el.children).some(function(child) {
+                                return child.hasAttribute('data-text') || child.querySelector('[data-text]') !== null;
+                            });
+                            
+                            if (!hasTranslatableChildren) {
+                                el.textContent = dict[key];
                             }
                         }
                     });
+                    
                     // Replace placeholders for all elements declaring [data-placeholder]
                     document.querySelectorAll('[data-placeholder]').forEach(function(el){
                         var key = el.getAttribute('data-placeholder');
@@ -3219,6 +4517,15 @@
                             el.placeholder = dict[key];
                         }
                     });
+                    
+                    // Update select options
+                    document.querySelectorAll('select option[data-text]').forEach(function(option){
+                        var key = option.getAttribute('data-text');
+                        if (key && dict[key] !== undefined) {
+                            option.textContent = dict[key];
+                        }
+                    });
+                    
                     // Force update for header buttons specifically (in case they're in hidden containers)
                     var headerBookBtns = document.querySelectorAll('header [data-text="nav_book"]');
                     var headerLoginBtns = document.querySelectorAll('header [data-text="nav_login"]');
@@ -3645,6 +4952,20 @@
                             winter: "Qishki",
                             spring: "Bahorgi",
                             all: "Mavsumiy"
+                        },
+                        month: {
+                            january: "Yanvar",
+                            february: "Fevral",
+                            march: "Mart",
+                            april: "Aprel",
+                            may: "May",
+                            june: "Iyun",
+                            july: "Iyul",
+                            august: "Avgust",
+                            september: "Sentabr",
+                            october: "Oktabr",
+                            november: "Noyabr",
+                            december: "Dekabr"
                         }
                     },
                     ru: {
@@ -3668,6 +4989,20 @@
                             winter: "Зимний",
                             spring: "Весенний",
                             all: "Сезонный"
+                        },
+                        month: {
+                            january: "Январь",
+                            february: "Февраль",
+                            march: "Март",
+                            april: "Апрель",
+                            may: "Май",
+                            june: "Июнь",
+                            july: "Июль",
+                            august: "Август",
+                            september: "Сентябрь",
+                            october: "Октябрь",
+                            november: "Ноябрь",
+                            december: "Декабрь"
                         }
                     },
                     en: {
@@ -3691,6 +5026,20 @@
                             winter: "winter",
                             spring: "spring",
                             all: "seasonal"
+                        },
+                        month: {
+                            january: "January",
+                            february: "February",
+                            march: "March",
+                            april: "April",
+                            may: "May",
+                            june: "June",
+                            july: "July",
+                            august: "August",
+                            september: "September",
+                            october: "October",
+                            november: "November",
+                            december: "December"
                         }
                     }
                 };
@@ -3711,6 +5060,45 @@
                     }
                 }
 
+                // Show/hide month field based on season selection
+                var seasonSelect = document.getElementById('aiSeason');
+                var monthField = document.getElementById('aiMonthField');
+                var monthSelect = document.getElementById('aiMonth');
+
+                function updateMonthField() {
+                    if (seasonSelect && monthField) {
+                        var season = seasonSelect.value;
+                        if (season) {
+                            monthField.style.display = 'block';
+                            // Filter months based on season
+                            var seasonMonths = {
+                                spring: ['march', 'april', 'may'],
+                                summer: ['june', 'july', 'august'],
+                                autumn: ['september', 'october', 'november'],
+                                winter: ['december', 'january', 'february']
+                            };
+                            var allowedMonths = seasonMonths[season] || [];
+                            if (monthSelect) {
+                                var options = monthSelect.querySelectorAll('option');
+                                options.forEach(function(opt) {
+                                    if (opt.value === '') {
+                                        opt.style.display = 'block';
+                                    } else {
+                                        opt.style.display = allowedMonths.includes(opt.value) ? 'block' : 'none';
+                                    }
+                                });
+                                monthSelect.value = '';
+                            }
+                        } else {
+                            monthField.style.display = 'none';
+                        }
+                    }
+                }
+
+                if (seasonSelect) {
+                    seasonSelect.addEventListener('change', updateMonthField);
+                }
+
                 aiForm.addEventListener('submit', function(e){
                     e.preventDefault();
                     var locale = currentLocale();
@@ -3720,20 +5108,29 @@
                         aiForm.reset();
                         delete aiForm.dataset.active;
                         aiResponse.textContent = t.placeholder;
+                        monthField.style.display = 'none';
                         return;
                     }
 
                     var budgetInput = document.getElementById('aiBudget');
                     var destinationInput = document.getElementById('aiDestination');
                     var seasonInput = document.getElementById('aiSeason');
+                    var monthInput = document.getElementById('aiMonth');
 
                     var budget = formatBudget(budgetInput ? budgetInput.value : '', locale);
                     var destination = (destinationInput ? destinationInput.value : '').trim() || t.defaultDest;
                     var seasonKey = seasonInput ? seasonInput.value : 'all';
                     var seasonLabel = t.season[seasonKey] || t.season.all;
+                    var monthValue = monthInput ? monthInput.value : '';
+                    var monthLabel = '';
+                    if (monthValue && t.month && t.month[monthValue]) {
+                        monthLabel = t.month[monthValue];
+                    }
+
+                    var seasonMonthText = monthLabel ? seasonLabel + ' (' + monthLabel + ')' : seasonLabel;
 
                     var bullets = t.bullets(destination);
-                    aiResponse.innerHTML = "<strong>" + t.title + "</strong><p>" + t.intro(budget, destination, seasonLabel) + "</p><ul>" + bullets.map(function(item){ return "<li>" + item + "</li>"; }).join("") + "</ul><p>" + t.closing + "</p>";
+                    aiResponse.innerHTML = "<strong>" + t.title + "</strong><p>" + t.intro(budget, destination, seasonMonthText) + "</p><ul>" + bullets.map(function(item){ return "<li>" + item + "</li>"; }).join("") + "</ul><p>" + t.closing + "</p>";
                     aiForm.dataset.active = "true";
                 });
 
@@ -3741,6 +5138,25 @@
                 var initLocale = currentLocale();
                 var initCopy = localeCopy[initLocale] || localeCopy.uz;
                 aiResponse.textContent = initCopy.placeholder;
+
+                // Initialize month field visibility
+                if (seasonSelect && monthField) {
+                    updateMonthField();
+                }
+
+                // Update month field when language changes
+                var originalChangeLang = window.changeLang;
+                if (originalChangeLang) {
+                    window.changeLang = function(lang) {
+                        originalChangeLang(lang);
+                        // Re-apply month field visibility after language change
+                        setTimeout(function() {
+                            if (seasonSelect && monthField) {
+                                updateMonthField();
+                            }
+                        }, 100);
+                    };
+                }
             })();
 
             // Newsletter submit interaction
@@ -3757,6 +5173,72 @@
                         alert("Obuna bo'ldingiz: " + email);
                     });
                 }
+            })();
+
+            // Carousel functionality
+            (function(){
+                function initCarousel(carouselId) {
+                    var carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+
+                    var items = carousel.querySelectorAll('> *');
+                    if (items.length === 0) return;
+
+                    // Calculate total width
+                    var totalWidth = 0;
+                    items.forEach(function(item) {
+                        totalWidth += item.offsetWidth + 20; // 20px gap
+                    });
+
+                    // Set animation duration based on width
+                    var duration = totalWidth / 50; // 50px per second
+                    carousel.style.animationDuration = duration + 's';
+                }
+
+                // Initialize carousels on load
+                document.addEventListener('DOMContentLoaded', function(){
+                    initCarousel('trendingCarousel');
+                    initCarousel('exploreCarousel');
+                    initCarousel('weekendCarousel');
+                });
+
+                // Re-initialize on window resize
+                window.addEventListener('resize', function(){
+                    setTimeout(function(){
+                        initCarousel('trendingCarousel');
+                        initCarousel('exploreCarousel');
+                        initCarousel('weekendCarousel');
+                    }, 100);
+                });
+            })();
+
+            // Trip category buttons
+            (function(){
+                var categoryBtns = document.querySelectorAll('.trip-category-btn');
+                var destinationCards = document.querySelectorAll('.trip-destination-card');
+                
+                function filterDestinations(category) {
+                    destinationCards.forEach(function(card) {
+                        var categories = card.getAttribute('data-categories');
+                        if (categories && categories.includes(category)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                }
+                
+                categoryBtns.forEach(function(btn){
+                    btn.addEventListener('click', function(){
+                        categoryBtns.forEach(function(b){ b.classList.remove('active'); });
+                        btn.classList.add('active');
+                        var category = btn.getAttribute('data-category');
+                        filterDestinations(category);
+                    });
+                });
+                
+                // Initialize with festivals category (active by default)
+                filterDestinations('festivals');
             })();
         </script>
 
