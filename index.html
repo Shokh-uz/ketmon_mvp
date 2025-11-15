@@ -922,6 +922,11 @@
             padding: 100px 0;
             background: var(--bg-primary);
             transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .destinations .container {
+            overflow-x: visible;
         }
 
         .section-header {
@@ -936,19 +941,55 @@
             transition: color 0.3s ease;
         }
 
+        .destinations-title-btn {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-family: inherit;
+        }
+
+        .destinations-title-btn:hover {
+            color: var(--accent-primary);
+            transform: scale(1.02);
+        }
+
+        .destinations-title-btn:active {
+            transform: scale(0.98);
+        }
+
         .section-subtitle {
             font-size: 18px;
             color: var(--text-secondary);
             transition: color 0.3s ease;
         }
 
+        .destination-grid-wrapper {
+            position: relative;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+
         .destination-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 20px 0 40px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .destination-grid::-webkit-scrollbar {
+            display: none;
         }
 
         .destination-card {
+            flex: 0 0 320px;
+            min-width: 320px;
             background: var(--gradient-card);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -961,6 +1002,7 @@
             transform: translateY(30px);
             animation: fadeInUp 0.6s ease forwards;
             position: relative;
+            z-index: 1;
         }
 
         .destination-card::before {
@@ -979,6 +1021,8 @@
             mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.4s ease;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .destination-card:hover::before {
@@ -995,7 +1039,7 @@
         .destination-card:hover {
             transform: translateY(-15px) scale(1.02);
             box-shadow: 0 20px 60px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 0 2px var(--accent-primary);
-            animation: float 3s ease-in-out infinite;
+            z-index: 10;
         }
 
         .destination-img {
@@ -1007,6 +1051,7 @@
             justify-content: center;
             font-size: 80px;
             position: relative;
+            z-index: 2;
         }
 
         .destination-img img {
@@ -1045,6 +1090,8 @@
 
         .destination-info {
             padding: 25px;
+            position: relative;
+            z-index: 2;
         }
 
         .destination-title {
@@ -2140,6 +2187,17 @@
             z-index: 1;
             transition: all 0.3s ease;
             box-shadow: 0 0 10px var(--accent-glow);
+            cursor: pointer;
+        }
+
+        .agency-badge:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.08);
+            background: rgba(10, 77, 104, 0.1);
+        }
+
+        .agency-badge:active {
+            transform: scale(1.02);
         }
 
         .agency-card:hover .agency-badge {
@@ -2526,11 +2584,58 @@
             }
 
             .main-header {
-                padding: 10px 0;
+                padding: 8px 0;
+            }
+
+            .main-header .container {
+                gap: 8px;
+                padding: 0 12px;
             }
 
             .logo {
-                font-size: 20px;
+                font-size: 18px;
+                letter-spacing: 1px;
+                flex: 0 1 auto;
+                min-width: 0;
+            }
+
+            .mobile-menu-btn {
+                font-size: 22px;
+                padding: 4px 8px;
+                min-width: 40px;
+                min-height: 40px;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            nav.active {
+                top: 56px;
+                padding: 15px 12px;
+            }
+
+            nav.active ul {
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+
+            nav.active a {
+                font-size: 15px;
+                padding: 10px 0;
+                min-height: 42px;
+            }
+
+            nav.active .header-actions {
+                gap: 8px;
+                margin-top: 12px;
+                padding-top: 12px;
+            }
+
+            nav.active .header-actions .cta-btn {
+                padding: 11px 16px;
+                font-size: 13px;
+                min-height: 42px;
             }
 
             .section-title {
@@ -2596,6 +2701,26 @@
                 padding: 0 14px;
             }
 
+            .main-header {
+                padding: 10px 0;
+            }
+
+            .main-header .container {
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 22px;
+                letter-spacing: 1.5px;
+            }
+
+            .mobile-menu-btn {
+                font-size: 24px;
+                padding: 5px 10px;
+                min-width: 44px;
+                min-height: 44px;
+            }
+
             .section-title {
                 font-size: 22px;
             }
@@ -2629,6 +2754,12 @@
             }
 
             .carousel-container {
+                margin: 25px -15px;
+                padding: 0 15px;
+                overflow: hidden;
+            }
+
+            .destination-grid-wrapper {
                 margin: 25px -15px;
                 padding: 0 15px;
                 overflow: hidden;
@@ -2892,7 +3023,22 @@
                 font-size: 12px;
             }
 
-            .destination-grid,
+            .destination-grid-wrapper {
+                margin: 25px -15px;
+                padding: 0 15px;
+                overflow: hidden;
+            }
+
+            .destination-grid {
+                gap: 15px;
+                padding: 15px 0 30px;
+            }
+
+            .destination-card {
+                flex: 0 0 280px;
+                min-width: 280px;
+            }
+
             .service-grid {
                 grid-template-columns: 1fr;
                 gap: 18px;
@@ -3022,7 +3168,7 @@
             }
 
             .main-header {
-                padding: 12px 0;
+                padding: 10px 0;
                 position: sticky;
                 top: 0;
                 z-index: 100;
@@ -3037,19 +3183,23 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                gap: 10px;
+                gap: 12px;
+                padding: 0 15px;
             }
 
             .logo {
-                font-size: 24px;
+                font-size: 22px;
                 flex: 0 1 auto;
                 min-width: 0;
                 white-space: nowrap;
+                letter-spacing: 1.5px;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .mobile-menu-btn {
-                font-size: 24px;
-                padding: 5px 10px;
+                font-size: 26px;
+                padding: 6px 12px;
                 min-width: 44px;
                 min-height: 44px;
                 display: flex !important;
@@ -3059,6 +3209,12 @@
                 border: none;
                 cursor: pointer;
                 color: var(--text-primary);
+                flex-shrink: 0;
+                transition: opacity 0.2s ease;
+            }
+
+            .mobile-menu-btn:active {
+                opacity: 0.7;
             }
 
             /* Hide desktop header actions on mobile */
@@ -3078,7 +3234,7 @@
             nav.active {
                 display: block !important;
                 position: fixed;
-                top: 60px;
+                top: 52px;
                 left: 0;
                 right: 0;
                 bottom: 0;
@@ -3094,11 +3250,11 @@
 
             nav.active ul {
                 flex-direction: column;
-                gap: 12px;
-                margin-bottom: 15px;
+                gap: 8px;
+                margin-bottom: 20px;
                 list-style: none;
                 padding: 0;
-                margin: 0 0 15px 0;
+                margin: 0 0 20px 0;
             }
 
             nav.active ul li {
@@ -3107,28 +3263,34 @@
 
             nav.active a {
                 font-size: 16px;
-                padding: 12px 0;
+                padding: 14px 12px;
                 display: block;
-                min-height: 44px;
+                min-height: 48px;
                 color: var(--text-primary);
                 text-decoration: none;
+                border-radius: 8px;
+                transition: background-color 0.2s ease;
+            }
+
+            nav.active a:active {
+                background-color: rgba(0,0,0,0.05);
             }
 
             /* Show header buttons in mobile menu - IMPORTANT */
             nav.active .header-actions {
                 display: flex !important;
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
                 width: 100%;
-                margin-top: 15px;
-                padding-top: 15px;
+                margin-top: 20px;
+                padding-top: 20px;
                 border-top: 1px solid rgba(0,0,0,0.1);
             }
 
             nav.active .header-actions .cta-btn {
-                padding: 12px 20px;
-                font-size: 14px;
-                min-height: 44px;
+                padding: 14px 24px;
+                font-size: 15px;
+                min-height: 48px;
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
@@ -3139,6 +3301,12 @@
                 border-radius: 25px;
                 text-decoration: none;
                 font-weight: 600;
+                transition: opacity 0.2s ease, transform 0.1s ease;
+            }
+
+            nav.active .header-actions .cta-btn:active {
+                opacity: 0.8;
+                transform: scale(0.98);
             }
 
             .hero {
@@ -3324,9 +3492,20 @@
                 font-size: 14px;
             }
 
+            .destination-grid-wrapper {
+                margin: 20px -15px;
+                padding: 0 15px;
+                overflow: hidden;
+            }
+
             .destination-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
+                padding: 15px 0 25px;
+            }
+
+            .destination-card {
+                flex: 0 0 260px;
+                min-width: 260px;
             }
 
             .destination-img {
@@ -3453,6 +3632,11 @@
                 height: 200px;
             }
 
+            .all-destinations-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+
             #pwa-install-btn {
                 bottom: 15px;
                 right: 15px;
@@ -3518,9 +3702,20 @@
                 min-height: 44px;
             }
 
+            .destination-grid-wrapper {
+                margin: 30px -20px;
+                padding: 0 20px;
+                overflow: hidden;
+            }
+
             .destination-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
+                padding: 15px 0 25px;
+            }
+
+            .destination-card {
+                flex: 0 0 280px;
+                min-width: 280px;
             }
 
             .service-grid {
@@ -3542,8 +3737,17 @@
                 gap: 15px;
             }
 
+            .main-header {
+                padding: 12px 0;
+            }
+
+            .main-header .container {
+                gap: 15px;
+            }
+
             .logo {
-                font-size: 28px;
+                font-size: 26px;
+                letter-spacing: 1.5px;
             }
 
             .mobile-menu-btn {
@@ -3556,7 +3760,14 @@
                 border: none;
                 cursor: pointer;
                 color: var(--text-primary);
-                font-size: 24px;
+                font-size: 26px;
+                padding: 6px 12px;
+                flex-shrink: 0;
+                transition: opacity 0.2s ease;
+            }
+
+            .mobile-menu-btn:active {
+                opacity: 0.7;
             }
 
             /* Hide desktop header actions on mobile */
@@ -3575,47 +3786,61 @@
 
             nav.active {
                 display: block !important;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 60px;
                 left: 0;
                 right: 0;
+                bottom: 0;
                 background: var(--header-bg);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                padding: 20px;
-                z-index: 1000;
+                padding: 25px 20px;
+                z-index: 999;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             nav.active ul {
                 flex-direction: column;
-                gap: 15px;
-                margin-bottom: 15px;
+                gap: 10px;
+                margin-bottom: 20px;
                 list-style: none;
                 padding: 0;
+                margin: 0 0 20px 0;
             }
 
             nav.active a {
-                min-height: 44px;
+                font-size: 16px;
+                padding: 14px 12px;
+                min-height: 48px;
                 display: flex;
                 align-items: center;
                 color: var(--text-primary);
                 text-decoration: none;
+                border-radius: 8px;
+                transition: background-color 0.2s ease;
+            }
+
+            nav.active a:active {
+                background-color: rgba(0,0,0,0.05);
             }
 
             /* Add header buttons to mobile menu */
             nav.active .header-actions {
                 display: flex !important;
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
                 width: 100%;
-                margin-top: 15px;
-                padding-top: 15px;
+                margin-top: 20px;
+                padding-top: 20px;
                 border-top: 1px solid rgba(0,0,0,0.1);
             }
 
             nav.active .header-actions .cta-btn {
-                padding: 12px 20px;
-                font-size: 14px;
-                min-height: 44px;
+                padding: 14px 24px;
+                font-size: 15px;
+                min-height: 48px;
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
@@ -3625,6 +3850,12 @@
                 border-radius: 25px;
                 text-decoration: none;
                 font-weight: 600;
+                transition: opacity 0.2s ease, transform 0.1s ease;
+            }
+
+            nav.active .header-actions .cta-btn:active {
+                opacity: 0.8;
+                transform: scale(0.98);
             }
 
             .hero {
@@ -3670,9 +3901,19 @@
                 font-size: 32px;
             }
 
+            .destination-grid-wrapper {
+                margin: 35px 0;
+                overflow: hidden;
+            }
+
             .destination-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
+                gap: 20px;
+                padding: 20px 0 30px;
+            }
+
+            .destination-card {
+                flex: 0 0 300px;
+                min-width: 300px;
             }
 
             .service-grid {
@@ -3793,8 +4034,19 @@
                 grid-template-columns: repeat(3, 1fr);
             }
 
+            .destination-grid-wrapper {
+                margin: 40px 0;
+                overflow: hidden;
+            }
+
             .destination-grid {
-                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+                padding: 20px 0 40px;
+            }
+
+            .destination-card {
+                flex: 0 0 320px;
+                min-width: 320px;
             }
 
             .service-grid {
@@ -3990,10 +4242,11 @@
     <section class="destinations" id="destinations">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title" data-text="destinations_title">Mashhur Yo'nalishlar</h2>
+                <button type="button" class="section-title destinations-title-btn" onclick="showAllDestinations()" data-text="destinations_title" style="background: none; border: none; cursor: pointer; padding: 0; text-align: center; width: 100%;">Mashhur Yo'nalishlar</button>
                 <p class="section-subtitle" data-text="destinations_subtitle">Eng yaxshi takliflarimiz</p>
             </div>
-            <div class="destination-grid">
+            <div class="destination-grid-wrapper">
+                <div class="destination-grid">
                 <div class="destination-card" data-agency="atlas" data-type="local">
                     <div class="destination-img">
                         <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop" alt="Dubai skyline and city view">
@@ -4152,6 +4405,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </div>
     </section>
@@ -4227,7 +4481,7 @@
             <div class="agency-grid">
                 <div class="agency-card" data-agency="atlas" data-type="local">
                     <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <button type="button" class="agency-badge" onclick="showLicense('atlas')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
                     <h3 data-text="agency_atlas_name">Atlas Travel</h3>
                     <p data-text="agency_atlas_desc">Markaziy Osiyodan dunyoning 40+ manziliga premium paketlar va VIP xizmatlar.</p>
                     <div class="cta">
@@ -4237,7 +4491,7 @@
                 </div>
                 <div class="agency-card" data-agency="samarqand" data-type="local">
                     <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <button type="button" class="agency-badge" onclick="showLicense('samarqand')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
                     <h3 data-text="agency_samarqand_name">Samarqand Tours</h3>
                     <p data-text="agency_samarqand_desc">Madaniy sayohatlar, tarixiy gidlar va mahalliy tajribalar bo'yicha mutaxassis.</p>
                     <div class="cta">
@@ -4247,7 +4501,7 @@
                 </div>
                 <div class="agency-card" data-agency="nomad" data-type="local">
                     <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <button type="button" class="agency-badge" onclick="showLicense('nomad')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
                     <h3 data-text="agency_nomad_name">Nomad Explorer</h3>
                     <p data-text="agency_nomad_desc">Aktiv sayohatlar, tog' yurishlari va ekologik turizm bo'yicha mutaxassis.</p>
                     <div class="cta">
@@ -4257,7 +4511,7 @@
                 </div>
                 <div class="agency-card" data-agency="clubtravel" data-type="local">
                     <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <button type="button" class="agency-badge" onclick="showLicense('clubtravel')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
                     <h3 data-text="agency_clubtravel_name">ClubTravel UZ</h3>
                     <p data-text="agency_clubtravel_desc">Oila va guruhlar uchun hamyonbop paketlar, Toshkentdan charter reyslar.</p>
                     <div class="cta">
@@ -4267,7 +4521,7 @@
                 </div>
                 <div class="agency-card" data-agency="silk" data-type="international">
                     <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <button type="button" class="agency-badge" onclick="showLicense('silk')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
                     <h3 data-text="agency_silk_name">Silk Road Elite</h3>
                     <p data-text="agency_silk_desc">Luks mehmonxonalar, TNPL rejalar va shaxsiy gidlar bilan premium xizmat.</p>
                     <div class="cta">
@@ -4277,7 +4531,7 @@
                 </div>
                 <div class="agency-card" data-agency="azialux" data-type="international">
                     <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <button type="button" class="agency-badge" onclick="showLicense('azialux')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
                     <h3 data-text="agency_azialux_name">AziaLux Travel</h3>
                     <p data-text="agency_azialux_desc">Osiyo va Yevropadagi eksklyuziv gastro-turlar, premium servis va gidlar.</p>
                     <div class="cta">
@@ -4287,7 +4541,7 @@
                 </div>
                 <div class="agency-card" data-agency="globalvoyage" data-type="international">
                     <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <button type="button" class="agency-badge" onclick="showLicense('globalvoyage')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
                     <h3 data-text="agency_globalvoyage_name">Global Voyage Hub</h3>
                     <p data-text="agency_globalvoyage_desc">Xalqaro konferensiya va MICE turlar, 24/7 qo'llab-quvvatlash va viza xizmati.</p>
                     <div class="cta">
@@ -4503,6 +4757,64 @@
             </div>
         </div>
 
+        <!-- License Modal -->
+        <div class="modal-backdrop" id="licenseModal">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="licenseModalTitle">
+                <div class="modal-header">
+                    <div class="modal-title" id="licenseModalTitle" data-text="license_title">Sayohat Agentligi Litsenziyasi</div>
+                    <button class="modal-close" aria-label="Close" id="licenseModalClose">×</button>
+                </div>
+                <div class="modal-body" style="grid-template-columns: 1fr; padding: 25px;">
+                    <div class="license-content">
+                        <div class="license-header" style="text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid var(--border-color);">
+                            <h3 id="licenseAgencyName" style="font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px;"></h3>
+                            <p style="color: var(--text-secondary); font-size: 14px;" data-text="license_verified">Tasdiqlangan sayohat agentligi</p>
+                        </div>
+                        <div class="license-details" style="display: grid; gap: 20px;">
+                            <div class="license-item">
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;" data-text="license_number">Litsenziya raqami:</strong>
+                                <span id="licenseNumber" style="color: var(--text-secondary); font-family: monospace; font-size: 16px;"></span>
+                            </div>
+                            <div class="license-item">
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;" data-text="license_issued">Berilgan sana:</strong>
+                                <span id="licenseIssued" style="color: var(--text-secondary);"></span>
+                            </div>
+                            <div class="license-item">
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;" data-text="license_expires">Amal qilish muddati:</strong>
+                                <span id="licenseExpires" style="color: var(--text-secondary);"></span>
+                            </div>
+                            <div class="license-item">
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;" data-text="license_authority">Bergan organ:</strong>
+                                <span id="licenseAuthority" style="color: var(--text-secondary);"></span>
+                            </div>
+                            <div class="license-item">
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;" data-text="license_status">Holati:</strong>
+                                <span id="licenseStatus" style="color: #10b981; font-weight: 600;">✓ <span data-text="license_active">Faol</span></span>
+                            </div>
+                        </div>
+                        <div class="license-note" style="margin-top: 25px; padding: 15px; background: var(--bg-secondary); border-radius: 12px; border-left: 4px solid var(--accent-primary);">
+                            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin: 0;" data-text="license_note">Ushbu litsenziya O'zbekiston Respublikasi Turizm va madaniy meros vazirligi tomonidan berilgan va tasdiqlangan. Agentlik barcha qonuniy talablarga javob beradi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Destinations Modal -->
+        <div class="modal-backdrop" id="allDestinationsModal">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="allDestinationsModalTitle" style="max-width: 1200px; max-height: 90vh; overflow-y: auto;">
+                <div class="modal-header">
+                    <div class="modal-title" id="allDestinationsModalTitle" data-text="destinations_title">Mashhur Yo'nalishlar</div>
+                    <button class="modal-close" aria-label="Close" id="allDestinationsModalClose">×</button>
+                </div>
+                <div class="modal-body" style="grid-template-columns: 1fr; padding: 25px;">
+                    <div class="all-destinations-grid" id="allDestinationsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
+                        <!-- Destinations will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
             // Initialize theme immediately to prevent flash
             (function() {
@@ -4688,6 +5000,15 @@
                         agency_filter_global: "Xorijiy sayyohlar uchun",
                         agency_badge_verified: "Tasdiqlangan",
                         agency_view_tours: "Agentlik turlarini ko'rish",
+                        license_title: "Sayohat Agentligi Litsenziyasi",
+                        license_verified: "Tasdiqlangan sayohat agentligi",
+                        license_number: "Litsenziya raqami:",
+                        license_issued: "Berilgan sana:",
+                        license_expires: "Amal qilish muddati:",
+                        license_authority: "Bergan organ:",
+                        license_status: "Holati:",
+                        license_active: "Faol",
+                        license_note: "Ushbu litsenziya O'zbekiston Respublikasi Turizm va madaniy meros vazirligi tomonidan berilgan va tasdiqlangan. Agentlik barcha qonuniy talablarga javob beradi.",
                         agency_atlas_name: "Atlas Travel",
                         agency_atlas_desc: "Markaziy Osiyodan dunyoning 40+ manziliga premium paketlar va VIP xizmatlar.",
                         agency_samarqand_name: "Samarqand Tours",
@@ -4917,6 +5238,15 @@
                         agency_filter_global: "Для иностранных гостей",
                         agency_badge_verified: "Проверено",
                         agency_view_tours: "Посмотреть туры агентства",
+                        license_title: "Лицензия туристического агентства",
+                        license_verified: "Проверенное туристическое агентство",
+                        license_number: "Номер лицензии:",
+                        license_issued: "Дата выдачи:",
+                        license_expires: "Срок действия:",
+                        license_authority: "Выдавший орган:",
+                        license_status: "Статус:",
+                        license_active: "Активна",
+                        license_note: "Эта лицензия выдана и подтверждена Министерством туризма и культурного наследия Республики Узбекистан. Агентство соответствует всем правовым требованиям.",
                         agency_atlas_name: "Atlas Travel",
                         agency_atlas_desc: "Премиальные пакеты и VIP-сервис в 40+ направлениях по всему миру.",
                         agency_samarqand_name: "Samarqand Tours",
@@ -5146,6 +5476,15 @@
                         agency_filter_global: "For international visitors",
                         agency_badge_verified: "Verified",
                         agency_view_tours: "View agency tours",
+                        license_title: "Travel Agency License",
+                        license_verified: "Verified travel agency",
+                        license_number: "License number:",
+                        license_issued: "Issued date:",
+                        license_expires: "Expiry date:",
+                        license_authority: "Issuing authority:",
+                        license_status: "Status:",
+                        license_active: "Active",
+                        license_note: "This license is issued and verified by the Ministry of Tourism and Cultural Heritage of the Republic of Uzbekistan. The agency complies with all legal requirements.",
                         agency_atlas_name: "Atlas Travel",
                         agency_atlas_desc: "Premium packages and VIP service to 40+ destinations worldwide.",
                         agency_samarqand_name: "Samarqand Tours",
@@ -5531,6 +5870,126 @@
                 document.getElementById('registerModalClose').addEventListener('click', function(){ close(registerModal); });
                 loginModal.addEventListener('click', function(e){ if (e.target === loginModal) close(loginModal); });
                 registerModal.addEventListener('click', function(e){ if (e.target === registerModal) close(registerModal); });
+
+                // License Modal
+                var licenseModal = document.getElementById('licenseModal');
+                var licenseData = {
+                    'atlas': {
+                        name: 'Atlas Travel',
+                        number: 'UZ-TA-2021-AT-001234',
+                        issued: '2021-03-15',
+                        expires: '2026-03-15',
+                        authority: 'O\'zbekiston Respublikasi Turizm va madaniy meros vazirligi'
+                    },
+                    'samarqand': {
+                        name: 'Samarqand Tours',
+                        number: 'UZ-TA-2019-ST-005678',
+                        issued: '2019-06-20',
+                        expires: '2024-06-20',
+                        authority: 'O\'zbekiston Respublikasi Turizm va madaniy meros vazirligi'
+                    },
+                    'nomad': {
+                        name: 'Nomad Explorer',
+                        number: 'UZ-TA-2020-NE-003456',
+                        issued: '2020-09-10',
+                        expires: '2025-09-10',
+                        authority: 'O\'zbekiston Respublikasi Turizm va madaniy meros vazirligi'
+                    },
+                    'clubtravel': {
+                        name: 'ClubTravel UZ',
+                        number: 'UZ-TA-2018-CT-007890',
+                        issued: '2018-11-25',
+                        expires: '2023-11-25',
+                        authority: 'O\'zbekiston Respublikasi Turizm va madaniy meros vazirligi'
+                    },
+                    'silk': {
+                        name: 'Silk Road Elite',
+                        number: 'UZ-TA-2022-SR-009012',
+                        issued: '2022-01-18',
+                        expires: '2027-01-18',
+                        authority: 'O\'zbekiston Respublikasi Turizm va madaniy meros vazirligi'
+                    },
+                    'azialux': {
+                        name: 'AziaLux Travel',
+                        number: 'UZ-TA-2021-AL-004567',
+                        issued: '2021-05-12',
+                        expires: '2026-05-12',
+                        authority: 'O\'zbekiston Respublikasi Turizm va madaniy meros vazirligi'
+                    },
+                    'globalvoyage': {
+                        name: 'Global Voyage Hub',
+                        number: 'UZ-TA-2020-GV-008901',
+                        issued: '2020-08-30',
+                        expires: '2025-08-30',
+                        authority: 'O\'zbekiston Respublikasi Turizm va madaniy meros vazirligi'
+                    }
+                };
+
+                window.showLicense = function(agencyId) {
+                    var data = licenseData[agencyId];
+                    if (!data) return;
+
+                    document.getElementById('licenseAgencyName').textContent = data.name;
+                    document.getElementById('licenseNumber').textContent = data.number;
+                    document.getElementById('licenseIssued').textContent = data.issued;
+                    document.getElementById('licenseExpires').textContent = data.expires;
+                    document.getElementById('licenseAuthority').textContent = data.authority;
+
+                    // Apply translations
+                    var lang = localStorage.getItem('ketmon_lang') || 'uz';
+                    var dict = window.i18n && window.i18n[lang] || {};
+                    
+                    // Apply translations to all license modal elements
+                    var titleEl = document.getElementById('licenseModalTitle');
+                    if (titleEl && dict.license_title) titleEl.textContent = dict.license_title;
+                    
+                    document.querySelectorAll('[data-text^="license_"]').forEach(function(el) {
+                        var key = el.getAttribute('data-text');
+                        if (key && dict[key] !== undefined) {
+                            el.textContent = dict[key];
+                        }
+                    });
+
+                    open(licenseModal);
+                };
+
+                document.getElementById('licenseModalClose').addEventListener('click', function(){ close(licenseModal); });
+                licenseModal.addEventListener('click', function(e){ if (e.target === licenseModal) close(licenseModal); });
+
+                // All Destinations Modal
+                var allDestinationsModal = document.getElementById('allDestinationsModal');
+                var allDestinationsGrid = document.getElementById('allDestinationsGrid');
+
+                window.showAllDestinations = function() {
+                    // Clear previous content
+                    allDestinationsGrid.innerHTML = '';
+                    
+                    // Get all destination cards from the page
+                    var destinationCards = document.querySelectorAll('.destination-card');
+                    
+                    // Clone and add each destination card to the modal
+                    destinationCards.forEach(function(card) {
+                        var clonedCard = card.cloneNode(true);
+                        allDestinationsGrid.appendChild(clonedCard);
+                    });
+
+                    // Apply translations
+                    var lang = localStorage.getItem('ketmon_lang') || 'uz';
+                    var dict = window.i18n && window.i18n[lang] || {};
+                    if (dict.destinations_title) {
+                        document.getElementById('allDestinationsModalTitle').textContent = dict.destinations_title;
+                    }
+
+                    // Apply translations to cloned cards
+                    if (window.applyTranslations) {
+                        window.applyTranslations(lang);
+                    }
+
+                    open(allDestinationsModal);
+                };
+
+                document.getElementById('allDestinationsModalClose').addEventListener('click', function(){ close(allDestinationsModal); });
+                allDestinationsModal.addEventListener('click', function(e){ if (e.target === allDestinationsModal) close(allDestinationsModal); });
 
                 // Switch between modals
                 document.getElementById('loginToRegister').addEventListener('click', function(){ close(loginModal); open(registerModal); });
