@@ -223,7 +223,11 @@
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
             }
 
-            /* Disable hover effects on mobile */
+            /* Disable ALL hover effects on mobile */
+            *:hover {
+                transform: none !important;
+            }
+
             .destination-card:hover,
             .service-card:hover,
             .service-card:hover .service-icon,
@@ -237,6 +241,18 @@
             /* Disable ::before hover effect on mobile */
             .destination-card:hover::before {
                 opacity: 0 !important;
+            }
+
+            /* Disable hover on buttons and links */
+            .lang-btn:hover,
+            .currency-btn:hover,
+            .cta-btn:hover,
+            .btn-gradient:hover,
+            .mobile-menu-btn:hover,
+            nav a:hover,
+            a:hover,
+            button:hover {
+                transform: none !important;
             }
 
             /* Prevent hover state from being triggered on touch */
@@ -328,6 +344,11 @@
 
         /* Disable hover effects on touch devices */
         @media (hover: none) and (pointer: coarse) {
+            /* Disable all hover effects on touch devices */
+            *:hover {
+                transform: none !important;
+            }
+
             .destination-card:hover,
             .destination-card:hover::before {
                 transform: none !important;
@@ -346,6 +367,22 @@
             .agency-card:hover {
                 transform: none !important;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+
+            /* Disable hover on buttons and links */
+            .lang-btn:hover,
+            .currency-btn:hover,
+            .cta-btn:hover,
+            .btn-gradient:hover,
+            a:hover,
+            button:hover {
+                transform: none !important;
+            }
+
+            /* Keep active states for touch feedback */
+            .lang-btn:active,
+            .currency-btn:active {
+                transform: scale(0.95) !important;
             }
         }
 
@@ -3458,7 +3495,7 @@
             nav.active {
                 display: block !important;
                 position: fixed;
-                top: 52px;
+                top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
@@ -3466,11 +3503,12 @@
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                padding: 20px 15px;
-                z-index: 999;
+                padding: 80px 15px 20px 15px;
+                z-index: 9999;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
+
 
             nav.active ul {
                 flex-direction: column;
@@ -5051,8 +5089,16 @@
             // Mobile menu toggle
             function toggleMenu() {
                 var nav = document.getElementById('mainNav');
+                var menuBtn = document.querySelector('.mobile-menu-btn');
                 if (nav) {
+                    var isActive = nav.classList.contains('active');
                     nav.classList.toggle('active');
+                    
+                    // Update button text/icon
+                    if (menuBtn) {
+                        menuBtn.textContent = nav.classList.contains('active') ? '✕' : '☰';
+                    }
+                    
                     // Re-apply translations when menu opens (in case buttons were hidden)
                     if (nav.classList.contains('active')) {
                         var savedLang = localStorage.getItem('ketmon_lang') || 'uz';
@@ -5078,6 +5124,19 @@
                 }
             }
             window.toggleMenu = toggleMenu;
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                var nav = document.getElementById('mainNav');
+                var menuBtn = document.querySelector('.mobile-menu-btn');
+                if (nav && nav.classList.contains('active')) {
+                    // If click is outside nav and not on menu button
+                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                        if (menuBtn) menuBtn.textContent = '☰';
+                    }
+                }
+            });
 
             // Close mobile menu when clicking on navigation links
             // Theme Toggle Functionality
