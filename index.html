@@ -303,6 +303,88 @@
             .modal {
                 box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
             }
+            
+            /* Tour Modal Mobile Responsive */
+            #tourModal .modal {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0;
+                border-radius: 0;
+                max-height: 100vh;
+                overflow-y: auto;
+            }
+
+            #tourModal .modal-backdrop {
+                padding: 0;
+                align-items: flex-start;
+            }
+
+            #tourModal .modal-header {
+                padding: 15px 18px;
+                flex-shrink: 0;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+                background: var(--bg-secondary);
+                border-radius: 0;
+            }
+
+            #tourModal .modal-title {
+                font-size: 18px;
+            }
+
+            #tourModal .modal-close {
+                font-size: 24px;
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+            }
+
+            #tourModal .modal-body {
+                grid-template-columns: 1fr !important;
+                padding: 18px 15px 20px !important;
+                gap: 15px;
+            }
+
+            #tourModal .modal-image {
+                height: 200px;
+                border-radius: 10px;
+            }
+
+            #tourModal .modal-info p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            #tourModal .modal-meta {
+                gap: 8px;
+                margin: 12px 0;
+            }
+
+            #tourModal .meta-chip {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            #tourModal .modal-actions {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 12px;
+            }
+
+            #tourModal .modal-actions .btn-primary,
+            #tourModal .modal-actions a.btn-primary {
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 14px;
+                min-height: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
+            }
 
             /* Disable theme toggle animations */
             .theme-toggle:hover {
@@ -928,6 +1010,51 @@
 
             #paymentModal .modal-body {
                 padding: 15px 12px 18px !important;
+            }
+            
+            /* Tour Modal Extra Small Phones */
+            #tourModal .modal-header {
+                padding: 12px 15px;
+            }
+
+            #tourModal .modal-title {
+                font-size: 16px;
+            }
+
+            #tourModal .modal-close {
+                font-size: 22px;
+                min-width: 40px;
+                min-height: 40px;
+            }
+
+            #tourModal .modal-body {
+                padding: 15px 12px 18px !important;
+                gap: 12px;
+            }
+
+            #tourModal .modal-image {
+                height: 180px;
+            }
+
+            #tourModal .modal-info p {
+                font-size: 13px;
+            }
+
+            #tourModal .modal-meta {
+                gap: 6px;
+                margin: 10px 0;
+            }
+
+            #tourModal .meta-chip {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+
+            #tourModal .modal-actions .btn-primary,
+            #tourModal .modal-actions a.btn-primary {
+                padding: 10px 14px;
+                font-size: 13px;
+                min-height: 40px;
             }
 
             #paymentTourSummary {
