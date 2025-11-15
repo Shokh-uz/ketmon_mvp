@@ -577,14 +577,36 @@
             }
             
             /* Header actions buttons on mobile */
+            .main-header {
+                padding: 12px 0;
+            }
+            
+            .main-header .container {
+                gap: 4px;
+                padding: 0 10px;
+                overflow-x: auto;
+            }
+            
+            .main-header .container .logo {
+                margin-right: 8px;
+                font-size: 22px;
+                letter-spacing: 1px;
+            }
+            
+            .header-right-group {
+                gap: 4px !important;
+                margin-left: 6px;
+                flex-shrink: 0;
+            }
+            
             .header-right-group .header-actions {
-                gap: 6px;
+                gap: 4px;
             }
             
             .header-action-btn {
-                padding: 8px 14px;
+                padding: 8px 12px;
                 min-height: 44px;
-                font-size: 13px;
+                font-size: 12px;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
             }
@@ -596,20 +618,31 @@
                 min-height: 44px;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
+                font-size: 18px;
             }
             
             /* Header lang/currency buttons on mobile */
+            .header-right-group .lang-currency-wrapper {
+                gap: 4px;
+            }
+            
             .header-right-group .lang-btn,
             .header-right-group .currency-btn {
                 background: #fff;
                 color: #0a4d68;
                 border: 1px solid rgba(10, 77, 104, 0.2);
-                padding: 8px 14px;
+                padding: 8px 12px;
                 border-radius: 20px;
                 min-height: 44px;
-                font-size: 13px;
+                font-size: 12px;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
+            }
+            
+            .header-right-group .lang-btn svg,
+            .header-right-group .currency-btn svg {
+                width: 10px;
+                height: 10px;
             }
             
             .lang-btn svg {
@@ -755,6 +788,55 @@
 
         /* Extra small phones */
         @media (max-width: 480px) {
+            .main-header {
+                padding: 10px 0;
+            }
+            
+            .main-header .container {
+                gap: 3px;
+                padding: 0 8px;
+            }
+            
+            .main-header .container .logo {
+                margin-right: 4px;
+                font-size: 20px;
+                letter-spacing: 0.5px;
+            }
+            
+            .header-right-group {
+                gap: 3px !important;
+                margin-left: 4px;
+            }
+            
+            .header-action-btn {
+                padding: 6px 10px;
+                min-height: 40px;
+                font-size: 11px;
+                border-radius: 18px;
+            }
+            
+            .header-right-group .lang-btn,
+            .header-right-group .currency-btn {
+                padding: 6px 10px;
+                min-height: 40px;
+                font-size: 11px;
+                border-radius: 18px;
+            }
+            
+            .header-theme-toggle {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                min-height: 40px;
+                font-size: 16px;
+            }
+            
+            .header-right-group .lang-btn svg,
+            .header-right-group .currency-btn svg {
+                width: 8px;
+                height: 8px;
+            }
+            
             #paymentModal .modal-header {
                 padding: 12px 15px;
             }
@@ -960,6 +1042,15 @@
             align-items: center;
             flex-wrap: nowrap;
             gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .main-header .container::-webkit-scrollbar {
+            display: none;
         }
 
         .main-header .container .logo {
@@ -967,10 +1058,11 @@
             margin-right: 10px;
         }
 
-
         .main-header .container .header-right-group {
             flex-shrink: 0;
             margin-left: 10px;
+            display: flex;
+            align-items: center;
         }
 
         .main-header .container > * {
@@ -1004,6 +1096,7 @@
             align-items: center;
             gap: 8px;
             margin-left: 0;
+            flex-shrink: 0;
         }
         
         .header-action-btn {
@@ -1022,6 +1115,7 @@
             align-items: center;
             justify-content: center;
             min-height: 36px;
+            flex-shrink: 0;
         }
         
         .header-action-btn:hover {
@@ -1118,10 +1212,51 @@
             
             .header-right-group {
                 display: flex !important;
+                gap: 8px !important;
+                flex-wrap: nowrap;
+                overflow: visible;
             }
             
             .header-right-group .desktop-nav {
                 display: none !important;
+            }
+            
+            .main-header .container {
+                gap: 6px;
+                padding: 0 12px;
+            }
+            
+            .main-header .container .logo {
+                margin-right: 6px;
+                font-size: 24px;
+            }
+            
+            .header-right-group .header-actions {
+                gap: 6px;
+            }
+            
+            .header-action-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+                min-height: 36px;
+            }
+            
+            .header-right-group .lang-currency-wrapper {
+                gap: 6px;
+            }
+            
+            .header-right-group .lang-btn,
+            .header-right-group .currency-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+                min-height: 36px;
+            }
+            
+            .header-theme-toggle {
+                width: 36px;
+                height: 36px;
+                min-width: 36px;
+                min-height: 36px;
             }
         }
 
