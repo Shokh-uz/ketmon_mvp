@@ -624,6 +624,16 @@
             }
         }
 
+        /* Hide nav by default - will show when hamburger is clicked */
+        nav {
+            display: none;
+        }
+
+        /* Show nav when active (hamburger clicked) */
+        nav.active {
+            display: block;
+        }
+
         /* Hide mobile menu buttons on desktop */
         nav .header-actions {
             display: none;
@@ -1051,7 +1061,8 @@
             transition: color 0.3s ease;
         }
 
-        .destinations-title-btn {
+        .destinations-title-btn,
+        .agencies-title-btn {
             font-size: 42px;
             margin-bottom: 15px;
             color: var(--text-primary);
@@ -1196,6 +1207,15 @@
             text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
             font-size: 14px;
             line-height: 1;
+        }
+
+        .destination-book-btn {
+            width: 100%;
+            margin-top: 15px;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 25px;
         }
 
         .destination-info {
@@ -2198,13 +2218,44 @@
             box-shadow: 0 10px 25px var(--accent-glow), 0 0 20px var(--accent-glow);
             animation: gradientShift 3s ease infinite;
         }
+        .agency-grid-wrapper {
+            position: relative;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+
         .agency-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            display: flex;
             gap: 24px;
-            margin-top: 40px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 20px 0 40px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(10, 77, 104, 0.3) rgba(255, 255, 255, 0.1);
+        }
+
+        .agency-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .agency-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .agency-grid::-webkit-scrollbar-thumb {
+            background: rgba(10, 77, 104, 0.3);
+            border-radius: 10px;
+        }
+
+        .agency-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(10, 77, 104, 0.5);
         }
         .agency-card {
+            flex: 0 0 280px;
+            min-width: 280px;
             background: var(--gradient-card);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -3693,6 +3744,30 @@
                 list-style: none;
                 padding: 0;
                 margin: 0 0 20px 0;
+                max-height: calc(100vh - 300px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+                padding-right: 10px;
+            }
+
+            /* Custom scrollbar for mobile nav menu */
+            nav.active ul::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            nav.active ul::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+
+            nav.active ul::-webkit-scrollbar-thumb {
+                background: rgba(10, 77, 104, 0.3);
+                border-radius: 10px;
+            }
+
+            nav.active ul::-webkit-scrollbar-thumb:hover {
+                background: rgba(10, 77, 104, 0.5);
             }
 
             nav.active ul li {
@@ -4340,6 +4415,30 @@
                 list-style: none;
                 padding: 0;
                 margin: 0 0 20px 0;
+                max-height: calc(100vh - 300px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+                padding-right: 10px;
+            }
+
+            /* Custom scrollbar for nav menu */
+            nav.active ul::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            nav.active ul::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+
+            nav.active ul::-webkit-scrollbar-thumb {
+                background: rgba(10, 77, 104, 0.3);
+                border-radius: 10px;
+            }
+
+            nav.active ul::-webkit-scrollbar-thumb:hover {
+                background: rgba(10, 77, 104, 0.5);
             }
 
             nav.active a {
@@ -4401,17 +4500,20 @@
                 font-size: 32px;
             }
 
-            .destination-grid-wrapper {
+            .destination-grid-wrapper,
+            .agency-grid-wrapper {
                 margin: 35px 0;
                 overflow: hidden;
             }
 
-            .destination-grid {
+            .destination-grid,
+            .agency-grid {
                 gap: 20px;
                 padding: 20px 0 30px;
             }
 
-            .destination-card {
+            .destination-card,
+            .agency-card {
                 flex: 0 0 300px;
                 min-width: 300px;
             }
@@ -4453,6 +4555,138 @@
                 display: none;
             }
 
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            /* Hide desktop nav on tablets */
+            .desktop-nav {
+                display: none !important;
+            }
+
+            /* Hide header actions desktop on tablets */
+            .header-actions-desktop {
+                display: none !important;
+            }
+
+            /* Hide nav by default */
+            nav {
+                display: none !important;
+            }
+
+            /* Show nav when active (hamburger clicked) */
+            nav.active {
+                display: block !important;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--header-bg);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                padding: 140px 15px 20px 15px;
+                z-index: 9998;
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+                max-height: 100vh;
+            }
+
+            /* Show navigation links when menu is active - make scrollable */
+            nav.active ul {
+                display: flex !important;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 20px;
+                list-style: none;
+                padding: 0;
+                margin: 0 0 20px 0;
+                max-height: calc(100vh - 300px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+                padding-right: 10px;
+            }
+
+            /* Custom scrollbar for nav menu */
+            nav.active ul::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            nav.active ul::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+
+            nav.active ul::-webkit-scrollbar-thumb {
+                background: rgba(10, 77, 104, 0.3);
+                border-radius: 10px;
+            }
+
+            nav.active ul::-webkit-scrollbar-thumb:hover {
+                background: rgba(10, 77, 104, 0.5);
+            }
+
+            nav.active ul li {
+                display: block;
+            }
+
+            nav.active a {
+                font-size: 16px;
+                padding: 14px 12px;
+                display: block;
+                min-height: 48px;
+                color: var(--text-primary);
+                text-decoration: none;
+                border-radius: 8px;
+                transition: background-color 0.2s ease;
+            }
+
+            nav.active .header-actions {
+                display: flex !important;
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav.active .header-actions .cta-btn,
+            nav.active .header-actions a {
+                width: 100% !important;
+                padding: 14px 24px !important;
+                font-size: 15px !important;
+                min-height: 48px !important;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                border-radius: 25px;
+                text-decoration: none;
+                box-sizing: border-box;
+                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+                color: #fff;
+                font-weight: 600;
+            }
+
+            /* Top bar doimo ko'rinsin */
+            .top-bar {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 10000 !important;
+                background: var(--bg-tertiary) !important;
+            }
+
+            /* Main header ham ko'rinsin */
+            .main-header {
+                position: sticky !important;
+                top: var(--top-bar-height, 60px) !important;
+                z-index: 9999 !important;
+            }
+
             html {
                 font-size: 16px;
             }
@@ -4492,30 +4726,6 @@
                 grid-template-columns: repeat(3, 1fr);
             }
 
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            nav {
-                display: none;
-            }
-
-            nav.active {
-                display: block;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #fff;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                padding: 20px;
-            }
-
-            nav.active ul {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 20px;
-            }
 
             .hero {
                 height: auto;
@@ -4576,7 +4786,12 @@
                 display: none;
             }
 
+            /* On desktop, use desktop-nav instead of mobile nav */
             nav {
+                display: none;
+            }
+
+            .desktop-nav {
                 display: block;
             }
 
@@ -4653,7 +4868,6 @@
                         <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
                     </ul>
                     <div class="header-actions">
-                        <a href="#home" class="cta-btn" data-text="nav_book">Bron qilish</a>
                         <a id="headerLoginBtn" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
                         <a id="headerRegisterBtn" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
                         <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
@@ -4669,7 +4883,6 @@
                         </ul>
                     </nav>
                     <div class="header-actions header-actions-desktop">
-                        <a href="#home" class="cta-btn" data-text="nav_book">Bron qilish</a>
                         <a id="headerLoginBtnDesktop" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
                         <a id="headerRegisterBtnDesktop" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
                         <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
@@ -4751,6 +4964,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_atlas_name">Atlas Travel</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4769,6 +4983,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_samarqand_name">Samarqand Tours</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4787,6 +5002,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_nomad_name">Nomad Explorer</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4804,6 +5020,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_silk_name">Silk Road Elite</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4821,6 +5038,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_atlas_name">Atlas Travel</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4838,6 +5056,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_samarqand_name">Samarqand Tours</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4856,6 +5075,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_azialux_name">AziaLux Travel</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4874,6 +5094,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_clubtravel_name">ClubTravel UZ</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
 
@@ -4892,6 +5113,7 @@
                             </div>
                             <span class="agency-tag" data-text="agency_globalvoyage_name">Global Voyage Hub</span>
                         </div>
+                        <a href="#home" class="destination-book-btn cta-btn" data-text="nav_book">Bron qilish</a>
                     </div>
                 </div>
                 </div>
@@ -4959,7 +5181,7 @@
     <section class="agency-section" id="agencies">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title" data-text="agency_section_title">Hamkor Agentliklar</h2>
+                <button type="button" class="section-title agencies-title-btn" onclick="showAllAgencies()" data-text="agency_section_title" style="background: none; border: none; cursor: pointer; padding: 0; text-align: center; width: 100%;">Hamkor Agentliklar</button>
                 <p class="section-subtitle" data-text="agency_section_subtitle">Eng ishonchli sayohat hamkorlarini tanlang</p>
             </div>
             <div class="agency-toolbar">
@@ -4967,7 +5189,8 @@
                 <button type="button" data-filter="local" data-text="agency_filter_local">O'zbek sayyohlari uchun</button>
                 <button type="button" data-filter="international" data-text="agency_filter_global">Xorijiy sayyohlar uchun</button>
             </div>
-            <div class="agency-grid">
+            <div class="agency-grid-wrapper">
+                <div class="agency-grid">
                 <div class="agency-card" data-agency="atlas" data-type="local">
                     <div class="agency-flair"></div>
                     <button type="button" class="agency-badge" onclick="showLicense('atlas')" data-text="agency_badge_verified">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></button>
@@ -5304,6 +5527,21 @@
             </div>
         </div>
 
+        <!-- All Agencies Modal -->
+        <div class="modal-backdrop" id="allAgenciesModal">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="allAgenciesModalTitle" style="max-width: 1200px; max-height: 90vh; overflow-y: auto;">
+                <div class="modal-header">
+                    <div class="modal-title" id="allAgenciesModalTitle" data-text="agency_section_title">Hamkor Agentliklar</div>
+                    <button class="modal-close" aria-label="Close" id="allAgenciesModalClose">×</button>
+                </div>
+                <div class="modal-body" style="grid-template-columns: 1fr; padding: 25px;">
+                    <div class="all-agencies-grid" id="allAgenciesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
+                        <!-- Agencies will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
             // Initialize theme immediately to prevent flash
             (function() {
@@ -5331,6 +5569,13 @@
                 if (nav) {
                     var isActive = nav.classList.contains('active');
                     nav.classList.toggle('active');
+                    
+                    // Prevent body scroll when menu is open
+                    if (nav.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = '';
+                    }
                     
                     // Update button text/icon
                     if (menuBtn) {
@@ -5369,8 +5614,9 @@
                 var menuBtn = document.querySelector('.mobile-menu-btn');
                 if (nav && nav.classList.contains('active')) {
                     // If click is outside nav and not on menu button
-                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+                    if (!nav.contains(e.target) && menuBtn && !menuBtn.contains(e.target)) {
                         nav.classList.remove('active');
+                        document.body.style.overflow = '';
                         if (menuBtn) menuBtn.textContent = '☰';
                     }
                 }
@@ -5434,6 +5680,9 @@
                             // Close menu after a short delay to allow navigation
                             setTimeout(function() {
                                 nav.classList.remove('active');
+                                document.body.style.overflow = '';
+                                var menuBtn = document.querySelector('.mobile-menu-btn');
+                                if (menuBtn) menuBtn.textContent = '☰';
                             }, 100);
                         });
                     });
@@ -5444,6 +5693,9 @@
                         btn.addEventListener('click', function() {
                             setTimeout(function() {
                                 nav.classList.remove('active');
+                                document.body.style.overflow = '';
+                                var menuBtn = document.querySelector('.mobile-menu-btn');
+                                if (menuBtn) menuBtn.textContent = '☰';
                             }, 100);
                         });
                     });
@@ -6618,6 +6870,41 @@
 
                 document.getElementById('allDestinationsModalClose').addEventListener('click', function(){ close(allDestinationsModal); });
                 allDestinationsModal.addEventListener('click', function(e){ if (e.target === allDestinationsModal) close(allDestinationsModal); });
+
+                // All Agencies Modal
+                var allAgenciesModal = document.getElementById('allAgenciesModal');
+                var allAgenciesGrid = document.getElementById('allAgenciesGrid');
+
+                window.showAllAgencies = function() {
+                    // Clear previous content
+                    allAgenciesGrid.innerHTML = '';
+                    
+                    // Get all agency cards from the page
+                    var agencyCards = document.querySelectorAll('.agency-card');
+                    
+                    // Clone and add each agency card to the modal
+                    agencyCards.forEach(function(card) {
+                        var clonedCard = card.cloneNode(true);
+                        allAgenciesGrid.appendChild(clonedCard);
+                    });
+
+                    // Apply translations
+                    var lang = localStorage.getItem('ketmon_lang') || 'uz';
+                    var dict = window.i18n && window.i18n[lang] || {};
+                    if (dict.agency_section_title) {
+                        document.getElementById('allAgenciesModalTitle').textContent = dict.agency_section_title;
+                    }
+
+                    // Apply translations to cloned cards
+                    if (window.applyTranslations) {
+                        window.applyTranslations(lang);
+                    }
+
+                    open(allAgenciesModal);
+                };
+
+                document.getElementById('allAgenciesModalClose').addEventListener('click', function(){ close(allAgenciesModal); });
+                allAgenciesModal.addEventListener('click', function(e){ if (e.target === allAgenciesModal) close(allAgenciesModal); });
 
                 // Switch between modals
                 document.getElementById('loginToRegister').addEventListener('click', function(){ close(loginModal); open(registerModal); });
