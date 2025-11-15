@@ -206,11 +206,6 @@
                 -webkit-backdrop-filter: none !important;
             }
 
-            /* Exception: Keep backdrop filter for mobile menu */
-            nav.active {
-                backdrop-filter: blur(20px) !important;
-                -webkit-backdrop-filter: blur(20px) !important;
-            }
 
             /* Reduce box shadows */
             .destination-card,
@@ -248,7 +243,6 @@
             .currency-btn:hover,
             .cta-btn:hover,
             .btn-gradient:hover,
-            .mobile-menu-btn:hover,
             nav a:hover,
             a:hover,
             button:hover {
@@ -423,9 +417,16 @@
             color: var(--text-inverse);
             padding: 10px 0;
             font-size: 14px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
             position: relative;
             z-index: 1001 !important;
+        }
+        
+        /* Hide top bar when scrolling down on mobile */
+        .top-bar.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* TOP BAR TUGMALARINI DOIMO KO'RSATISH */
@@ -487,6 +488,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 32px;
+            font-size: 14px;
         }
 
         .lang-btn:hover, .lang-btn.active {
@@ -523,6 +526,11 @@
             font-weight: 500;
             text-align: left;
             white-space: nowrap;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
         }
 
         .lang-dropdown-item:hover {
@@ -540,8 +548,79 @@
 
         /* Ensure dropdown works on mobile */
         @media (max-width: 768px) {
+            .lang-currency-wrapper {
+                gap: 6px;
+                flex-wrap: nowrap;
+            }
+            
+            .lang-selector,
+            .currency-selector {
+                margin-left: 0;
+            }
+            
+            .currency-selector {
+                margin-left: 6px;
+            }
+            
             .lang-dropdown {
                 z-index: 1003;
+                min-width: 80px;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            }
+            
+            .lang-btn {
+                padding: 8px 12px;
+                min-height: 44px;
+                font-size: 13px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+            }
+            
+            /* Header actions buttons on mobile */
+            .header-right-group .header-actions {
+                gap: 6px;
+            }
+            
+            .header-action-btn {
+                padding: 8px 14px;
+                min-height: 44px;
+                font-size: 13px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
+            }
+            
+            .header-theme-toggle {
+                width: 44px;
+                height: 44px;
+                min-width: 44px;
+                min-height: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
+            }
+            
+            /* Header lang/currency buttons on mobile */
+            .header-right-group .lang-btn,
+            .header-right-group .currency-btn {
+                background: #fff;
+                color: #0a4d68;
+                border: 1px solid rgba(10, 77, 104, 0.2);
+                padding: 8px 14px;
+                border-radius: 20px;
+                min-height: 44px;
+                font-size: 13px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
+            }
+            
+            .lang-btn svg {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .lang-dropdown-item {
+                padding: 12px 15px;
+                min-height: 44px;
+                font-size: 14px;
             }
 
             /* Payment Modal Mobile Responsive */
@@ -722,6 +801,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 32px;
         }
 
         .currency-btn:hover, .currency-btn.active {
@@ -758,6 +838,11 @@
             font-weight: 500;
             text-align: left;
             white-space: nowrap;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
         }
 
         .currency-dropdown-item:hover {
@@ -777,6 +862,27 @@
         @media (max-width: 768px) {
             .currency-dropdown {
                 z-index: 1003;
+                min-width: 80px;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            }
+            
+            .currency-btn {
+                padding: 8px 12px;
+                min-height: 44px;
+                font-size: 13px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+            }
+            
+            .currency-btn svg {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .currency-dropdown-item {
+                padding: 12px 15px;
+                min-height: 44px;
+                font-size: 14px;
             }
         }
 
@@ -861,18 +967,6 @@
             margin-right: 10px;
         }
 
-        .mobile-menu-btn {
-            margin-right: 8px;
-            position: relative;
-            z-index: 1001;
-        }
-
-        /* Ensure button stays visible and clickable */
-        nav.active ~ .mobile-menu-btn,
-        .main-header .container .mobile-menu-btn {
-            z-index: 1001 !important;
-            position: relative;
-        }
 
         .main-header .container .header-right-group {
             flex-shrink: 0;
@@ -903,6 +997,104 @@
             flex-shrink: 0;
             margin-left: 10px;
         }
+        
+        /* Header actions (Login, Register, Theme Toggle) */
+        .header-right-group .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 0;
+        }
+        
+        .header-action-btn {
+            background: #fff;
+            color: #0a4d68;
+            border: 1px solid rgba(10, 77, 104, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 13px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+        }
+        
+        .header-action-btn:hover {
+            background: #0a4d68;
+            color: #fff;
+            border-color: #0a4d68;
+            transform: translateY(-1px);
+        }
+        
+        .header-theme-toggle {
+            background: #fff;
+            border: 1px solid rgba(10, 77, 104, 0.2);
+            color: #0a4d68;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s;
+            padding: 0;
+            flex-shrink: 0;
+        }
+        
+        .header-theme-toggle:hover {
+            background: #0a4d68;
+            color: #fff;
+            border-color: #0a4d68;
+            transform: rotate(15deg);
+        }
+        
+        /* Language and Currency buttons in header */
+        .header-right-group .lang-currency-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 0;
+        }
+        
+        .header-right-group .lang-btn,
+        .header-right-group .currency-btn {
+            background: #fff;
+            color: #0a4d68;
+            border: 1px solid rgba(10, 77, 104, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        
+        .header-right-group .lang-btn:hover,
+        .header-right-group .lang-btn.active,
+        .header-right-group .currency-btn:hover,
+        .header-right-group .currency-btn.active {
+            background: #0a4d68;
+            color: #fff;
+            border-color: #0a4d68;
+            transform: translateY(-1px);
+        }
+        
+        .header-right-group .lang-btn svg,
+        .header-right-group .currency-btn svg {
+            stroke: currentColor;
+        }
 
         .desktop-nav {
             margin-left: 0;
@@ -913,9 +1105,24 @@
             display: none !important;
         }
 
-        /* Hide header-right-group by default - only show on desktop */
+        /* Show header-right-group on all devices (for lang/currency buttons) */
         .header-right-group {
-            display: none !important;
+            display: flex !important;
+        }
+        
+        /* Hide desktop-nav on mobile, but keep lang/currency visible */
+        @media (max-width: 968px) {
+            .desktop-nav {
+                display: none !important;
+            }
+            
+            .header-right-group {
+                display: flex !important;
+            }
+            
+            .header-right-group .desktop-nav {
+                display: none !important;
+            }
         }
 
         @media (min-width: 969px) {
@@ -979,20 +1186,6 @@
             display: none;
         }
 
-        /* Show nav when active (hamburger clicked) */
-        nav.active {
-            display: block;
-        }
-
-        /* Hide mobile menu buttons on desktop */
-        nav .header-actions {
-            display: none;
-        }
-
-        /* Show mobile menu buttons when menu is active */
-        nav.active .header-actions {
-            display: flex;
-        }
 
         .logo {
             font-size: 36px;
@@ -1010,20 +1203,9 @@
             filter: brightness(1.1);
         }
 
-        /* Hide nav ul by default - only show when nav is active */
         nav ul,
         .nav-links {
             display: none;
-        }
-
-        nav.active ul,
-        nav.active .nav-links,
-        .nav-links.active {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            padding: 0;
-            margin: 0;
         }
 
         nav a {
@@ -2865,39 +3047,6 @@
             transition: border-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Hamburger Menu (3 ta chiziq) tugmasi uchun */
-        .mobile-menu-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            min-width: 44px;
-            min-height: 44px;
-            font-size: 28px;
-            color: var(--text-primary);
-            transition: all 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mobile-menu-btn::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 50%;
-            transform: scale(0);
-            transition: transform 0.2s ease;
-        }
-
-        .mobile-menu-btn:active::before {
-            transform: scale(1);
-        }
 
         /* Modal (Tour Details) */
         .modal-backdrop {
@@ -3133,10 +3282,24 @@
 
             .lang-btn,
             .currency-btn {
-                padding: 3px 6px;
-                font-size: 8px;
-                min-width: 32px;
-                min-height: 26px;
+                padding: 8px 10px;
+                font-size: 12px;
+                min-width: 48px;
+                min-height: 44px;
+            }
+            
+            .lang-btn svg,
+            .currency-btn svg {
+                width: 10px;
+                height: 10px;
+                margin-left: 4px;
+            }
+            
+            .lang-dropdown-item,
+            .currency-dropdown-item {
+                padding: 10px 12px;
+                min-height: 44px;
+                font-size: 13px;
             }
 
             .lang-selector,
@@ -3201,17 +3364,37 @@
 
             .lang-btn,
             .currency-btn {
-                padding: 3px 6px;
-                font-size: 8px;
-                min-width: 32px;
-                min-height: 26px;
+                padding: 8px 10px;
+                font-size: 12px;
+                min-width: 48px;
+                min-height: 44px;
                 border-radius: 4px;
+            }
+            
+            .lang-btn svg,
+            .currency-btn svg {
+                width: 10px;
+                height: 10px;
+                margin-left: 4px;
             }
 
             .lang-btn:active,
             .currency-btn:active {
-                transform: scale(0.95);
+                transform: scale(0.96);
                 background: rgba(255,255,255,0.9) !important;
+                opacity: 0.9;
+            }
+            
+            .lang-dropdown-item,
+            .currency-dropdown-item {
+                padding: 10px 12px;
+                min-height: 44px;
+                font-size: 13px;
+            }
+            
+            .lang-dropdown-item:active,
+            .currency-dropdown-item:active {
+                background: rgba(10, 77, 104, 0.2) !important;
             }
 
             .main-header {
@@ -3229,18 +3412,6 @@
                 flex: 0 1 auto;
                 min-width: 0;
             }
-
-            .mobile-menu-btn {
-                font-size: 22px;
-                padding: 4px 8px;
-                min-width: 40px;
-                min-height: 40px;
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-
 
             .section-title {
                 font-size: 20px;
@@ -3366,13 +3537,6 @@
             .logo {
                 font-size: 22px;
                 letter-spacing: 1.5px;
-            }
-
-            .mobile-menu-btn {
-                font-size: 24px;
-                padding: 5px 10px;
-                min-width: 44px;
-                min-height: 44px;
             }
 
             .section-title {
@@ -4020,36 +4184,6 @@
                 text-overflow: ellipsis;
             }
 
-            .mobile-menu-btn {
-                font-size: 26px;
-                padding: 6px 12px;
-                min-width: 44px;
-                min-height: 44px;
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                background: none;
-                border: none;
-                cursor: pointer;
-                color: var(--text-primary);
-                flex-shrink: 0;
-                transition: opacity 0.2s ease;
-                touch-action: manipulation;
-                -webkit-user-select: none;
-                user-select: none;
-            }
-
-            /* Mobilda hover o'rniga faqat active */
-            .mobile-menu-btn:hover {
-                transform: none !important;
-                background: none !important;
-            }
-
-            .mobile-menu-btn:active {
-                opacity: 0.6 !important;
-                transform: scale(0.9) !important;
-            }
-
             /* Top bar elementlariga tegmaslik */
             .top-bar * {
                 pointer-events: auto !important;
@@ -4100,6 +4234,13 @@
                 top: 0 !important;
                 z-index: 10000 !important;
                 background: var(--bg-tertiary) !important;
+                transition: transform 0.3s ease, opacity 0.3s ease !important;
+            }
+            
+            .top-bar.hidden {
+                transform: translateY(-100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
             }
 
             /* Main header ham ko'rinsin */
@@ -4109,177 +4250,6 @@
                 z-index: 9999 !important;
             }
 
-            nav.active ul,
-            nav.active .nav-links,
-            .nav-links.active {
-                display: flex !important;
-                flex-direction: column;
-                gap: 15px;
-                margin-bottom: 20px;
-                list-style: none;
-                padding: 20px;
-                margin: 0 0 20px 0;
-                width: 100%;
-                max-height: calc(100vh - 300px);
-                overflow-y: auto;
-                overflow-x: hidden;
-                -webkit-overflow-scrolling: touch;
-                padding-right: 10px;
-                animation: linksFadeIn 0.4s ease-out 0.1s both;
-            }
-
-            @keyframes linksFadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            nav.active ul li {
-                animation: linkSlideIn 0.3s ease-out both;
-            }
-
-            nav.active ul li:nth-child(1) { animation-delay: 0.1s; }
-            nav.active ul li:nth-child(2) { animation-delay: 0.15s; }
-            nav.active ul li:nth-child(3) { animation-delay: 0.2s; }
-            nav.active ul li:nth-child(4) { animation-delay: 0.25s; }
-
-            @keyframes linkSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateX(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-
-            /* Custom scrollbar for mobile nav menu */
-            nav.active ul::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            nav.active ul::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 10px;
-            }
-
-            nav.active ul::-webkit-scrollbar-thumb {
-                background: rgba(10, 77, 104, 0.3);
-                border-radius: 10px;
-            }
-
-            nav.active ul::-webkit-scrollbar-thumb:hover {
-                background: rgba(10, 77, 104, 0.5);
-            }
-
-            nav.active ul li {
-                margin: 0;
-            }
-
-            nav.active a {
-                font-size: 16px;
-                padding: 14px 12px;
-                display: block;
-                min-height: 48px;
-                color: var(--text-primary);
-                text-decoration: none;
-                border-radius: 8px;
-                transition: background-color 0.2s ease;
-            }
-
-            nav.active a:active {
-                background-color: rgba(0,0,0,0.05);
-            }
-
-            /* MOBIL MENYUDAGI TUGMALARNI KO'RSATISH */
-            /* Desktop header actions ni yashirish */
-            .header-actions-desktop {
-                display: none !important;
-            }
-
-            /* Mobil menyu ochilganda tugmalarni ko'rsatish */
-            nav.active .header-actions {
-                display: flex !important;
-                flex-direction: column;
-                gap: 12px;
-                width: 100%;
-                margin-top: 20px;
-                padding-top: 20px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            /* Tugmalar to'liq kenglikda */
-            nav.active .header-actions .cta-btn,
-            nav.active .header-actions a {
-                width: 100% !important;
-                padding: 14px 24px !important;
-                font-size: 15px !important;
-                min-height: 48px !important;
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                border-radius: 25px;
-                text-decoration: none;
-                box-sizing: border-box;
-                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
-                color: #fff;
-                font-weight: 600;
-                transition: opacity 0.2s ease, transform 0.1s ease;
-            }
-
-            /* Theme toggle tugmasi */
-            nav.active .header-actions .theme-toggle {
-                width: 100% !important;
-                height: 48px !important;
-                border-radius: 25px;
-                font-size: 20px;
-            }
-
-            /* Tugmalar uchun hover o'rniga active */
-            nav.active .header-actions .cta-btn:hover {
-                transform: none !important;
-            }
-
-            nav.active .header-actions .cta-btn:active,
-            nav.active .header-actions a:active {
-                opacity: 0.8;
-                transform: scale(0.98) !important;
-            }
-
-            /* Menyu yopiq bo'lganda header actions ni yashirish */
-            nav:not(.active) .header-actions {
-                display: none !important;
-            }
-
-            /* Mobil menyudagi elementlar orasida bo'shliq */
-            header .nav-links {
-                display: flex;
-                gap: 10px; /* Elementlar orasida 10px bo'shliq */
-                flex-wrap: wrap; /* Kerak bo'lsa keyingi qatorga o'tadi */
-                align-items: center;
-            }
-
-            /* Mobile menu navigation links spacing */
-            nav.active ul {
-                gap: 10px !important; /* Elementlar orasida 10px bo'shliq */
-            }
-
-            /* Til va valyuta tugmalari */
-            header .nav-links button,
-            header .nav-links a,
-            nav.active ul li a {
-                padding: 8px 15px;
-                margin: 5px;
-                min-width: 60px; /* Minimal kenglik */
-                text-align: center;
-            }
 
             /* Telefon va email linklar */
             header .contact-info {
@@ -4657,7 +4627,7 @@
                 right: 15px;
                 padding: 10px 18px;
                 font-size: 12px;
-                }
+            }
         }
 
         /* Small Devices (phones, 481px to 768px) */
@@ -4765,47 +4735,6 @@
                 letter-spacing: 1.5px;
             }
 
-            .mobile-menu-btn {
-                min-width: 44px;
-                min-height: 44px;
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                background: none;
-                border: none;
-                cursor: pointer;
-                color: var(--text-primary);
-                font-size: 26px;
-                padding: 6px 12px;
-                flex-shrink: 0;
-                transition: opacity 0.2s ease;
-                position: relative;
-                z-index: 1001 !important;
-            }
-
-            .mobile-menu-btn:active {
-                opacity: 0.7;
-            }
-
-            /* Ensure button stays visible when menu is active */
-            .mobile-menu-btn {
-                display: flex !important;
-                z-index: 1001 !important;
-                position: relative !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-
-            /* Button should always be visible and clickable, even when menu is open */
-            nav.active ~ .mobile-menu-btn,
-            .main-header .mobile-menu-btn,
-            .mobile-menu-btn {
-                display: flex !important;
-                z-index: 1001 !important;
-                position: relative !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
 
             /* Hide desktop header actions on mobile */
             .header-actions-desktop {
@@ -5067,10 +4996,6 @@
                 display: none;
             }
 
-            .mobile-menu-btn {
-                display: flex !important;
-            }
-
             /* Hide desktop nav on tablets */
             .desktop-nav {
                 display: none !important;
@@ -5091,125 +5016,19 @@
                 display: none !important;
             }
 
-            /* Show nav when active (hamburger clicked) */
-            nav.active {
-                display: block !important;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: var(--header-bg);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                padding: 140px 15px 20px 15px;
-                z-index: 9998;
-                overflow-y: auto;
-                overflow-x: hidden;
-                -webkit-overflow-scrolling: touch;
-                max-height: 100vh;
-                animation: menuSlideIn 0.3s ease-out;
-            }
-
-            @keyframes menuSlideIn {
-                from {
-                    opacity: 0;
-                    transform: scale(0.95) translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: scale(1) translateY(0);
-                }
-            }
-
-            /* Show navigation links when menu is active - make scrollable */
-            nav.active ul,
-            nav.active .nav-links,
-            .nav-links.active {
-                display: flex !important;
-                flex-direction: column;
-                gap: 15px;
-                margin-bottom: 20px;
-                list-style: none;
-                padding: 20px;
-                margin: 0 0 20px 0;
-                width: 100%;
-                max-height: calc(100vh - 300px);
-                overflow-y: auto;
-                overflow-x: hidden;
-                -webkit-overflow-scrolling: touch;
-                padding-right: 10px;
-            }
-
-            /* Custom scrollbar for nav menu */
-            nav.active ul::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            nav.active ul::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 10px;
-            }
-
-            nav.active ul::-webkit-scrollbar-thumb {
-                background: rgba(10, 77, 104, 0.3);
-                border-radius: 10px;
-            }
-
-            nav.active ul::-webkit-scrollbar-thumb:hover {
-                background: rgba(10, 77, 104, 0.5);
-            }
-
-            nav.active ul li {
-                display: block;
-            }
-
-            nav.active a {
-                font-size: 16px;
-                padding: 14px 12px;
-                display: block;
-                min-height: 48px;
-                color: var(--text-primary);
-                text-decoration: none;
-                border-radius: 8px;
-                transition: background-color 0.2s ease;
-            }
-
-            nav.active .header-actions {
-                display: flex !important;
-                flex-direction: column;
-                gap: 12px;
-                width: 100%;
-                margin-top: 20px;
-                padding-top: 20px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            nav.active .header-actions .cta-btn,
-            nav.active .header-actions a {
-                width: 100% !important;
-                padding: 14px 24px !important;
-                font-size: 15px !important;
-                min-height: 48px !important;
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                border-radius: 25px;
-                text-decoration: none;
-                box-sizing: border-box;
-                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
-                color: #fff;
-                font-weight: 600;
-            }
-
             /* Top bar doimo ko'rinsin */
             .top-bar {
                 position: sticky !important;
                 top: 0 !important;
                 z-index: 10000 !important;
                 background: var(--bg-tertiary) !important;
+                transition: transform 0.3s ease, opacity 0.3s ease !important;
+            }
+            
+            .top-bar.hidden {
+                transform: translateY(-100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
             }
 
             /* Main header ham ko'rinsin */
@@ -5314,10 +5133,6 @@
                 display: block;
             }
 
-            .mobile-menu-btn {
-                display: none !important;
-                pointer-events: none;
-            }
 
             /* On desktop, use desktop-nav instead of mobile nav */
             nav#mainNav {
@@ -5372,39 +5187,6 @@
                 <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:5px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span data-text="phone">+998 93 301 52 18</span></span>
                 <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:5px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span data-text="email">info@ketmon.uz</span></span>
             </div>
-            <div class="top-bar-actions">
-                <a id="topBarLoginBtn" href="#login" class="top-bar-btn" data-text="nav_login">Kirish</a>
-                <a id="topBarRegisterBtn" href="#register" class="top-bar-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
-                <button class="top-bar-theme-toggle" id="topBarThemeToggle" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
-            </div>
-            <div class="lang-currency-wrapper">
-                <div class="lang-selector">
-                    <button class="lang-btn active" id="langDropdownBtn" onclick="toggleLangDropdown()">
-                        <span id="langCurrent">UZ</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 5px; transition: transform 0.3s;" id="langDropdownIcon">
-                            <path d="M2 4l4 4 4-4"/>
-                        </svg>
-                    </button>
-                    <div class="lang-dropdown" id="langDropdown">
-                        <button class="lang-dropdown-item active" onclick="selectLang('uz')">UZ</button>
-                        <button class="lang-dropdown-item" onclick="selectLang('ru')">RU</button>
-                        <button class="lang-dropdown-item" onclick="selectLang('en')">EN</button>
-                    </div>
-                </div>
-                <div class="currency-selector">
-                    <button class="currency-btn active" id="currencyDropdownBtn" onclick="toggleCurrencyDropdown()">
-                        <span id="currencyCurrent">SUM</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 5px; transition: transform 0.3s;" id="currencyDropdownIcon">
-                            <path d="M2 4l4 4 4-4"/>
-                        </svg>
-                    </button>
-                    <div class="currency-dropdown" id="currencyDropdown">
-                        <button class="currency-dropdown-item active" onclick="selectCurrency('sum')">SUM</button>
-                        <button class="currency-dropdown-item" onclick="selectCurrency('usd')">USD</button>
-                        <button class="currency-dropdown-item" onclick="selectCurrency('rub')">RUB</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -5413,7 +5195,6 @@
         <div class="main-header">
             <div class="container">
                 <a href="#" class="logo">KETMON</a>
-                <button class="mobile-menu-btn menu-toggle" onclick="toggleMenu(event)" aria-label="Toggle menu">☰</button>
                 <nav id="mainNav">
                     <ul class="nav-links">
                         <li><a href="#home" data-text="nav_home">Bosh sahifa</a></li>
@@ -5431,6 +5212,39 @@
                             <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
                         </ul>
                     </nav>
+                    <div class="header-actions">
+                        <a id="topBarLoginBtn" href="#login" class="header-action-btn" data-text="nav_login">Kirish</a>
+                        <a id="topBarRegisterBtn" href="#register" class="header-action-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                    </div>
+                    <div class="lang-currency-wrapper">
+                        <div class="lang-selector">
+                            <button class="lang-btn active" id="langDropdownBtn" onclick="toggleLangDropdown()">
+                                <span id="langCurrent">UZ</span>
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 5px; transition: transform 0.3s;" id="langDropdownIcon">
+                                    <path d="M2 4l4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <div class="lang-dropdown" id="langDropdown">
+                                <button class="lang-dropdown-item active" onclick="selectLang('uz')">UZ</button>
+                                <button class="lang-dropdown-item" onclick="selectLang('ru')">RU</button>
+                                <button class="lang-dropdown-item" onclick="selectLang('en')">EN</button>
+                            </div>
+                        </div>
+                        <div class="currency-selector">
+                            <button class="currency-btn active" id="currencyDropdownBtn" onclick="toggleCurrencyDropdown()">
+                                <span id="currencyCurrent">SUM</span>
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 5px; transition: transform 0.3s;" id="currencyDropdownIcon">
+                                    <path d="M2 4l4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <div class="currency-dropdown" id="currencyDropdown">
+                                <button class="currency-dropdown-item active" onclick="selectCurrency('sum')">SUM</button>
+                                <button class="currency-dropdown-item" onclick="selectCurrency('usd')">USD</button>
+                                <button class="currency-dropdown-item" onclick="selectCurrency('rub')">RUB</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="header-theme-toggle" id="topBarThemeToggle" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
                 </div>
             </div>
         </div>
@@ -6180,134 +5994,63 @@
                 }
             });
 
-            // Mobile menu toggle
-            function toggleMenu(e) {
-                // Prevent event bubbling to avoid conflicts with click-outside handler
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+            // Hide/show top bar on scroll for mobile devices
+            (function() {
+                let lastScrollTop = 0;
+                let ticking = false;
+                const topBar = document.querySelector('.top-bar');
+                
+                if (!topBar) return;
+                
+                // Only apply on mobile devices
+                function isMobile() {
+                    return window.innerWidth <= 768;
                 }
                 
-                // Check if we're on desktop - don't run on desktop
-                var menuBtn = document.querySelector('.menu-toggle') || document.querySelector('.mobile-menu-btn');
-                if (menuBtn && window.getComputedStyle(menuBtn).display === 'none') {
-                    return; // Don't run on desktop where button is hidden
-                }
-                
-                var nav = document.getElementById('mainNav');
-                var navLinks = document.querySelector('.nav-links');
-                
-                if (!nav || !menuBtn) {
-                    return;
-                }
-                
-                // Only proceed if button is visible (mobile view)
-                var btnStyle = window.getComputedStyle(menuBtn);
-                if (btnStyle.display === 'none') {
-                    return;
-                }
-                
-                var isActive = nav.classList.contains('active');
-                
-                // Toggle nav active class
-                nav.classList.toggle('active');
-                
-                // Toggle nav-links active class
-                if (navLinks) {
-                    navLinks.classList.toggle('active');
-                }
-                
-                // Prevent body scroll when menu is open
-                if (!isActive) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
-                
-                // Update button text/icon
-                menuBtn.textContent = !isActive ? '✕' : '☰';
-                
-                // Re-apply translations when menu opens (in case buttons were hidden)
-                if (!isActive) {
-                    var savedLang = localStorage.getItem('ketmon_lang') || 'uz';
-                    if (window.applyTranslations) {
-                        // Small delay to ensure DOM is updated
-                        setTimeout(function() {
-                            var dict = window.i18n && window.i18n[savedLang] || {};
-                            var headerBookBtns = nav.querySelectorAll('[data-text="nav_book"]');
-                            headerBookBtns.forEach(function(btn) {
-                                if (dict.nav_book) btn.textContent = dict.nav_book;
-                            });
-                        }, 50);
+                function handleScroll() {
+                    if (!isMobile()) {
+                        topBar.classList.remove('hidden');
+                        return;
                     }
-                }
-            }
-            window.toggleMenu = toggleMenu;
-
-            // Close menu when clicking on a nav link
-            document.addEventListener('DOMContentLoaded', function() {
-                var nav = document.getElementById('mainNav');
-                if (nav) {
-                    var navLinks = nav.querySelectorAll('.nav-links a');
-                    var menuBtn = document.querySelector('.menu-toggle') || document.querySelector('.mobile-menu-btn');
                     
-                    navLinks.forEach(function(link) {
-                        link.addEventListener('click', function() {
-                            if (nav.classList.contains('active')) {
-                                nav.classList.remove('active');
-                                var navLinksEl = nav.querySelector('.nav-links');
-                                if (navLinksEl) navLinksEl.classList.remove('active');
-                                document.body.style.overflow = '';
-                                if (menuBtn) menuBtn.textContent = '☰';
-                            }
-                        });
-                    });
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Show top bar when at the top of the page
+                    if (scrollTop <= 10) {
+                        topBar.classList.remove('hidden');
+                        lastScrollTop = scrollTop;
+                        ticking = false;
+                        return;
+                    }
+                    
+                    // Hide top bar when scrolling down, show when scrolling up
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        // Scrolling down
+                        topBar.classList.add('hidden');
+                    } else {
+                        // Scrolling up
+                        topBar.classList.remove('hidden');
+                    }
+                    
+                    lastScrollTop = scrollTop;
+                    ticking = false;
+                }
+                
+                window.addEventListener('scroll', function() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(handleScroll);
+                        ticking = true;
+                    }
+                }, { passive: true });
+                
+                // Show top bar on window resize if switching from desktop to mobile
+                window.addEventListener('resize', function() {
+                    if (!isMobile()) {
+                        topBar.classList.remove('hidden');
+                    }
+                });
+            })();
 
-                    // Close menu when clicking on header action buttons in mobile menu
-                    var mobileMenuButtons = nav.querySelectorAll('.header-actions .cta-btn');
-                    mobileMenuButtons.forEach(function(btn) {
-                        btn.addEventListener('click', function() {
-                            setTimeout(function() {
-                                nav.classList.remove('active');
-                                var navLinksEl = nav.querySelector('.nav-links');
-                                if (navLinksEl) navLinksEl.classList.remove('active');
-                                document.body.style.overflow = '';
-                                if (menuBtn) menuBtn.textContent = '☰';
-                            }, 100);
-                        });
-                    });
-                }
-            });
-
-            // Close menu when clicking outside (only on mobile)
-            document.addEventListener('click', function(e) {
-                var nav = document.getElementById('mainNav');
-                var navLinks = document.querySelector('.nav-links');
-                var menuBtn = document.querySelector('.menu-toggle') || document.querySelector('.mobile-menu-btn');
-                
-                if (!nav || !menuBtn) return;
-                
-                // Don't run on desktop where button is hidden
-                var btnStyle = window.getComputedStyle(menuBtn);
-                if (btnStyle.display === 'none') {
-                    return;
-                }
-                
-                // Don't close if clicking on the menu button itself
-                if (menuBtn.contains(e.target) || e.target === menuBtn) {
-                    return;
-                }
-                
-                // Close if menu is active and click is outside nav
-                if (nav.classList.contains('active') && !nav.contains(e.target)) {
-                    nav.classList.remove('active');
-                    if (navLinks) navLinks.classList.remove('active');
-                    document.body.style.overflow = '';
-                    menuBtn.textContent = '☰';
-                }
-            });
-
-            // Close mobile menu when clicking on navigation links
             // Theme Toggle Functionality
             (function() {
                 // Get theme from localStorage or default to light
