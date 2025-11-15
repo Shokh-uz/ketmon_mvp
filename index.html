@@ -3571,6 +3571,71 @@
                 transform: scale(0.98);
             }
 
+            /* Mobil menyudagi elementlar orasida bo'shliq */
+            header .nav-links {
+                display: flex;
+                gap: 10px; /* Elementlar orasida 10px bo'shliq */
+                flex-wrap: wrap; /* Kerak bo'lsa keyingi qatorga o'tadi */
+                align-items: center;
+            }
+
+            /* Mobile menu navigation links spacing */
+            nav.active ul {
+                gap: 10px !important; /* Elementlar orasida 10px bo'shliq */
+            }
+
+            /* Til va valyuta tugmalari */
+            header .nav-links button,
+            header .nav-links a,
+            nav.active ul li a {
+                padding: 8px 15px;
+                margin: 5px;
+                min-width: 60px; /* Minimal kenglik */
+                text-align: center;
+            }
+
+            /* Telefon va email linklar */
+            header .contact-info {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+
+            /* Til tugmalari qatori */
+            .language-buttons,
+            .lang-selector {
+                display: flex;
+                gap: 10px;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            /* Valyuta tugmalari qatori */
+            .currency-buttons,
+            .currency-selector {
+                display: flex;
+                gap: 10px;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            /* Agar tugmalar bir qatorda turishi kerak bo'lsa */
+            .button-group,
+            .lang-currency-wrapper {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); /* 3 ta ustun */
+                gap: 10px;
+                width: 100%;
+            }
+
+            .button-group button,
+            .lang-currency-wrapper .lang-selector,
+            .lang-currency-wrapper .currency-selector {
+                margin: 0;
+            }
+
             .hero {
                 padding: 60px 0 50px;
                 min-height: 450px;
