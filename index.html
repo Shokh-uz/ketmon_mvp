@@ -3890,7 +3890,6 @@
                     <ul>
                         <li><a href="#home" data-text="nav_home">Bosh sahifa</a></li>
                         <li><a href="#destinations" data-text="nav_destinations">Yo'nalishlar</a></li>
-                        <li><a href="#services" data-text="nav_services">Xizmatlar</a></li>
                         <li><a href="#about" data-text="nav_about">Biz haqimizda</a></li>
                         <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
                     </ul>
@@ -3906,7 +3905,6 @@
                         <ul>
                             <li><a href="#home" data-text="nav_home">Bosh sahifa</a></li>
                             <li><a href="#destinations" data-text="nav_destinations">Yo'nalishlar</a></li>
-                            <li><a href="#services" data-text="nav_services">Xizmatlar</a></li>
                             <li><a href="#about" data-text="nav_about">Biz haqimizda</a></li>
                             <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
                         </ul>
@@ -3984,236 +3982,6 @@
                     </select>
                 </div>
                 <button class="search-btn" data-text="search_btn">Qidirish</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Assistant Section -->
-    <section class="ai-assistant" id="ai">
-        <div class="container">
-            <div class="ai-card">
-                <div class="ai-header">
-                    <span class="ai-icon">🤖</span>
-                    <div>
-                        <h3 data-text="ai_assistant_title">Smart AI yordamchi</h3>
-                        <p data-text="ai_assistant_subtitle">Budjetingiz, yo‘nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.</p>
-                    </div>
-                </div>
-                <form class="ai-form" id="aiForm">
-                    <div class="ai-field">
-                        <label for="aiBudget" data-text="ai_budget_label">Budjet (USD)</label>
-                        <input type="number" id="aiBudget" placeholder="1500" data-placeholder="ai_budget_placeholder" min="100">
-                    </div>
-                    <div class="ai-field">
-                        <label for="aiDestination" data-text="ai_destination_label">Qiziqqan yo‘nalish</label>
-                        <input type="text" id="aiDestination" placeholder="Osiyo, Yevropa..." data-placeholder="ai_destination_placeholder">
-                    </div>
-                    <div class="ai-field season-month-row">
-                        <div class="ai-field">
-                            <label for="aiSeason" data-text="ai_season_label">Qaysi fasllar</label>
-                            <select id="aiSeason">
-                                <option value="summer" data-text="ai_season_summer">Yoz</option>
-                                <option value="autumn" data-text="ai_season_autumn">Kuz</option>
-                                <option value="winter" data-text="ai_season_winter">Qish</option>
-                                <option value="spring" data-text="ai_season_spring">Bahor</option>
-                            </select>
-                        </div>
-                        <div class="ai-field" id="aiMonthField" style="display: none;">
-                            <label for="aiMonth" data-text="ai_month_label">Oy</label>
-                            <select id="aiMonth">
-                                <option value="" data-text="ai_month_select">Tanlang</option>
-                                <option value="january" data-text="ai_month_january">Yanvar</option>
-                                <option value="february" data-text="ai_month_february">Fevral</option>
-                                <option value="march" data-text="ai_month_march">Mart</option>
-                                <option value="april" data-text="ai_month_april">Aprel</option>
-                                <option value="may" data-text="ai_month_may">May</option>
-                                <option value="june" data-text="ai_month_june">Iyun</option>
-                                <option value="july" data-text="ai_month_july">Iyul</option>
-                                <option value="august" data-text="ai_month_august">Avgust</option>
-                                <option value="september" data-text="ai_month_september">Sentabr</option>
-                                <option value="october" data-text="ai_month_october">Oktabr</option>
-                                <option value="november" data-text="ai_month_november">Noyabr</option>
-                                <option value="december" data-text="ai_month_december">Dekabr</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-gradient ai-submit" data-text="ai_generate_btn">Tavsiyalarni ko‘rish</button>
-                </form>
-                <div class="ai-response" id="aiResponse" data-text="ai_response_placeholder">Savolingizni kiriting va AI yordamchidan tavsiyalar oling.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trending Destinations Section -->
-    <section class="trending-destinations">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-text="trending_title">Trending destinations</h2>
-                <p class="section-subtitle" data-text="trending_subtitle">Most popular choices for travellers from Uzbekistan</p>
-            </div>
-            <div class="carousel-container">
-                <div class="carousel-track" id="trendingCarousel">
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Tashkent" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_tashkent">Toshkent</h3>
-                            <span class="flag">🇺🇿</span>
-                        </div>
-                    </div>
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Samarkand" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_samarkand">Samarqand</h3>
-                            <span class="flag">🇺🇿</span>
-                        </div>
-                    </div>
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=800&auto=format&fit=crop" alt="Istanbul" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_istanbul">Istanbul</h3>
-                            <span class="flag">🇹🇷</span>
-                        </div>
-                    </div>
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Bukhara" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_bukhara">Buxoro</h3>
-                            <span class="flag">🇺🇿</span>
-                        </div>
-                    </div>
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop" alt="Dubai" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_dubai">Dubai</h3>
-                            <span class="flag">🇦🇪</span>
-                        </div>
-                    </div>
-                    <!-- Duplicate for seamless loop -->
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Tashkent" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_tashkent">Toshkent</h3>
-                            <span class="flag">🇺🇿</span>
-                        </div>
-                    </div>
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=800&auto=format&fit=crop" alt="Samarkand" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_samarkand">Samarqand</h3>
-                            <span class="flag">🇺🇿</span>
-                        </div>
-                    </div>
-                    <div class="destination-card-carousel">
-                        <div class="destination-img">
-                            <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=800&auto=format&fit=crop" alt="Istanbul" loading="lazy">
-                        </div>
-                        <div class="destination-info">
-                            <h3 data-text="dest_istanbul">Istanbul</h3>
-                            <span class="flag">🇹🇷</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Partner Agencies -->
-    <section class="agency-section" id="agencies">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-text="agency_section_title">Hamkor Agentliklar</h2>
-                <p class="section-subtitle" data-text="agency_section_subtitle">Eng ishonchli sayohat hamkorlarini tanlang</p>
-            </div>
-            <div class="agency-toolbar">
-                <button type="button" class="active" data-filter="all" data-text="agency_filter_all">Barcha hamkorlar</button>
-                <button type="button" data-filter="local" data-text="agency_filter_local">O'zbek sayyohlari uchun</button>
-                <button type="button" data-filter="international" data-text="agency_filter_global">Xorijiy sayyohlar uchun</button>
-            </div>
-            <div class="agency-grid">
-                <div class="agency-card" data-agency="atlas" data-type="local">
-                    <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
-                    <h3 data-text="agency_atlas_name">Atlas Travel</h3>
-                    <p data-text="agency_atlas_desc">Markaziy Osiyodan dunyoning 40+ manziliga premium paketlar va VIP xizmatlar.</p>
-                    <div class="cta">
-                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
-                        <span>→</span>
-                    </div>
-                </div>
-                <div class="agency-card" data-agency="samarqand" data-type="local">
-                    <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
-                    <h3 data-text="agency_samarqand_name">Samarqand Tours</h3>
-                    <p data-text="agency_samarqand_desc">Madaniy sayohatlar, tarixiy gidlar va mahalliy tajribalar bo'yicha mutaxassis.</p>
-                    <div class="cta">
-                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
-                        <span>→</span>
-                    </div>
-                </div>
-                <div class="agency-card" data-agency="nomad" data-type="local">
-                    <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
-                    <h3 data-text="agency_nomad_name">Nomad Explorer</h3>
-                    <p data-text="agency_nomad_desc">Aktiv sayohatlar, tog' yurishlari va ekologik turizm bo'yicha mutaxassis.</p>
-                    <div class="cta">
-                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
-                        <span>→</span>
-                    </div>
-                </div>
-                <div class="agency-card" data-agency="clubtravel" data-type="local">
-                    <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
-                    <h3 data-text="agency_clubtravel_name">ClubTravel UZ</h3>
-                    <p data-text="agency_clubtravel_desc">Oila va guruhlar uchun hamyonbop paketlar, Toshkentdan charter reyslar.</p>
-                    <div class="cta">
-                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
-                        <span>→</span>
-                    </div>
-                </div>
-                <div class="agency-card" data-agency="silk" data-type="international">
-                    <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
-                    <h3 data-text="agency_silk_name">Silk Road Elite</h3>
-                    <p data-text="agency_silk_desc">Luks mehmonxonalar, TNPL rejalar va shaxsiy gidlar bilan premium xizmat.</p>
-                    <div class="cta">
-                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
-                        <span>→</span>
-                    </div>
-                </div>
-                <div class="agency-card" data-agency="azialux" data-type="international">
-                    <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
-                    <h3 data-text="agency_azialux_name">AziaLux Travel</h3>
-                    <p data-text="agency_azialux_desc">Osiyo va Yevropadagi eksklyuziv gastro-turlar, premium servis va gidlar.</p>
-                    <div class="cta">
-                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
-                        <span>→</span>
-                    </div>
-                </div>
-                <div class="agency-card" data-agency="globalvoyage" data-type="international">
-                    <div class="agency-flair"></div>
-                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
-                    <h3 data-text="agency_globalvoyage_name">Global Voyage Hub</h3>
-                    <p data-text="agency_globalvoyage_desc">Xalqaro konferensiya va MICE turlar, 24/7 qo'llab-quvvatlash va viza xizmati.</p>
-                    <div class="cta">
-                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
-                        <span>→</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -4388,69 +4156,147 @@
         </div>
     </section>
 
-    <!-- Services -->
-    <section class="services" id="services">
+    <!-- AI Assistant Section -->
+    <section class="ai-assistant" id="ai">
+        <div class="container">
+            <div class="ai-card">
+                <div class="ai-header">
+                    <span class="ai-icon">🤖</span>
+                    <div>
+                        <h3 data-text="ai_assistant_title">Smart AI yordamchi</h3>
+                        <p data-text="ai_assistant_subtitle">Budjetingiz, yo‘nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.</p>
+                    </div>
+                </div>
+                <form class="ai-form" id="aiForm">
+                    <div class="ai-field">
+                        <label for="aiBudget" data-text="ai_budget_label">Budjet (USD)</label>
+                        <input type="number" id="aiBudget" placeholder="1500" data-placeholder="ai_budget_placeholder" min="100">
+                    </div>
+                    <div class="ai-field">
+                        <label for="aiDestination" data-text="ai_destination_label">Qiziqqan yo‘nalish</label>
+                        <input type="text" id="aiDestination" placeholder="Osiyo, Yevropa..." data-placeholder="ai_destination_placeholder">
+                    </div>
+                    <div class="ai-field season-month-row">
+                        <div class="ai-field">
+                            <label for="aiSeason" data-text="ai_season_label">Qaysi fasllar</label>
+                            <select id="aiSeason">
+                                <option value="summer" data-text="ai_season_summer">Yoz</option>
+                                <option value="autumn" data-text="ai_season_autumn">Kuz</option>
+                                <option value="winter" data-text="ai_season_winter">Qish</option>
+                                <option value="spring" data-text="ai_season_spring">Bahor</option>
+                            </select>
+                        </div>
+                        <div class="ai-field" id="aiMonthField" style="display: none;">
+                            <label for="aiMonth" data-text="ai_month_label">Oy</label>
+                            <select id="aiMonth">
+                                <option value="" data-text="ai_month_select">Tanlang</option>
+                                <option value="january" data-text="ai_month_january">Yanvar</option>
+                                <option value="february" data-text="ai_month_february">Fevral</option>
+                                <option value="march" data-text="ai_month_march">Mart</option>
+                                <option value="april" data-text="ai_month_april">Aprel</option>
+                                <option value="may" data-text="ai_month_may">May</option>
+                                <option value="june" data-text="ai_month_june">Iyun</option>
+                                <option value="july" data-text="ai_month_july">Iyul</option>
+                                <option value="august" data-text="ai_month_august">Avgust</option>
+                                <option value="september" data-text="ai_month_september">Sentabr</option>
+                                <option value="october" data-text="ai_month_october">Oktabr</option>
+                                <option value="november" data-text="ai_month_november">Noyabr</option>
+                                <option value="december" data-text="ai_month_december">Dekabr</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-gradient ai-submit" data-text="ai_generate_btn">Tavsiyalarni ko‘rish</button>
+                </form>
+                <div class="ai-response" id="aiResponse" data-text="ai_response_placeholder">Savolingizni kiriting va AI yordamchidan tavsiyalar oling.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Agencies -->
+    <section class="agency-section" id="agencies">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title" data-text="services_title">Bizning Xizmatlarimiz</h2>
-                <p class="section-subtitle" data-text="services_subtitle">Nega bizni tanlash kerak? Biz sizga eng yaxshi narxlar, professional xizmat va 24/7 qo'llab-quvvatlashni ta'minlaymiz</p>
+                <h2 class="section-title" data-text="agency_section_title">Hamkor Agentliklar</h2>
+                <p class="section-subtitle" data-text="agency_section_subtitle">Eng ishonchli sayohat hamkorlarini tanlang</p>
             </div>
-            <div class="service-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                        </svg>
-                    </div>
-                    <h3 data-text="service1_title">Aviachiptalar</h3>
-                    <p data-text="service1_desc">Eng arzon narxlarda aviachiptalar bron qilish xizmati</p>
-                    <div class="service-advantage" data-text="service1_advantage">
-                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service1_advantage_text">Real vaqtda narxlar, 500+ aviakompaniya, tezkor bron qilish</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
-                            <path d="M9 21V7h6v14"/>
-                        </svg>
-                    </div>
-                    <h3 data-text="service2_title">Mehmonxonalar</h3>
-                    <p data-text="service2_desc">Dunyoning istalgan joyida qulay mehmonxonalar</p>
-                    <div class="service-advantage" data-text="service2_advantage">
-                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service2_advantage_text">50,000+ mehmonxona, eng yaxshi narxlar, bepul bekor qilish</span>
+            <div class="agency-toolbar">
+                <button type="button" class="active" data-filter="all" data-text="agency_filter_all">Barcha hamkorlar</button>
+                <button type="button" data-filter="local" data-text="agency_filter_local">O'zbek sayyohlari uchun</button>
+                <button type="button" data-filter="international" data-text="agency_filter_global">Xorijiy sayyohlar uchun</button>
+            </div>
+            <div class="agency-grid">
+                <div class="agency-card" data-agency="atlas" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_atlas_name">Atlas Travel</h3>
+                    <p data-text="agency_atlas_desc">Markaziy Osiyodan dunyoning 40+ manziliga premium paketlar va VIP xizmatlar.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
                     </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                    </div>
-                    <h3 data-text="service3_title">Ekskursiyalar</h3>
-                    <p data-text="service3_desc">Professional gidlar bilan qiziqarli sayohatlar</p>
-                    <div class="service-advantage" data-text="service3_advantage">
-                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service3_advantage_text">Mahalliy gidlar, shaxsiylashtirilgan marshrutlar, 24/7 qo'llab-quvvatlash</span>
+                <div class="agency-card" data-agency="samarqand" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_samarqand_name">Samarqand Tours</h3>
+                    <p data-text="agency_samarqand_desc">Madaniy sayohatlar, tarixiy gidlar va mahalliy tajribalar bo'yicha mutaxassis.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
                     </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <path d="M14 2v6h6"/>
-                            <path d="M16 13H8"/>
-                            <path d="M16 17H8"/>
-                            <path d="M10 9H8"/>
-                        </svg>
+                <div class="agency-card" data-agency="nomad" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_nomad_name">Nomad Explorer</h3>
+                    <p data-text="agency_nomad_desc">Aktiv sayohatlar, tog' yurishlari va ekologik turizm bo'yicha mutaxassis.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
                     </div>
-                    <h3 data-text="service4_title">Viza Xizmati</h3>
-                    <p data-text="service4_desc">Viza olish</p>
-                    <div class="service-advantage" data-text="service4_advantage">
-                        <strong data-text="service_why">Nega biz?</strong> <span data-text="service4_advantage_text">Tezkor viza olish, professional yordam, yuqori muvaffaqiyat darajasi</span>
+                </div>
+                <div class="agency-card" data-agency="clubtravel" data-type="local">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_clubtravel_name">ClubTravel UZ</h3>
+                    <p data-text="agency_clubtravel_desc">Oila va guruhlar uchun hamyonbop paketlar, Toshkentdan charter reyslar.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="silk" data-type="international">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_silk_name">Silk Road Elite</h3>
+                    <p data-text="agency_silk_desc">Luks mehmonxonalar, TNPL rejalar va shaxsiy gidlar bilan premium xizmat.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="azialux" data-type="international">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_azialux_name">AziaLux Travel</h3>
+                    <p data-text="agency_azialux_desc">Osiyo va Yevropadagi eksklyuziv gastro-turlar, premium servis va gidlar.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="agency-card" data-agency="globalvoyage" data-type="international">
+                    <div class="agency-flair"></div>
+                    <span class="agency-badge">★ <span data-text="agency_badge_verified">Tasdiqlangan</span></span>
+                    <h3 data-text="agency_globalvoyage_name">Global Voyage Hub</h3>
+                    <p data-text="agency_globalvoyage_desc">Xalqaro konferensiya va MICE turlar, 24/7 qo'llab-quvvatlash va viza xizmati.</p>
+                    <div class="cta">
+                        <span data-text="agency_view_tours">Agentlik turlarini ko'rish</span>
+                        <span>→</span>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- About Section -->
