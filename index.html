@@ -10,13 +10,13 @@
     <meta name="apple-mobile-web-app-title" content="KETMON">
     <meta name="mobile-web-app-capable" content="yes">
     
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1N1Z1SPFSY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
+        gtag('config', 'G-1N1Z1SPFSY');
     </script>
     
     <!-- PWA Manifest -->
@@ -454,6 +454,29 @@
             color: #0a4d68;
         }
 
+        .currency-selector {
+            display: flex;
+            gap: 10px;
+            margin-left: 15px;
+        }
+
+        .currency-btn {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .currency-btn:hover, .currency-btn.active {
+            background: #fff;
+            color: #0a4d68;
+        }
+
         .main-header {
             padding: 20px 0;
         }
@@ -877,7 +900,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 40px 0;
-            margin-top: -50px;
+            margin-top: 0;
             position: relative;
             z-index: 10;
             transition: background-color 0.3s ease;
@@ -2993,7 +3016,7 @@
 
             .search-section {
                 padding: 30px 0;
-                margin-top: -40px;
+                margin-top: 0;
                 position: relative;
                 z-index: 10;
             }
@@ -3195,10 +3218,23 @@
                 flex-shrink: 0;
             }
 
+            .currency-selector {
+                gap: 6px;
+                flex-shrink: 0;
+                margin-left: 10px;
+            }
+
             .lang-btn {
                 padding: 5px 12px;
                 font-size: 10px;
                 min-width: 35px;
+                text-align: center;
+            }
+
+            .currency-btn {
+                padding: 5px 12px;
+                font-size: 10px;
+                min-width: 40px;
                 text-align: center;
             }
 
@@ -3913,7 +3949,7 @@
 
             .search-section {
                 padding: 30px 0;
-                margin-top: -40px;
+                margin-top: 0;
             }
 
             .search-box {
@@ -4159,10 +4195,17 @@
                 <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:5px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span data-text="phone">+998 93 301 52 18</span></span>
                 <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:5px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span data-text="email">info@ketmon.uz</span></span>
             </div>
-            <div class="lang-selector">
-                <button class="lang-btn active" onclick="changeLang('uz')">UZ</button>
-                <button class="lang-btn" onclick="changeLang('ru')">RU</button>
-                <button class="lang-btn" onclick="changeLang('en')">EN</button>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="lang-selector">
+                    <button class="lang-btn active" onclick="changeLang('uz')">UZ</button>
+                    <button class="lang-btn" onclick="changeLang('ru')">RU</button>
+                    <button class="lang-btn" onclick="changeLang('en')">EN</button>
+                </div>
+                <div class="currency-selector">
+                    <button class="currency-btn active" onclick="changeCurrency('sum')">SUM</button>
+                    <button class="currency-btn" onclick="changeCurrency('usd')">USD</button>
+                    <button class="currency-btn" onclick="changeCurrency('rub')">RUB</button>
+                </div>
             </div>
         </div>
     </div>
@@ -4181,7 +4224,7 @@
                         <li><a href="#contact" data-text="nav_contact">Aloqa</a></li>
                     </ul>
                     <div class="header-actions">
-                        <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
+                        <a href="#home" class="cta-btn" data-text="nav_book">Bron qilish</a>
                         <a id="headerLoginBtn" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
                         <a id="headerRegisterBtn" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
                         <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
@@ -4197,7 +4240,7 @@
                         </ul>
                     </nav>
                     <div class="header-actions header-actions-desktop">
-                        <a href="#search" class="cta-btn" data-text="nav_book">Bron qilish</a>
+                        <a href="#home" class="cta-btn" data-text="nav_book">Bron qilish</a>
                         <a id="headerLoginBtnDesktop" href="#login" class="cta-btn" data-text="nav_login">Kirish</a>
                         <a id="headerRegisterBtnDesktop" href="#register" class="cta-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
                         <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
@@ -4207,26 +4250,8 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1 data-text="hero_title">Dunyo Bo'ylab Unutilmas Sayohatlar</h1>
-                <p data-text="hero_subtitle">Hayotingizning eng yaxshi tajribasini biz bilan kashf eting</p>
-                <div class="hero-buttons">
-                    <a href="#destinations" class="btn-gradient" data-text="hero_btn1">Yo'nalishlarni Ko'rish</a>
-                    <a href="#contact" class="btn-gradient" data-text="hero_btn2">Maslahat Olish</a>
-                </div>
-            </div>
-        </div>
-        <!-- World map visual (licensed Wikimedia image) -->
-        <div class="hero-world">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png" alt="World map illustration showing worldwide travel" loading="eager">
-        </div>
-    </section>
-
     <!-- Search Section -->
-    <section class="search-section" id="search">
+    <section class="search-section" id="home">
         <div class="container">
             <div class="search-box">
                 <div class="search-input">
@@ -5772,6 +5797,124 @@
                 document.addEventListener('DOMContentLoaded', function(){
                     var saved = localStorage.getItem('ketmon_lang') || 'uz';
                     changeLang(saved);
+                });
+            })();
+
+            // Currency switcher
+            (function(){
+                // Exchange rates (approximate, update as needed)
+                var exchangeRates = {
+                    usd: {
+                        sum: 12500,  // 1 USD = 12500 UZS
+                        rub: 90      // 1 USD = 90 RUB
+                    },
+                    rub: {
+                        sum: 139,    // 1 RUB = 139 UZS
+                        usd: 0.011   // 1 RUB = 0.011 USD
+                    },
+                    sum: {
+                        usd: 0.00008, // 1 UZS = 0.00008 USD
+                        rub: 0.0072   // 1 UZS = 0.0072 RUB
+                    }
+                };
+
+                // Store original prices in data attributes
+                function initPrices() {
+                    document.querySelectorAll('.price').forEach(function(priceEl) {
+                        if (!priceEl.hasAttribute('data-original-price')) {
+                            var text = priceEl.textContent.trim();
+                            // Extract number from price (e.g., "$1,200" -> 1200)
+                            var match = text.match(/[\d,]+/);
+                            if (match) {
+                                var num = parseFloat(match[0].replace(/,/g, ''));
+                                priceEl.setAttribute('data-original-price', num);
+                                priceEl.setAttribute('data-original-currency', 'usd');
+                            }
+                        }
+                    });
+                }
+
+                // Convert price based on currency
+                function convertPrice(originalPrice, fromCurrency, toCurrency) {
+                    if (fromCurrency === toCurrency) return originalPrice;
+                    
+                    if (fromCurrency === 'usd') {
+                        if (toCurrency === 'sum') {
+                            return originalPrice * exchangeRates.usd.sum;
+                        } else if (toCurrency === 'rub') {
+                            return originalPrice * exchangeRates.usd.rub;
+                        }
+                    } else if (fromCurrency === 'rub') {
+                        if (toCurrency === 'sum') {
+                            return originalPrice * exchangeRates.rub.sum;
+                        } else if (toCurrency === 'usd') {
+                            return originalPrice * exchangeRates.rub.usd;
+                        }
+                    } else if (fromCurrency === 'sum') {
+                        if (toCurrency === 'usd') {
+                            return originalPrice * exchangeRates.sum.usd;
+                        } else if (toCurrency === 'rub') {
+                            return originalPrice * exchangeRates.sum.rub;
+                        }
+                    }
+                    return originalPrice;
+                }
+
+                // Format price with currency symbol
+                function formatPrice(amount, currency) {
+                    var symbols = {
+                        usd: '$',
+                        rub: '₽',
+                        sum: 'so\'m'
+                    };
+                    var symbol = symbols[currency] || '';
+                    
+                    if (currency === 'sum') {
+                        // Format SUM with spaces (e.g., 15 000 000 so'm)
+                        return Math.round(amount).toLocaleString('uz-UZ').replace(/,/g, ' ') + ' ' + symbol;
+                    } else {
+                        // Format USD and RUB with commas
+                        return symbol + Math.round(amount).toLocaleString('en-US');
+                    }
+                }
+
+                // Update all prices on the page
+                function updatePrices(currency) {
+                    document.querySelectorAll('.price').forEach(function(priceEl) {
+                        var originalPrice = parseFloat(priceEl.getAttribute('data-original-price'));
+                        var originalCurrency = priceEl.getAttribute('data-original-currency') || 'usd';
+                        
+                        if (!isNaN(originalPrice)) {
+                            var convertedPrice = convertPrice(originalPrice, originalCurrency, currency);
+                            priceEl.textContent = formatPrice(convertedPrice, currency);
+                        }
+                    });
+                }
+
+                function changeCurrency(currency) {
+                    var buttons = document.querySelectorAll('.currency-btn');
+                    buttons.forEach(function(b){ b.classList.remove('active'); });
+                    var currencyMap = {
+                        'sum': 'SUM',
+                        'usd': 'USD',
+                        'rub': 'RUB'
+                    };
+                    var btn = Array.from(buttons).find(function(b){ 
+                        return b.textContent.trim() === currencyMap[currency];
+                    });
+                    if (btn) btn.classList.add('active');
+                    
+                    initPrices();
+                    updatePrices(currency);
+                    localStorage.setItem('ketmon_currency', currency);
+                }
+                window.changeCurrency = changeCurrency;
+
+                // Init currency on load
+                document.addEventListener('DOMContentLoaded', function(){
+                    initPrices();
+                    var saved = localStorage.getItem('ketmon_currency') || 'sum';
+                    changeCurrency(saved);
                 });
             })();
 
