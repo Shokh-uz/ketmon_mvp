@@ -231,6 +231,18 @@
             .agency-card:hover {
                 transform: none !important;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                z-index: 1 !important;
+            }
+
+            /* Disable ::before hover effect on mobile */
+            .destination-card:hover::before {
+                opacity: 0 !important;
+            }
+
+            /* Prevent hover state from being triggered on touch */
+            .destination-card:active {
+                transform: scale(0.98) !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
             }
 
             /* Simplify gradients */
@@ -311,6 +323,29 @@
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 background: var(--card-bg) !important;
+            }
+        }
+
+        /* Disable hover effects on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .destination-card:hover,
+            .destination-card:hover::before {
+                transform: none !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                z-index: 1 !important;
+                opacity: 0 !important;
+            }
+
+            .destination-card:active {
+                transform: scale(0.98) !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+
+            .service-card:hover,
+            .testimonial-card:hover,
+            .agency-card:hover {
+                transform: none !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
             }
         }
 
