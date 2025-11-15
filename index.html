@@ -424,6 +424,32 @@
             padding: 10px 0;
             font-size: 14px;
             transition: background-color 0.3s ease;
+            position: relative;
+            z-index: 1001 !important;
+        }
+
+        /* TOP BAR TUGMALARINI DOIMO KO'RSATISH */
+        .top-bar .container {
+            position: relative;
+            z-index: 1001 !important;
+        }
+
+        .lang-currency-wrapper {
+            position: relative;
+            z-index: 1001 !important;
+        }
+
+        .lang-selector,
+        .currency-selector {
+            position: relative;
+            z-index: 1001 !important;
+        }
+
+        .lang-btn,
+        .currency-btn {
+            position: relative;
+            z-index: 1001 !important;
+            pointer-events: auto !important;
         }
 
         .top-bar .container {
@@ -2438,6 +2464,40 @@
             color: #17223B;
         }
 
+        /* Hamburger Menu (3 ta chiziq) tugmasi uchun */
+        .mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            min-width: 44px;
+            min-height: 44px;
+            font-size: 28px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-menu-btn:active::before {
+            transform: scale(1);
+        }
+
         /* Modal (Tour Details) */
         .modal-backdrop {
             position: fixed;
@@ -3176,6 +3236,27 @@
                 z-index: 10;
             }
 
+            /* Juda kichik ekranlar uchun */
+            @media (max-width: 480px) {
+                nav.active .header-actions {
+                    gap: 10px;
+                    margin-top: 15px;
+                    padding-top: 15px;
+                }
+
+                nav.active .header-actions .cta-btn,
+                nav.active .header-actions a {
+                    padding: 12px 20px !important;
+                    font-size: 14px !important;
+                    min-height: 44px !important;
+                }
+
+                nav.active .header-actions .theme-toggle {
+                    height: 44px !important;
+                    font-size: 18px;
+                }
+            }
+
             .search-box {
                 grid-template-columns: 1fr;
                 padding: 24px 20px;
@@ -3510,10 +3591,26 @@
                 color: var(--text-primary);
                 flex-shrink: 0;
                 transition: opacity 0.2s ease;
+                touch-action: manipulation;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            /* Mobilda hover o'rniga faqat active */
+            .mobile-menu-btn:hover {
+                transform: none !important;
+                background: none !important;
             }
 
             .mobile-menu-btn:active {
-                opacity: 0.7;
+                opacity: 0.6 !important;
+                transform: scale(0.9) !important;
+            }
+
+            /* Top bar elementlariga tegmaslik */
+            .top-bar * {
+                pointer-events: auto !important;
+                touch-action: manipulation;
             }
 
             /* Hide desktop header actions on mobile */
@@ -3541,10 +3638,25 @@
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                padding: 80px 15px 20px 15px;
-                z-index: 9999;
+                padding: 140px 15px 20px 15px;
+                z-index: 9998;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
+            }
+
+            /* Top bar doimo ko'rinsin */
+            .top-bar {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 10000 !important;
+                background: var(--bg-tertiary) !important;
+            }
+
+            /* Main header ham ko'rinsin */
+            .main-header {
+                position: sticky !important;
+                top: var(--top-bar-height, 60px) !important;
+                z-index: 9999 !important;
             }
 
 
@@ -3576,7 +3688,13 @@
                 background-color: rgba(0,0,0,0.05);
             }
 
-            /* Show header buttons in mobile menu - IMPORTANT */
+            /* MOBIL MENYUDAGI TUGMALARNI KO'RSATISH */
+            /* Desktop header actions ni yashirish */
+            .header-actions-desktop {
+                display: none !important;
+            }
+
+            /* Mobil menyu ochilganda tugmalarni ko'rsatish */
             nav.active .header-actions {
                 display: flex !important;
                 flex-direction: column;
@@ -3584,29 +3702,51 @@
                 width: 100%;
                 margin-top: 20px;
                 padding-top: 20px;
-                border-top: 1px solid rgba(0,0,0,0.1);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            nav.active .header-actions .cta-btn {
-                padding: 14px 24px;
-                font-size: 15px;
-                min-height: 48px;
+            /* Tugmalar to'liq kenglikda */
+            nav.active .header-actions .cta-btn,
+            nav.active .header-actions a {
+                width: 100% !important;
+                padding: 14px 24px !important;
+                font-size: 15px !important;
+                min-height: 48px !important;
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
-                width: 100%;
                 text-align: center;
-                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
-                color: #fff;
                 border-radius: 25px;
                 text-decoration: none;
+                box-sizing: border-box;
+                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+                color: #fff;
                 font-weight: 600;
                 transition: opacity 0.2s ease, transform 0.1s ease;
             }
 
-            nav.active .header-actions .cta-btn:active {
+            /* Theme toggle tugmasi */
+            nav.active .header-actions .theme-toggle {
+                width: 100% !important;
+                height: 48px !important;
+                border-radius: 25px;
+                font-size: 20px;
+            }
+
+            /* Tugmalar uchun hover o'rniga active */
+            nav.active .header-actions .cta-btn:hover {
+                transform: none !important;
+            }
+
+            nav.active .header-actions .cta-btn:active,
+            nav.active .header-actions a:active {
                 opacity: 0.8;
-                transform: scale(0.98);
+                transform: scale(0.98) !important;
+            }
+
+            /* Menyu yopiq bo'lganda header actions ni yashirish */
+            nav:not(.active) .header-actions {
+                display: none !important;
             }
 
             /* Mobil menyudagi elementlar orasida bo'shliq */
