@@ -342,47 +342,22 @@
             }
         }
 
-        /* Disable hover effects on touch devices */
+        /* Touch qurilmalar uchun maxsus */
         @media (hover: none) and (pointer: coarse) {
-            /* Disable all hover effects on touch devices */
+            /* Barcha hover effektlarni butunlay o'chirish */
             *:hover {
                 transform: none !important;
+                box-shadow: inherit !important;
+                background: inherit !important;
             }
 
-            .destination-card:hover,
-            .destination-card:hover::before {
-                transform: none !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-                z-index: 1 !important;
-                opacity: 0 !important;
-            }
-
-            .destination-card:active {
-                transform: scale(0.98) !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-            }
-
-            .service-card:hover,
-            .testimonial-card:hover,
-            .agency-card:hover {
-                transform: none !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-            }
-
-            /* Disable hover on buttons and links */
-            .lang-btn:hover,
-            .currency-btn:hover,
-            .cta-btn:hover,
-            .btn-gradient:hover,
-            a:hover,
-            button:hover {
-                transform: none !important;
-            }
-
-            /* Keep active states for touch feedback */
+            /* Faqat active holatlar qoladi */
+            button:active,
+            a:active,
             .lang-btn:active,
             .currency-btn:active {
-                transform: scale(0.95) !important;
+                opacity: 0.8;
+                transform: scale(0.95);
             }
         }
 
@@ -2663,6 +2638,21 @@
             transform: translateY(-2px);
         }
 
+        /* Juda kichik ekranlar uchun (375px va undan kam) */
+        @media (max-width: 375px) {
+            .lang-btn,
+            .currency-btn {
+                padding: 8px 14px;
+                font-size: 11px;
+                min-width: 50px;
+                min-height: 40px;
+            }
+
+            .contact-info span {
+                font-size: 9px;
+            }
+        }
+
         /* Very Small Phones (320px and down) */
         @media (max-width: 320px) {
             html {
@@ -2929,9 +2919,36 @@
         }
 
         /* Extra Small Devices (phones, 480px and down) */
+        /* Kichik telefonlar uchun (480px va undan kam) */
         @media (max-width: 480px) {
             .container {
                 padding: 0 15px;
+            }
+
+            .top-bar {
+                padding: 8px 0;
+                font-size: 10px;
+            }
+
+            .contact-info span {
+                font-size: 10px;
+            }
+
+            .lang-btn,
+            .currency-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+                min-width: 55px;
+                min-height: 42px;
+            }
+
+            .lang-currency-wrapper {
+                gap: 8px;
+            }
+
+            .lang-selector,
+            .currency-selector {
+                gap: 6px;
             }
 
             html {
@@ -3364,68 +3381,89 @@
                 text-align: center;
             }
 
+            /* Top Bar - mobil uchun tuzatish */
             .top-bar {
-                padding: 8px 0;
-                font-size: 11px;
+                padding: 10px 0;
             }
 
             .top-bar .container {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                gap: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                padding: 0 15px;
             }
 
+            /* Kontakt ma'lumotlari */
             .contact-info {
+                display: flex;
                 flex-direction: row;
-                gap: 12px;
+                gap: 15px;
+                width: 100%;
                 flex-wrap: wrap;
-                flex: 1;
-                min-width: 0;
             }
 
             .contact-info span {
-                font-size: 10px;
-                white-space: nowrap;
-                display: flex;
-                align-items: center;
-                gap: 4px;
-            }
-
-            .contact-info span i {
                 font-size: 11px;
+                white-space: nowrap;
             }
 
+            /* Til va valyuta wrapper */
+            .lang-currency-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            /* Til tugmalari qatori */
             .lang-selector {
-                gap: 6px;
-                flex-shrink: 0;
-            }
-
-            .currency-selector {
-                gap: 6px;
-                flex-shrink: 0;
+                display: flex;
+                gap: 8px;
+                width: 100%;
+                justify-content: flex-start;
             }
 
             .lang-btn {
-                padding: 5px 12px;
-                font-size: 10px;
-                min-width: 35px;
+                flex: 0 0 auto;
+                padding: 10px 20px;
+                font-size: 13px;
+                min-width: 60px;
+                min-height: 44px;
+                border-radius: 8px;
                 text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Valyuta tugmalari qatori */
+            .currency-selector {
+                display: flex;
+                gap: 8px;
+                width: 100%;
+                justify-content: flex-start;
+                margin-left: 0;
             }
 
             .currency-btn {
-                padding: 8px 14px;
-                font-size: 11px;
-                min-width: 44px;
+                flex: 0 0 auto;
+                padding: 10px 20px;
+                font-size: 13px;
+                min-width: 70px;
                 min-height: 44px;
+                border-radius: 8px;
                 text-align: center;
-                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
+            /* Touch feedback */
             .lang-btn:active,
             .currency-btn:active {
                 transform: scale(0.95);
-                background: rgba(255,255,255,0.9) !important;
+                background: rgba(255, 255, 255, 0.9) !important;
+                transition: transform 0.1s ease;
             }
 
             .main-header {
@@ -3634,6 +3672,63 @@
             .lang-currency-wrapper .lang-selector,
             .lang-currency-wrapper .currency-selector {
                 margin: 0;
+            }
+
+            /* MOBIL UCHUN HOVER EFFEKTLARNI O'CHIRISH */
+            /* Barcha hover effektlarni o'chirish */
+            *:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            /* Tugmalar uchun faqat active (bosilganda) effekt */
+            .lang-btn,
+            .currency-btn,
+            .cta-btn,
+            .btn-gradient,
+            button,
+            a {
+                transition: all 0.15s ease !important;
+            }
+
+            /* Active holatlar (bosilganda) */
+            .lang-btn:active,
+            .currency-btn:active {
+                transform: scale(0.95) !important;
+                background: rgba(255, 255, 255, 0.9) !important;
+                color: #0a4d68 !important;
+            }
+
+            .cta-btn:active,
+            .btn-gradient:active,
+            button:active {
+                transform: scale(0.97) !important;
+                opacity: 0.8;
+            }
+
+            /* Navigation linklar */
+            nav a:active {
+                background-color: rgba(0, 0, 0, 0.05) !important;
+                transform: none !important;
+            }
+
+            /* Kartalar uchun hover o'rniga active */
+            .destination-card:active,
+            .service-card:active,
+            .agency-card:active {
+                transform: scale(0.98) !important;
+                transition: transform 0.1s ease !important;
+            }
+
+            /* Header tugmalari */
+            .theme-toggle:active {
+                transform: scale(0.95) !important;
+            }
+
+            /* Mobil menyu tugmasi */
+            .mobile-menu-btn:active {
+                opacity: 0.7 !important;
+                transform: scale(0.95) !important;
             }
 
             .hero {
