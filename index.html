@@ -2454,16 +2454,6 @@
             transition: border-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: #17223B;
-        }
-
         /* Hamburger Menu (3 ta chiziq) tugmasi uchun */
         .mobile-menu-btn {
             display: flex;
@@ -2806,33 +2796,6 @@
                 flex-shrink: 0;
             }
 
-            nav.active {
-                top: 56px;
-                padding: 15px 12px;
-            }
-
-            nav.active ul {
-                gap: 10px;
-                margin-bottom: 12px;
-            }
-
-            nav.active a {
-                font-size: 15px;
-                padding: 10px 0;
-                min-height: 42px;
-            }
-
-            nav.active .header-actions {
-                gap: 8px;
-                margin-top: 12px;
-                padding-top: 12px;
-            }
-
-            nav.active .header-actions .cta-btn {
-                padding: 11px 16px;
-                font-size: 13px;
-                min-height: 42px;
-            }
 
             .section-title {
                 font-size: 20px;
@@ -3613,11 +3576,6 @@
                 touch-action: manipulation;
             }
 
-            /* Hide desktop header actions on mobile */
-            .header-actions-desktop {
-                display: none !important;
-            }
-
             /* Hide header actions outside nav on mobile */
             .main-header .container > .header-actions {
                 display: none !important;
@@ -3658,7 +3616,6 @@
                 top: var(--top-bar-height, 60px) !important;
                 z-index: 9999 !important;
             }
-
 
             nav.active ul {
                 flex-direction: column;
@@ -3814,62 +3771,6 @@
                 margin: 0;
             }
 
-            /* MOBIL UCHUN HOVER EFFEKTLARNI O'CHIRISH */
-            /* Barcha hover effektlarni o'chirish */
-            *:hover {
-                transform: none !important;
-                box-shadow: none !important;
-            }
-
-            /* Tugmalar uchun faqat active (bosilganda) effekt */
-            .lang-btn,
-            .currency-btn,
-            .cta-btn,
-            .btn-gradient,
-            button,
-            a {
-                transition: all 0.15s ease !important;
-            }
-
-            /* Active holatlar (bosilganda) */
-            .lang-btn:active,
-            .currency-btn:active {
-                transform: scale(0.95) !important;
-                background: rgba(255, 255, 255, 0.9) !important;
-                color: #0a4d68 !important;
-            }
-
-            .cta-btn:active,
-            .btn-gradient:active,
-            button:active {
-                transform: scale(0.97) !important;
-                opacity: 0.8;
-            }
-
-            /* Navigation linklar */
-            nav a:active {
-                background-color: rgba(0, 0, 0, 0.05) !important;
-                transform: none !important;
-            }
-
-            /* Kartalar uchun hover o'rniga active */
-            .destination-card:active,
-            .service-card:active,
-            .agency-card:active {
-                transform: scale(0.98) !important;
-                transition: transform 0.1s ease !important;
-            }
-
-            /* Header tugmalari */
-            .theme-toggle:active {
-                transform: scale(0.95) !important;
-            }
-
-            /* Mobil menyu tugmasi */
-            .mobile-menu-btn:active {
-                opacity: 0.7 !important;
-                transform: scale(0.95) !important;
-            }
 
             .hero {
                 padding: 60px 0 50px;
@@ -4386,38 +4287,6 @@
 
             nav.active a:active {
                 background-color: rgba(0,0,0,0.05);
-            }
-
-            /* Add header buttons to mobile menu */
-            nav.active .header-actions {
-                display: flex !important;
-                flex-direction: column;
-                gap: 12px;
-                width: 100%;
-                margin-top: 20px;
-                padding-top: 20px;
-                border-top: 1px solid rgba(0,0,0,0.1);
-            }
-
-            nav.active .header-actions .cta-btn {
-                padding: 14px 24px;
-                font-size: 15px;
-                min-height: 48px;
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
-                color: #fff;
-                border-radius: 25px;
-                text-decoration: none;
-                font-weight: 600;
-                transition: opacity 0.2s ease, transform 0.1s ease;
-            }
-
-            nav.active .header-actions .cta-btn:active {
-                opacity: 0.8;
-                transform: scale(0.98);
             }
 
             .hero {
