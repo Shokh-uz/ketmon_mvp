@@ -2691,45 +2691,46 @@
         /* Juda kichik ekranlar uchun (375px va undan kam) */
         @media (max-width: 375px) {
             .top-bar {
-                padding: 6px 0;
+                padding: 5px 0;
             }
 
             .top-bar .container {
-                gap: 6px;
-                padding: 0 10px;
+                gap: 5px;
+                padding: 0 8px;
+                flex-wrap: wrap;
             }
 
             .contact-info {
-                gap: 6px;
+                gap: 5px;
+                flex: 1 1 auto;
+                min-width: 100px;
             }
 
             .contact-info span {
-                font-size: 8px;
+                font-size: 7px;
             }
 
             .contact-info span svg {
-                width: 10px;
-                height: 10px;
+                width: 9px;
+                height: 9px;
             }
 
             .lang-currency-wrapper {
-                gap: 4px;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 2px;
+                flex: 0 0 auto;
             }
 
             .lang-btn,
             .currency-btn {
-                padding: 4px 8px;
-                font-size: 9px;
-                min-width: 38px;
-                min-height: 30px;
+                padding: 3px 6px;
+                font-size: 8px;
+                min-width: 32px;
+                min-height: 26px;
             }
 
             .lang-selector,
             .currency-selector {
-                gap: 3px;
+                gap: 2px;
             }
         }
 
@@ -2749,24 +2750,25 @@
             }
 
             .top-bar .container {
-                flex-direction: column;
-                gap: 5px;
-                align-items: stretch;
-                padding: 0 8px;
-            }
-
-            .contact-info {
-                gap: 5px;
-                width: 100%;
+                flex-direction: row;
+                gap: 4px;
+                align-items: center;
+                padding: 0 6px;
                 flex-wrap: wrap;
                 justify-content: space-between;
             }
 
-            .lang-currency-wrapper {
-                width: 100%;
-                justify-content: center;
-                gap: 3px;
+            .contact-info {
+                gap: 4px;
+                flex: 1 1 auto;
+                min-width: 90px;
                 flex-wrap: wrap;
+            }
+
+            .lang-currency-wrapper {
+                flex: 0 0 auto;
+                gap: 2px;
+                flex-wrap: nowrap;
             }
 
             .contact-info span {
@@ -2981,44 +2983,47 @@
             }
 
             .top-bar {
-                padding: 6px 0;
-                font-size: 10px;
-            }
-
-            .top-bar .container {
-                gap: 8px;
-                padding: 0 12px;
-            }
-
-            .contact-info {
-                gap: 8px;
-            }
-
-            .contact-info span {
+                padding: 5px 0;
                 font-size: 9px;
             }
 
+            .top-bar .container {
+                gap: 6px;
+                padding: 0 10px;
+                flex-wrap: wrap;
+            }
+
+            .contact-info {
+                gap: 6px;
+                flex: 1 1 auto;
+                min-width: 120px;
+            }
+
+            .contact-info span {
+                font-size: 8px;
+            }
+
             .contact-info span svg {
-                width: 11px;
-                height: 11px;
+                width: 10px;
+                height: 10px;
             }
 
             .lang-currency-wrapper {
-                gap: 6px;
-                justify-content: center;
+                gap: 3px;
+                flex: 0 0 auto;
             }
 
             .lang-btn,
             .currency-btn {
-                padding: 5px 10px;
-                font-size: 10px;
-                min-width: 42px;
-                min-height: 32px;
+                padding: 4px 8px;
+                font-size: 9px;
+                min-width: 36px;
+                min-height: 28px;
             }
 
             .lang-selector,
             .currency-selector {
-                gap: 3px;
+                gap: 2px;
             }
 
             html {
@@ -3474,39 +3479,42 @@
 
             /* Top Bar - mobil uchun tuzatish */
             .top-bar {
-                padding: 8px 0;
+                padding: 6px 0;
             }
 
             .top-bar .container {
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
-                padding: 0 12px;
+                flex-direction: row;
+                gap: 8px;
+                padding: 0 10px;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
             }
 
             /* Kontakt ma'lumotlari */
             .contact-info {
                 display: flex;
                 flex-direction: row;
-                gap: 10px;
-                width: 100%;
+                gap: 8px;
+                flex: 1 1 auto;
+                min-width: 0;
                 flex-wrap: wrap;
-                justify-content: space-between;
                 align-items: center;
             }
 
             .contact-info span {
-                font-size: 10px;
+                font-size: 9px;
                 white-space: nowrap;
                 display: flex;
                 align-items: center;
-                gap: 4px;
+                gap: 3px;
                 flex: 0 0 auto;
             }
 
             .contact-info span svg {
-                width: 12px;
-                height: 12px;
+                width: 11px;
+                height: 11px;
                 flex-shrink: 0;
             }
 
@@ -3514,26 +3522,26 @@
             .lang-currency-wrapper {
                 display: flex;
                 flex-direction: row;
-                gap: 8px;
-                width: 100%;
-                flex-wrap: wrap;
-                justify-content: flex-end;
+                gap: 4px;
+                flex: 0 0 auto;
+                flex-wrap: nowrap;
+                align-items: center;
             }
 
             /* Til tugmalari qatori */
             .lang-selector {
                 display: flex;
-                gap: 4px;
+                gap: 3px;
                 flex: 0 0 auto;
             }
 
             .lang-btn {
                 flex: 0 0 auto;
-                padding: 6px 12px;
-                font-size: 11px;
-                min-width: 45px;
-                min-height: 36px;
-                border-radius: 6px;
+                padding: 5px 10px;
+                font-size: 10px;
+                min-width: 38px;
+                min-height: 32px;
+                border-radius: 5px;
                 text-align: center;
                 display: flex;
                 align-items: center;
@@ -3544,18 +3552,18 @@
             /* Valyuta tugmalari qatori */
             .currency-selector {
                 display: flex;
-                gap: 4px;
+                gap: 3px;
                 flex: 0 0 auto;
-                margin-left: 0;
+                margin-left: 4px;
             }
 
             .currency-btn {
                 flex: 0 0 auto;
-                padding: 6px 12px;
-                font-size: 11px;
-                min-width: 50px;
-                min-height: 36px;
-                border-radius: 6px;
+                padding: 5px 10px;
+                font-size: 10px;
+                min-width: 42px;
+                min-height: 32px;
+                border-radius: 5px;
                 text-align: center;
                 display: flex;
                 align-items: center;
