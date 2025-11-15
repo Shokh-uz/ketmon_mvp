@@ -508,14 +508,12 @@
             min-width: 100%;
             display: none;
             flex-direction: column;
-            z-index: 10005;
+            z-index: 1002;
             overflow: hidden;
         }
 
         .lang-dropdown.open {
-            display: flex !important;
-            visibility: visible !important;
-            opacity: 1 !important;
+            display: flex;
         }
 
         .lang-dropdown-item {
@@ -565,30 +563,9 @@
             }
             
             .lang-dropdown {
-                z-index: 10005 !important;
+                z-index: 1003;
                 min-width: 80px;
                 box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-            }
-            
-            .header-right-group .lang-selector {
-                position: relative;
-            }
-            
-            .header-right-group .lang-dropdown {
-                position: absolute !important;
-                left: 0 !important;
-                right: auto !important;
-                top: calc(100% + 5px) !important;
-                transform: none !important;
-                margin-top: 0 !important;
-            }
-            
-            /* Ensure language button is clickable on mobile */
-            .header-right-group .lang-btn {
-                position: relative;
-                z-index: 10006;
-                pointer-events: auto !important;
-                touch-action: manipulation;
             }
             
             .lang-btn {
@@ -599,21 +576,32 @@
                 -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
             }
             
-            /* Header actions buttons on mobile */
+            /* Header responsive for mobile */
             .main-header {
                 padding: 10px 0;
-                overflow: hidden;
-            }
-            
-            .main-header .container {
-                gap: 6px;
-                padding: 0 8px;
                 overflow-x: auto;
                 overflow-y: hidden;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
                 -ms-overflow-style: none;
-                min-width: 100%;
+            }
+            
+            .main-header::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+            
+            .main-header .container {
+                gap: 5px;
+                padding: 0 8px;
+                min-width: min-content;
+                flex-shrink: 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
             }
             
             .main-header .container::-webkit-scrollbar {
@@ -623,7 +611,7 @@
             }
             
             .main-header .container .logo {
-                margin-right: 6px;
+                margin-right: 5px;
                 font-size: 20px;
                 letter-spacing: 0.5px;
                 flex-shrink: 0;
@@ -641,24 +629,17 @@
                 display: flex !important;
                 align-items: center;
                 white-space: nowrap;
-                min-width: 0;
             }
             
-            /* Ensure buttons don't overflow */
-            .header-right-group * {
-                box-sizing: border-box;
-            }
-            
+            /* Header actions buttons on mobile */
             .header-right-group .header-actions {
                 gap: 4px;
                 flex-shrink: 0;
-                display: flex;
-                align-items: center;
             }
             
             .header-action-btn {
                 padding: 6px 10px;
-                min-height: 40px;
+                min-height: 42px;
                 font-size: 11px;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
@@ -668,10 +649,10 @@
             }
             
             .header-theme-toggle {
-                width: 40px;
-                height: 40px;
-                min-width: 40px;
-                min-height: 40px;
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                min-height: 42px;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
                 font-size: 16px;
@@ -682,8 +663,6 @@
             .header-right-group .lang-currency-wrapper {
                 gap: 4px;
                 flex-shrink: 0;
-                display: flex;
-                align-items: center;
             }
             
             .header-right-group .lang-btn,
@@ -693,47 +672,19 @@
                 border: 1px solid rgba(10, 77, 104, 0.2);
                 padding: 6px 10px;
                 border-radius: 18px;
-                min-height: 40px;
+                min-height: 42px;
                 font-size: 11px;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
                 white-space: nowrap;
                 flex-shrink: 0;
-                position: relative;
-                z-index: 10006;
-                pointer-events: auto !important;
             }
             
             .header-right-group .lang-btn svg,
             .header-right-group .currency-btn svg {
-                width: 8px;
-                height: 8px;
+                width: 9px;
+                height: 9px;
                 margin-left: 3px;
-            }
-            
-            /* Ensure dropdowns are visible above header on mobile */
-            .header-right-group .lang-dropdown.open,
-            .header-right-group .currency-dropdown.open {
-                display: flex !important;
-                z-index: 10005 !important;
-                position: absolute !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-            
-            /* Prevent header scroll from interfering with dropdowns */
-            .header-right-group .lang-selector,
-            .header-right-group .currency-selector {
-                position: relative;
-                z-index: 10006;
-            }
-            
-            /* Ensure dropdowns are not hidden */
-            .lang-dropdown.open,
-            .currency-dropdown.open {
-                display: flex !important;
-                visibility: visible !important;
-                opacity: 1 !important;
             }
             
             .lang-btn svg {
@@ -745,20 +696,6 @@
                 padding: 12px 15px;
                 min-height: 44px;
                 font-size: 14px;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
-                pointer-events: auto !important;
-                z-index: 10007;
-            }
-            
-            .currency-dropdown-item {
-                padding: 12px 15px;
-                min-height: 44px;
-                font-size: 14px;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
-                pointer-events: auto !important;
-                z-index: 10007;
             }
 
             /* Payment Modal Mobile Responsive */
@@ -898,7 +835,7 @@
             }
             
             .main-header .container {
-                gap: 3px;
+                gap: 4px;
                 padding: 0 6px;
             }
             
@@ -913,11 +850,19 @@
                 margin-left: 3px;
             }
             
+            .header-right-group .header-actions {
+                gap: 3px;
+            }
+            
             .header-action-btn {
                 padding: 5px 8px;
                 min-height: 38px;
                 font-size: 10px;
                 border-radius: 16px;
+            }
+            
+            .header-right-group .lang-currency-wrapper {
+                gap: 3px;
             }
             
             .header-right-group .lang-btn,
@@ -938,8 +883,8 @@
             
             .header-right-group .lang-btn svg,
             .header-right-group .currency-btn svg {
-                width: 7px;
-                height: 7px;
+                width: 8px;
+                height: 8px;
                 margin-left: 2px;
             }
             
@@ -1008,14 +953,12 @@
             min-width: 100%;
             display: none;
             flex-direction: column;
-            z-index: 10005;
+            z-index: 1002;
             overflow: hidden;
         }
 
         .currency-dropdown.open {
-            display: flex !important;
-            visibility: visible !important;
-            opacity: 1 !important;
+            display: flex;
         }
 
         .currency-dropdown-item {
@@ -1051,30 +994,9 @@
         /* Ensure dropdown works on mobile */
         @media (max-width: 768px) {
             .currency-dropdown {
-                z-index: 10005 !important;
+                z-index: 1003;
                 min-width: 80px;
                 box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-            }
-            
-            .header-right-group .currency-selector {
-                position: relative;
-            }
-            
-            .header-right-group .currency-dropdown {
-                position: absolute !important;
-                left: 0 !important;
-                right: auto !important;
-                top: calc(100% + 5px) !important;
-                transform: none !important;
-                margin-top: 0 !important;
-            }
-            
-            /* Ensure currency button is clickable on mobile */
-            .header-right-group .currency-btn {
-                position: relative;
-                z-index: 10006;
-                pointer-events: auto !important;
-                touch-action: manipulation;
             }
             
             .currency-btn {
@@ -1171,27 +1093,8 @@
             align-items: center;
             flex-wrap: nowrap;
             gap: 8px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
             width: 100%;
             box-sizing: border-box;
-        }
-
-        .main-header .container::-webkit-scrollbar {
-            display: none;
-            width: 0;
-            height: 0;
-        }
-        
-        /* Ensure header doesn't break on mobile */
-        .main-header {
-            overflow: hidden;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
         }
 
         .main-header .container .logo {
@@ -1204,22 +1107,12 @@
             margin-left: 10px;
             display: flex;
             align-items: center;
-            min-width: 0;
         }
 
         .main-header .container > * {
             display: flex;
             align-items: center;
             flex-shrink: 0;
-        }
-        
-        /* Prevent text overflow in buttons */
-        .header-action-btn,
-        .header-right-group .lang-btn,
-        .header-right-group .currency-btn {
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .header-actions {
@@ -1342,13 +1235,10 @@
             stroke: currentColor;
         }
 
-        .desktop-nav {
-            margin-left: 0;
-        }
-
         /* Hide desktop-nav by default - only show on desktop (969px+) */
         .desktop-nav {
             display: none !important;
+            margin-left: 0;
         }
 
         /* Show header-right-group on all devices (for lang/currency buttons) */
@@ -1358,13 +1248,8 @@
         
         /* Hide desktop-nav on mobile, but keep lang/currency visible */
         @media (max-width: 968px) {
-            .desktop-nav {
-                display: none !important;
-            }
-            
             .header-right-group {
-                display: flex !important;
-                gap: 8px !important;
+                gap: 6px !important;
                 flex-wrap: nowrap;
                 overflow: visible;
             }
@@ -1375,40 +1260,50 @@
             
             .main-header .container {
                 gap: 6px;
-                padding: 0 12px;
+                padding: 0 10px;
             }
             
             .main-header .container .logo {
                 margin-right: 6px;
-                font-size: 24px;
+                font-size: 22px;
+                letter-spacing: 0.5px;
             }
             
             .header-right-group .header-actions {
-                gap: 6px;
+                gap: 5px;
             }
             
             .header-action-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-                min-height: 36px;
+                padding: 6px 11px;
+                font-size: 11px;
+                min-height: 38px;
+                border-radius: 18px;
             }
             
             .header-right-group .lang-currency-wrapper {
-                gap: 6px;
+                gap: 5px;
             }
             
             .header-right-group .lang-btn,
             .header-right-group .currency-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-                min-height: 36px;
+                padding: 6px 11px;
+                font-size: 11px;
+                min-height: 38px;
+                border-radius: 18px;
             }
             
             .header-theme-toggle {
-                width: 36px;
-                height: 36px;
-                min-width: 36px;
-                min-height: 36px;
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+                font-size: 15px;
+            }
+            
+            .header-right-group .lang-btn svg,
+            .header-right-group .currency-btn svg {
+                width: 9px;
+                height: 9px;
             }
         }
 
@@ -5505,29 +5400,29 @@
                     </div>
                     <div class="lang-currency-wrapper">
                         <div class="lang-selector">
-                            <button class="lang-btn active" id="langDropdownBtn" onclick="toggleLangDropdown(event)" type="button">
+                            <button class="lang-btn active" id="langDropdownBtn" onclick="toggleLangDropdown()">
                                 <span id="langCurrent">UZ</span>
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 5px; transition: transform 0.3s;" id="langDropdownIcon">
                                     <path d="M2 4l4 4 4-4"/>
                                 </svg>
                             </button>
                             <div class="lang-dropdown" id="langDropdown">
-                                <button class="lang-dropdown-item active" onclick="selectLang('uz', event)" type="button">UZ</button>
-                                <button class="lang-dropdown-item" onclick="selectLang('ru', event)" type="button">RU</button>
-                                <button class="lang-dropdown-item" onclick="selectLang('en', event)" type="button">EN</button>
+                                <button class="lang-dropdown-item active" onclick="selectLang('uz')">UZ</button>
+                                <button class="lang-dropdown-item" onclick="selectLang('ru')">RU</button>
+                                <button class="lang-dropdown-item" onclick="selectLang('en')">EN</button>
                             </div>
                         </div>
                         <div class="currency-selector">
-                            <button class="currency-btn active" id="currencyDropdownBtn" onclick="toggleCurrencyDropdown(event)" type="button">
+                            <button class="currency-btn active" id="currencyDropdownBtn" onclick="toggleCurrencyDropdown()">
                                 <span id="currencyCurrent">SUM</span>
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 5px; transition: transform 0.3s;" id="currencyDropdownIcon">
                                     <path d="M2 4l4 4 4-4"/>
                                 </svg>
                             </button>
                             <div class="currency-dropdown" id="currencyDropdown">
-                                <button class="currency-dropdown-item active" onclick="selectCurrency('sum', event)" type="button">SUM</button>
-                                <button class="currency-dropdown-item" onclick="selectCurrency('usd', event)" type="button">USD</button>
-                                <button class="currency-dropdown-item" onclick="selectCurrency('rub', event)" type="button">RUB</button>
+                                <button class="currency-dropdown-item active" onclick="selectCurrency('sum')">SUM</button>
+                                <button class="currency-dropdown-item" onclick="selectCurrency('usd')">USD</button>
+                                <button class="currency-dropdown-item" onclick="selectCurrency('rub')">RUB</button>
                             </div>
                         </div>
                     </div>
@@ -7177,34 +7072,15 @@
                     closeLangDropdown();
                 }
 
-                function toggleLangDropdown(e) {
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                    
+                function toggleLangDropdown() {
                     var dropdown = document.getElementById('langDropdown');
                     var selector = document.querySelector('.lang-selector');
-                    
-                    // Close currency dropdown if open
-                    var currencyDropdown = document.getElementById('currencyDropdown');
-                    if (currencyDropdown && currencyDropdown.classList.contains('open')) {
-                        if (typeof closeCurrencyDropdown === 'function') {
-                            closeCurrencyDropdown();
-                        }
-                    }
-                    
                     if (dropdown && selector) {
                         if (dropdown.classList.contains('open')) {
                             closeLangDropdown();
                         } else {
                             dropdown.classList.add('open');
                             selector.classList.add('open');
-                            
-                            // Ensure dropdown is visible
-                            dropdown.style.display = 'flex';
-                            dropdown.style.visibility = 'visible';
-                            dropdown.style.opacity = '1';
                         }
                     }
                 }
@@ -7212,21 +7088,12 @@
                 function closeLangDropdown() {
                     var dropdown = document.getElementById('langDropdown');
                     var selector = document.querySelector('.lang-selector');
-                    if (dropdown) {
-                        dropdown.classList.remove('open');
-                        dropdown.style.display = 'none';
-                        dropdown.style.visibility = 'hidden';
-                    }
+                    if (dropdown) dropdown.classList.remove('open');
                     if (selector) selector.classList.remove('open');
                 }
 
-                function selectLang(lang, e) {
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
+                function selectLang(lang) {
                     changeLang(lang);
-                    closeLangDropdown();
                 }
 
                 // Close dropdown when clicking outside
@@ -7235,12 +7102,11 @@
                     var dropdown = document.getElementById('langDropdown');
                     var btn = document.getElementById('langDropdownBtn');
                     if (selector && dropdown && btn) {
-                        // Check if click is outside the selector/dropdown
-                        if (!selector.contains(e.target) && !dropdown.contains(e.target) && dropdown.classList.contains('open')) {
+                        if (!selector.contains(e.target) && dropdown.classList.contains('open')) {
                             closeLangDropdown();
                         }
                     }
-                }, true); // Use capture phase for better mobile handling
+                });
 
                 // Close dropdown on Escape key
                 document.addEventListener('keydown', function(e) {
@@ -7387,34 +7253,15 @@
                     closeCurrencyDropdown();
                 }
 
-                function toggleCurrencyDropdown(e) {
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                    
+                function toggleCurrencyDropdown() {
                     var dropdown = document.getElementById('currencyDropdown');
                     var selector = document.querySelector('.currency-selector');
-                    
-                    // Close language dropdown if open
-                    var langDropdown = document.getElementById('langDropdown');
-                    if (langDropdown && langDropdown.classList.contains('open')) {
-                        if (typeof closeLangDropdown === 'function') {
-                            closeLangDropdown();
-                        }
-                    }
-                    
                     if (dropdown && selector) {
                         if (dropdown.classList.contains('open')) {
                             closeCurrencyDropdown();
                         } else {
                             dropdown.classList.add('open');
                             selector.classList.add('open');
-                            
-                            // Ensure dropdown is visible
-                            dropdown.style.display = 'flex';
-                            dropdown.style.visibility = 'visible';
-                            dropdown.style.opacity = '1';
                         }
                     }
                 }
@@ -7422,21 +7269,12 @@
                 function closeCurrencyDropdown() {
                     var dropdown = document.getElementById('currencyDropdown');
                     var selector = document.querySelector('.currency-selector');
-                    if (dropdown) {
-                        dropdown.classList.remove('open');
-                        dropdown.style.display = 'none';
-                        dropdown.style.visibility = 'hidden';
-                    }
+                    if (dropdown) dropdown.classList.remove('open');
                     if (selector) selector.classList.remove('open');
                 }
 
-                function selectCurrency(currency, e) {
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
+                function selectCurrency(currency) {
                     changeCurrency(currency);
-                    closeCurrencyDropdown();
                 }
 
                 // Close dropdown when clicking outside
@@ -7445,12 +7283,11 @@
                     var dropdown = document.getElementById('currencyDropdown');
                     var btn = document.getElementById('currencyDropdownBtn');
                     if (selector && dropdown && btn) {
-                        // Check if click is outside the selector/dropdown
-                        if (!selector.contains(e.target) && !dropdown.contains(e.target) && dropdown.classList.contains('open')) {
+                        if (!selector.contains(e.target) && dropdown.classList.contains('open')) {
                             closeCurrencyDropdown();
                         }
                     }
-                }, true); // Use capture phase for better mobile handling
+                });
 
                 // Make functions globally accessible
                 window.changeCurrency = changeCurrency;
