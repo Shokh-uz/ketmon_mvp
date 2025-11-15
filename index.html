@@ -2690,16 +2690,46 @@
 
         /* Juda kichik ekranlar uchun (375px va undan kam) */
         @media (max-width: 375px) {
-            .lang-btn,
-            .currency-btn {
-                padding: 8px 14px;
-                font-size: 11px;
-                min-width: 50px;
-                min-height: 40px;
+            .top-bar {
+                padding: 6px 0;
+            }
+
+            .top-bar .container {
+                gap: 6px;
+                padding: 0 10px;
+            }
+
+            .contact-info {
+                gap: 6px;
             }
 
             .contact-info span {
+                font-size: 8px;
+            }
+
+            .contact-info span svg {
+                width: 10px;
+                height: 10px;
+            }
+
+            .lang-currency-wrapper {
+                gap: 4px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .lang-btn,
+            .currency-btn {
+                padding: 4px 8px;
                 font-size: 9px;
+                min-width: 38px;
+                min-height: 30px;
+            }
+
+            .lang-selector,
+            .currency-selector {
+                gap: 3px;
             }
         }
 
@@ -2714,53 +2744,55 @@
             }
 
             .top-bar {
-                padding: 8px 0;
-                font-size: 10px;
+                padding: 5px 0;
+                font-size: 9px;
             }
 
             .top-bar .container {
                 flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
+                gap: 5px;
+                align-items: stretch;
+                padding: 0 8px;
             }
 
             .contact-info {
-                gap: 8px;
+                gap: 5px;
                 width: 100%;
                 flex-wrap: wrap;
+                justify-content: space-between;
             }
 
             .lang-currency-wrapper {
                 width: 100%;
-                justify-content: flex-start;
-                gap: 8px;
+                justify-content: center;
+                gap: 3px;
                 flex-wrap: wrap;
             }
 
             .contact-info span {
-                font-size: 9px;
-                flex: 1;
+                font-size: 8px;
+                flex: 0 0 auto;
                 min-width: 0;
             }
 
             .contact-info span svg {
-                width: 12px;
-                height: 12px;
+                width: 9px;
+                height: 9px;
             }
 
             .lang-selector,
             .currency-selector {
-                gap: 4px;
+                gap: 2px;
                 flex-shrink: 0;
             }
 
             .lang-btn,
             .currency-btn {
-                padding: 8px 12px;
-                font-size: 10px;
-                min-width: 44px;
-                min-height: 44px;
-                border-radius: 6px;
+                padding: 3px 6px;
+                font-size: 8px;
+                min-width: 32px;
+                min-height: 26px;
+                border-radius: 4px;
             }
 
             .lang-btn:active,
@@ -2949,29 +2981,44 @@
             }
 
             .top-bar {
-                padding: 8px 0;
+                padding: 6px 0;
                 font-size: 10px;
             }
 
+            .top-bar .container {
+                gap: 8px;
+                padding: 0 12px;
+            }
+
+            .contact-info {
+                gap: 8px;
+            }
+
             .contact-info span {
-                font-size: 10px;
+                font-size: 9px;
+            }
+
+            .contact-info span svg {
+                width: 11px;
+                height: 11px;
+            }
+
+            .lang-currency-wrapper {
+                gap: 6px;
+                justify-content: center;
             }
 
             .lang-btn,
             .currency-btn {
-                padding: 8px 16px;
-                font-size: 12px;
-                min-width: 55px;
-                min-height: 42px;
-            }
-
-            .lang-currency-wrapper {
-                gap: 8px;
+                padding: 5px 10px;
+                font-size: 10px;
+                min-width: 42px;
+                min-height: 32px;
             }
 
             .lang-selector,
             .currency-selector {
-                gap: 6px;
+                gap: 3px;
             }
 
             html {
@@ -3427,79 +3474,93 @@
 
             /* Top Bar - mobil uchun tuzatish */
             .top-bar {
-                padding: 10px 0;
+                padding: 8px 0;
             }
 
             .top-bar .container {
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
-                padding: 0 15px;
+                gap: 10px;
+                padding: 0 12px;
             }
 
             /* Kontakt ma'lumotlari */
             .contact-info {
                 display: flex;
                 flex-direction: row;
-                gap: 15px;
+                gap: 10px;
                 width: 100%;
                 flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .contact-info span {
-                font-size: 11px;
+                font-size: 10px;
                 white-space: nowrap;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                flex: 0 0 auto;
+            }
+
+            .contact-info span svg {
+                width: 12px;
+                height: 12px;
+                flex-shrink: 0;
             }
 
             /* Til va valyuta wrapper */
             .lang-currency-wrapper {
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
+                flex-direction: row;
+                gap: 8px;
                 width: 100%;
+                flex-wrap: wrap;
+                justify-content: flex-end;
             }
 
             /* Til tugmalari qatori */
             .lang-selector {
                 display: flex;
-                gap: 8px;
-                width: 100%;
-                justify-content: flex-start;
+                gap: 4px;
+                flex: 0 0 auto;
             }
 
             .lang-btn {
                 flex: 0 0 auto;
-                padding: 10px 20px;
-                font-size: 13px;
-                min-width: 60px;
-                min-height: 44px;
-                border-radius: 8px;
+                padding: 6px 12px;
+                font-size: 11px;
+                min-width: 45px;
+                min-height: 36px;
+                border-radius: 6px;
                 text-align: center;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                white-space: nowrap;
             }
 
             /* Valyuta tugmalari qatori */
             .currency-selector {
                 display: flex;
-                gap: 8px;
-                width: 100%;
-                justify-content: flex-start;
+                gap: 4px;
+                flex: 0 0 auto;
                 margin-left: 0;
             }
 
             .currency-btn {
                 flex: 0 0 auto;
-                padding: 10px 20px;
-                font-size: 13px;
-                min-width: 70px;
-                min-height: 44px;
-                border-radius: 8px;
+                padding: 6px 12px;
+                font-size: 11px;
+                min-width: 50px;
+                min-height: 36px;
+                border-radius: 6px;
                 text-align: center;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                white-space: nowrap;
             }
 
             /* Touch feedback */
