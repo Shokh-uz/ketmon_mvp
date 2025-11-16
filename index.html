@@ -493,7 +493,6 @@
             z-index: 1000;
             transition: box-shadow 0.3s ease;
         }
-
         .top-bar {
             background: var(--bg-tertiary);
             color: var(--text-inverse);
@@ -933,7 +932,6 @@
                 order: 2;
             }
         }
-
         /* Extra small phones */
         @media (max-width: 480px) {
             .main-header {
@@ -1423,9 +1421,7 @@
         .header-right-group {
             display: flex !important;
         }
-
         /* (Removed) Mobile menu toggle */
-        
         /* Hide desktop-nav on mobile, but keep lang/currency visible */
         @media (max-width: 968px) {
             /* Align logo */
@@ -1580,7 +1576,11 @@
                 justify-content: flex-start;
                 gap: 6px;
                 flex-wrap: nowrap;
+                /* Allow dropdowns to overflow vertically on mobile */
+                overflow: visible !important;
             }
+            /* Ensure header itself does not clip dropdowns */
+            .main-header { overflow: visible !important; }
             .main-header .container .logo { order: 0; }
             .main-header .container .header-right-group { order: 1; margin-left: 6px; }
             .main-header .container .header-right-group > *:not(.lang-currency-wrapper) { display: none !important; }
@@ -1595,6 +1595,7 @@
             .lang-currency-wrapper { gap: 4px !important; }
             .lang-selector, .currency-selector { margin: 0 !important; }
             .lang-currency-wrapper > * + * { margin-left: 4px !important; }
+            /* Match spacing between currency and theme to lang–currency gap */
             .lang-currency-wrapper .header-theme-toggle { margin-left: 4px !important; }
             .lang-btn, .currency-btn { padding-left: 10px !important; padding-right: 10px !important; }
         }
@@ -1921,7 +1922,6 @@
             z-index: 10;
             transition: background-color 0.3s ease;
         }
-
         .search-box {
             background: var(--gradient-card);
             backdrop-filter: blur(10px);
@@ -2420,7 +2420,6 @@
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 60px var(--accent-glow);
         }
-
         .property-img {
             width: 100%;
             height: 200px;
@@ -2917,7 +2916,6 @@
         .ai-form .ai-submit {
             grid-column: 1 / -1;
         }
-
         @media (max-width: 768px) {
             .ai-form {
                 grid-template-columns: 1fr;
@@ -3417,7 +3415,6 @@
             text-decoration: none;
             transition: color 0.3s;
         }
-
         .footer-section a:hover {
             color: var(--text-inverse);
         }
@@ -3877,7 +3874,6 @@
                 padding: 15px;
             }
         }
-
         /* Small Phones (321px to 375px) */
         @media (min-width: 321px) and (max-width: 375px) {
             html {
@@ -4379,7 +4375,6 @@
                 flex: 0 0 280px;
                 min-width: 280px;
             }
-
             .service-grid {
                 grid-template-columns: 1fr;
                 gap: 18px;
@@ -4879,7 +4874,6 @@
             .section-header {
                 margin-bottom: 40px;
             }
-
             .section-title {
                 font-size: 28px;
                 margin-bottom: 10px;
@@ -5380,7 +5374,6 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
             }
-
             .ai-form {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -5627,6 +5620,7 @@
                     <div class="header-actions">
                         <a id="topBarLoginBtn" href="#login" class="header-action-btn" data-text="nav_login">Kirish</a>
                         <a id="topBarRegisterBtn" href="#register" class="header-action-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
+                        <a id="accountLink" href="profile.html" class="header-action-btn" style="display:none;">Profil</a>
                     </div>
                     <div class="lang-currency-wrapper">
                         <div class="lang-selector">
@@ -5709,7 +5703,6 @@
             </div>
         </div>
     </section>
-
     <!-- Destinations -->
     <section class="destinations" id="destinations">
         <div class="container">
@@ -5899,7 +5892,7 @@
                     <span class="ai-icon">🤖</span>
                     <div>
                         <h3 data-text="ai_assistant_title">Smart AI yordamchi</h3>
-                        <p data-text="ai_assistant_subtitle">Budjetingiz, yo‘nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.</p>
+                        <p data-text="ai_assistant_subtitle">Budjetingiz, yo'nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.</p>
                     </div>
                 </div>
                 <form class="ai-form" id="aiForm">
@@ -5908,7 +5901,7 @@
                         <input type="number" id="aiBudget" placeholder="1500" data-placeholder="ai_budget_placeholder" min="100">
                     </div>
                     <div class="ai-field">
-                        <label for="aiDestination" data-text="ai_destination_label">Qiziqqan yo‘nalish</label>
+                        <label for="aiDestination" data-text="ai_destination_label">Qiziqqan yo'nalish</label>
                         <input type="text" id="aiDestination" placeholder="Osiyo, Yevropa..." data-placeholder="ai_destination_placeholder">
                     </div>
                     <div class="ai-field season-month-row">
@@ -5940,7 +5933,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn-gradient ai-submit" data-text="ai_generate_btn">Tavsiyalarni ko‘rish</button>
+                    <button type="submit" class="btn-gradient ai-submit" data-text="ai_generate_btn">Tavsiyalarni ko'rish</button>
                 </form>
                 <div class="ai-response" id="aiResponse" data-text="ai_response_placeholder">Savolingizni kiriting va AI yordamchidan tavsiyalar oling.</div>
             </div>
@@ -6045,10 +6038,10 @@
             <div class="about-grid">
                 <div class="about-story">
                     <h3 data-text="about_story_title">Missiyamiz</h3>
-                    <p data-text="about_story_body1">Ketmon qadriyatlaridan ilhomlanib, biz doimo mehnatsevarlik va taraqqiyot ramzini xizmatlarimiz markaziga qo‘yamiz.</p>
+                    <p data-text="about_story_body1">Ketmon qadriyatlaridan ilhomlanib, biz doimo mehnatsevarlik va taraqqiyot ramzini xizmatlarimiz markaziga qo'yamiz.</p>
                     <p data-text="about_story_body2">Platformamizda tasdiqlangan agentliklar, shaffof narxlar va TNPL imkoniyatlari yordamida sayohatchilar vaqtini va byudjetini tejashadi.</p>
                     <ul class="about-bullets">
-                        <li><span>•</span><span data-text="about_bullet_network">Hamkorlarimiz real vaqt rejimida paketlarni yangilaydi va video-reels orqali yo‘nalishlarni jonlantiradi.</span></li>
+                        <li><span>•</span><span data-text="about_bullet_network">Hamkorlarimiz real vaqt rejimida paketlarni yangilaydi va video-reels orqali yo'nalishlarni jonlantiradi.</span></li>
                         <li><span>•</span><span data-text="about_bullet_support">24/7 yordam, integratsiyalangan chat va Telegram bildirishnomalari bilan agentliklar mijozlar bilan tezkor aloqa qiladi.</span></li>
                         <li><span>•</span><span data-text="about_bullet_ai">AI tavsiyalari shaxsiylashgan marshrutlarni taklif etib, sayohatchilarga tez qaror qabul qilishga yordam beradi.</span></li>
                     </ul>
@@ -6068,7 +6061,7 @@
                     </div>
                     <div class="about-stat">
                         <div class="about-stat-value" data-text="about_stat_languages_value">8</div>
-                        <div class="about-stat-label" data-text="about_stat_languages_label">tilda qo‘llab-quvvatlash</div>
+                        <div class="about-stat-label" data-text="about_stat_languages_label">tilda qo'llab-quvvatlash</div>
                     </div>
                 </div>
             </div>
@@ -6079,13 +6072,13 @@
         <section id="contact" class="contact-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title" data-text="contact_title">Aloqada bo‘laylik</h2>
+                    <h2 class="section-title" data-text="contact_title">Aloqada bo'laylik</h2>
                     <p class="section-subtitle" data-text="contact_subtitle">Savol va takliflaringizni qoldiring — jamoamiz 24/7 yordam beradi.</p>
                 </div>
                 <div class="contact-grid">
                     <div class="contact-card">
                         <h3 data-text="contact_info_title">Nega KETMON?</h3>
-                        <p data-text="contact_info_body">Ketmon orqali siz tasdiqlangan agentliklar bilan ishlaysiz, narxlarni solishtirasiz va TNPL orqali to‘lovlarni bo‘lib-bo‘lib amalga oshirasiz. Mijozlar va agentliklar uchun yagona panel barcha jarayonlarni bir joyga jamlaydi.</p>
+                        <p data-text="contact_info_body">Ketmon orqali siz tasdiqlangan agentliklar bilan ishlaysiz, narxlarni solishtirasiz va TNPL orqali to'lovlarni bo'lib-bo'lib amalga oshirasiz. Mijozlar va agentliklar uchun yagona panel barcha jarayonlarni bir joyga jamlaydi.</p>
                         <ul class="contact-details">
                             <li>
                                 <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
@@ -6163,6 +6156,10 @@
                     <button class="modal-close" aria-label="Close" id="loginModalClose">×</button>
                 </div>
                 <form class="modal-form" id="loginForm">
+                    <div class="form-field">
+                        <label for="loginName">Ism (ixtiyoriy)</label>
+                        <input id="loginName" type="text" placeholder="Ismingiz (ixtiyoriy)">
+                    </div>
                     <div class="form-field">
                         <label for="loginEmail" data-text="login_email_label">Email</label>
                         <input id="loginEmail" type="email" placeholder="you@example.com" data-placeholder="login_email_placeholder" required>
@@ -6385,7 +6382,6 @@
                 </div>
             </div>
         </div>
-
         <script>
             // Initialize theme immediately to prevent flash
             (function() {
@@ -6592,9 +6588,9 @@
                         about_title: "KETMON haqida",
                         about_subtitle: "Markaziy Osiyoning eng ishonchli sayohat marketpleysida agentliklar va sayohatchilar birlashadi.",
                         about_story_title: "Missiyamiz",
-                        about_story_body1: "Ketmon qadriyatlaridan ilhomlanib, biz doimo mehnatsevarlik va taraqqiyot ramzini xizmatlarimiz markaziga qo‘yamiz.",
+                        about_story_body1: "Ketmon qadriyatlaridan ilhomlanib, biz doimo mehnatsevarlik va taraqqiyot ramzini xizmatlarimiz markaziga qo'yamiz.",
                         about_story_body2: "Platformamizda tasdiqlangan agentliklar, shaffof narxlar va TNPL imkoniyatlari yordamida sayohatchilar vaqtini va byudjetini tejashadi.",
-                        about_bullet_network: "Hamkorlarimiz real vaqt rejimida paketlarni yangilaydi va video-reels orqali yo‘nalishlarni jonlantiradi.",
+                        about_bullet_network: "Hamkorlarimiz real vaqt rejimida paketlarni yangilaydi va video-reels orqali yo'nalishlarni jonlantiradi.",
                         about_bullet_support: "24/7 yordam, integratsiyalangan chat va Telegram bildirishnomalari bilan agentliklar mijozlar bilan tezkor aloqa qiladi.",
                         about_bullet_ai: "AI tavsiyalari shaxsiylashgan marshrutlarni taklif etib, sayohatchilarga tez qaror qabul qilishga yordam beradi.",
                         about_stat_partners_value: "120+",
@@ -6604,17 +6600,17 @@
                         about_stat_travelers_value: "45k+",
                         about_stat_travelers_label: "mamnun sayohatchilar",
                         about_stat_languages_value: "8",
-                        about_stat_languages_label: "tilda qo‘llab-quvvatlash",
-                        contact_title: "Aloqada bo‘laylik",
+                        about_stat_languages_label: "tilda qo'llab-quvvatlash",
+                        contact_title: "Aloqada bo'laylik",
                         contact_subtitle: "Savol va takliflaringizni qoldiring — jamoamiz 24/7 yordam beradi.",
                         contact_info_title: "Nega KETMON?",
-                        contact_info_body: "Ketmon orqali siz tasdiqlangan agentliklar bilan ishlaysiz, narxlarni solishtirasiz va TNPL orqali to‘lovlarni bo‘lib-bo‘lib amalga oshirasiz. Mijozlar va agentliklar uchun yagona panel barcha jarayonlarni bir joyga jamlaydi.",
+                        contact_info_body: "Ketmon orqali siz tasdiqlangan agentliklar bilan ishlaysiz, narxlarni solishtirasiz va TNPL orqali to'lovlarni bo'lib-bo'lib amalga oshirasiz. Mijozlar va agentliklar uchun yagona panel barcha jarayonlarni bir joyga jamlaydi.",
                         contact_phone_label: "Telefon",
                         contact_phone_value: "+998 90 765 43 21",
                         contact_email_label: "Email",
                         contact_email_value: "support@ketmon.uz",
                         contact_address_label: "Manzil",
-                        contact_address_value: "Toshkent, Navoiy ko‘chasi 12, KETMON HUB",
+                        contact_address_value: "Toshkent, Navoiy ko'chasi 12, KETMON HUB",
                         contact_form_name_label: "Ism",
                         contact_form_name_placeholder: "Ismingiz",
                         contact_form_email_label: "Email",
@@ -6624,12 +6620,12 @@
                         contact_submit_btn: "Yuborish",
                         contact_status_placeholder: "Yuborilgan xabarlarimizga odatda 30 daqiqada javob beramiz.",
                         contact_success_message: "Xabaringiz qabul qilindi! Tez orada siz bilan bog'lanamiz.",
-                        contact_error_message: "Iltimos, barcha maydonlarni to‘liq kiriting.",
+                        contact_error_message: "Iltimos, barcha maydonlarni to'liq kiriting.",
                         ai_assistant_title: "Smart AI yordamchi",
-                        ai_assistant_subtitle: "Budjetingiz, yo‘nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.",
+                        ai_assistant_subtitle: "Budjetingiz, yo'nalishingiz va sanalarga qarab mos tur paketlarni tavsiya qiladi.",
                         ai_budget_label: "Budjet (USD)",
                         ai_budget_placeholder: "1500",
-                        ai_destination_label: "Qiziqqan yo‘nalish",
+                        ai_destination_label: "Qiziqqan yo'nalish",
                         ai_destination_placeholder: "Osiyo, Yevropa...",
                         ai_season_label: "Qaysi fasllar",
                         ai_season_summer: "Yoz",
@@ -7081,7 +7077,7 @@
                         about_stat_travelers_label: "happy travellers",
                         about_stat_languages_value: "8",
                         about_stat_languages_label: "languages supported",
-                        contact_title: "Let’s stay in touch",
+                        contact_title: "Let's stay in touch",
                         contact_subtitle: "Share your questions or ideas — our team replies within minutes.",
                         contact_info_title: "Why KETMON?",
                         contact_info_body: "Collaborate with verified agencies, compare offers, and split payments via TNPL. A single dashboard streamlines the journey for both travellers and partners.",
@@ -7224,7 +7220,6 @@
                         service4_advantage_text: "Fast visa processing, professional assistance, high success rate"
                     }
                 };
-
                 function applyTranslations(lang) {
                     var dict = i18n[lang] || i18n.uz;
                     
@@ -7562,6 +7557,7 @@
                 var bookBtn = document.getElementById('tourBookBtn');
 
                 function openModal() {
+                    if (!modal) modal = document.getElementById('tourModal');
                     modal.classList.add('open');
                     document.body.style.overflow = 'hidden';
                 }
@@ -7569,83 +7565,281 @@
                     modal.classList.remove('open');
                     document.body.style.overflow = '';
                 }
-                closeBtn.addEventListener('click', closeModal);
-                modal.addEventListener('click', function(e){
-                    if (e.target === modal) closeModal();
-                });
+                if (closeBtn) closeBtn.addEventListener('click', closeModal);
+                if (modal) {
+                    modal.addEventListener('click', function(e){
+                        if (e.target === modal) closeModal();
+                    });
+                }
                 document.addEventListener('keydown', function(e){
                     if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
                 });
 
-                // Attach to all "Batafsil" buttons in destination cards
-                document.querySelectorAll('.destination-card').forEach(function(card){
-                    card.addEventListener('click', function(){
-                        var title = card.querySelector('.destination-title')?.textContent?.trim() || 'Tour';
-                        var desc = card.querySelector('.destination-desc')?.textContent?.trim() || 'Tour description';
-                        var price = card.querySelector('.price')?.textContent?.trim() || '';
-                        var badge = card.querySelector('.destination-badge')?.textContent?.trim() || '';
-                        var agencyValue = card.getAttribute('data-agency');
-                        var agencyNameEl = document.querySelector('.agency-card[data-agency="' + agencyValue + '"] h3');
-                        var agencyName = agencyNameEl ? agencyNameEl.textContent.trim() : '';
-                        var img = card.querySelector('.destination-img img')?.getAttribute('src') || '';
+                // Delegated handler so it works for dynamically cloned cards
+                function handleCard(card){
+                    var titleNode = card.querySelector('.destination-title');
+                    var descNode = card.querySelector('.destination-desc');
+                    var priceNode = card.querySelector('.price');
+                    var badgeNode = card.querySelector('.destination-badge');
+                    var imgNode = card.querySelector('.destination-img img');
 
-                        titleEl.textContent = title;
-                        descEl.textContent = desc + (price ? ' • ' + price : '');
-                        metaEl.innerHTML = '';
-                        if (badge) {
-                            var chip = document.createElement('span');
-                            chip.className = 'meta-chip';
-                            chip.textContent = badge;
-                            metaEl.appendChild(chip);
-                        }
-                        if (price) {
-                            var chip2 = document.createElement('span');
-                            chip2.className = 'meta-chip';
-                            chip2.textContent = price;
-                            metaEl.appendChild(chip2);
-                        }
-                        if (agencyName) {
-                            var chip3 = document.createElement('span');
-                            chip3.className = 'meta-chip';
-                            chip3.textContent = agencyName;
-                            metaEl.appendChild(chip3);
-                        }
-                        if (img) {
-                            imgEl.src = img;
-                            imgEl.alt = title + ' image';
-                        } else {
-                            imgEl.src = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop';
-                            imgEl.alt = 'Tour image';
-                        }
+                    var title = (titleNode ? titleNode.textContent : 'Tour').trim();
+                    var desc = (descNode ? descNode.textContent : 'Tour description').trim();
+                    var price = (priceNode ? priceNode.textContent : '').trim();
+                    var badge = (badgeNode ? badgeNode.textContent : '').trim();
+                    var agencyValue = card.getAttribute('data-agency');
+                    var agencyNameEl = document.querySelector('.agency-card[data-agency="' + agencyValue + '"] h3');
+                    var agencyName = agencyNameEl ? agencyNameEl.textContent.trim() : '';
+                    var imgSrc = imgNode ? imgNode.getAttribute('src') : '';
 
-                        // Booking button opens payment modal
-                        bookBtn.onclick = function(){
-                            // Store tour information for payment modal
-                            window.currentTourBooking = {
-                                title: title,
-                                price: price,
-                                description: desc,
-                                agency: agencyName,
-                                image: img || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop'
-                            };
-                            closeModal();
-                            // Open payment modal
-                            var paymentModal = document.getElementById('paymentModal');
-                            if (paymentModal) {
-                                var paymentTourName = document.getElementById('paymentTourName');
-                                var paymentTourPrice = document.getElementById('paymentTourPrice');
-                                if (paymentTourName) paymentTourName.textContent = title;
-                                if (paymentTourPrice) paymentTourPrice.textContent = price || 'Narx aniqlanmoqda';
-                                paymentModal.classList.add('open');
-                                document.body.style.overflow = 'hidden';
-                            }
+                    titleEl.textContent = title;
+                    descEl.textContent = desc + (price ? ' • ' + price : '');
+                    metaEl.innerHTML = '';
+                    if (badge) {
+                        var chip = document.createElement('span');
+                        chip.className = 'meta-chip';
+                        chip.textContent = badge;
+                        metaEl.appendChild(chip);
+                    }
+                    if (price) {
+                        var chip2 = document.createElement('span');
+                        chip2.className = 'meta-chip';
+                        chip2.textContent = price;
+                        metaEl.appendChild(chip2);
+                    }
+                    if (agencyName) {
+                        var chip3 = document.createElement('span');
+                        chip3.className = 'meta-chip';
+                        chip3.textContent = agencyName;
+                        metaEl.appendChild(chip3);
+                    }
+                    if (imgSrc) {
+                        imgEl.src = imgSrc;
+                        imgEl.alt = title + ' image';
+                    } else {
+                        imgEl.src = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop';
+                        imgEl.alt = 'Tour image';
+                    }
+
+                    // Booking button opens payment modal
+                    bookBtn.onclick = function(){
+                        window.currentTourBooking = {
+                            title: title,
+                            price: price,
+                            description: desc,
+                            agency: agencyName,
+                            image: imgSrc || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop'
                         };
+                        closeModal();
+                        var paymentModal = document.getElementById('paymentModal');
+                        if (paymentModal) {
+                            var paymentTourName = document.getElementById('paymentTourName');
+                            var paymentTourPrice = document.getElementById('paymentTourPrice');
+                            if (paymentTourName) paymentTourName.textContent = title;
+                            if (paymentTourPrice) paymentTourPrice.textContent = price || 'Narx aniqlanmoqda';
+                            paymentModal.classList.add('open');
+                            document.body.style.overflow = 'hidden';
+                        }
+                    };
 
-                        openModal();
+                    openModal();
+                }
+
+                var destGrid = document.querySelector('.destinations .destination-grid');
+                if (destGrid) {
+                    destGrid.addEventListener('click', function(e){
+                        var card = e.target.closest('.destination-card');
+                        if (!card || !destGrid.contains(card)) return;
+                        handleCard(card);
                     });
-                });
+                }
             })();
 
+            /* Repeat "Popular Destinations" horizontally on demand so users can keep scrolling on mobile */
+            (function(){
+                var grid = document.querySelector('.destinations .destination-grid');
+                if (!grid) return;
+                var originals = Array.prototype.slice.call(grid.querySelectorAll('.destination-card'));
+                if (!originals.length) return;
+
+                function appendBatch() {
+                    var frag = document.createDocumentFragment();
+                    for (var i = 0; i < originals.length; i++) {
+                        frag.appendChild(originals[i].cloneNode(true));
+                    }
+                    grid.appendChild(frag);
+                }
+
+                function ensureLength() {
+                    var rounds = 0;
+                    while (grid.scrollWidth < grid.clientWidth * 3 && rounds < 4) {
+                        appendBatch();
+                        rounds++;
+                    }
+                }
+
+                function maybeExtend() {
+                    var remaining = grid.scrollWidth - (grid.scrollLeft + grid.clientWidth);
+                    if (remaining < 80) {
+                        appendBatch();
+                    }
+                }
+
+                function enable() {
+                    ensureLength();
+                    grid.addEventListener('scroll', maybeExtend, { passive: true });
+                }
+
+                if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                    enable();
+                } else {
+                    document.addEventListener('DOMContentLoaded', enable);
+                }
+                window.addEventListener('resize', ensureLength);
+            })();
+
+            // Agency filter interactions
+            (function(){
+                var agencySelect = document.getElementById('agencyFilter');
+                var tourCards = Array.from(document.querySelectorAll('.destination-card'));
+                var agencyTypeButtons = Array.from(document.querySelectorAll('.agency-toolbar button'));
+                var currentAgency = 'all';
+                var currentType = 'all';
+
+                function syncToolbar() {
+                    agencyTypeButtons.forEach(function(btn){
+                        btn.classList.toggle('active', (btn.getAttribute('data-filter') || 'all') === currentType);
+                    });
+                }
+
+                function applyFilter() {
+                    // Filter tours
+                    tourCards.forEach(function(card){
+                        var agency = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        var agencyMatch = currentAgency === 'all' || agency === currentAgency;
+                        var typeMatch = currentType === 'all' || type === currentType;
+                        var shouldShow = agencyMatch && typeMatch;
+                        card.classList.toggle('hidden', !shouldShow);
+                    });
+
+                    // Filter agencies (query current cards to include any clones)
+                    var allAgencyCards = Array.from(document.querySelectorAll('.agency-card'));
+                    allAgencyCards.forEach(function(card){
+                        var agency = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        var typeAllowed = currentType === 'all' || type === currentType;
+                        var agencyMatch = currentAgency === 'all' || agency === currentAgency;
+                        var shouldShow = typeAllowed && (currentAgency === 'all' || agencyMatch);
+                        card.classList.toggle('hidden', !shouldShow);
+                        card.classList.toggle('active', agencyMatch);
+                    });
+                }
+
+                if (agencySelect) {
+                    agencySelect.addEventListener('change', function(){
+                        currentAgency = agencySelect.value || 'all';
+                        applyFilter();
+                    });
+                    currentAgency = agencySelect.value || 'all';
+                }
+
+                agencyTypeButtons.forEach(function(btn){
+                    btn.addEventListener('click', function(){
+                        currentType = btn.getAttribute('data-filter') || 'all';
+                        currentAgency = 'all';
+                        if (agencySelect) agencySelect.value = 'all';
+                        syncToolbar();
+                        applyFilter();
+                    });
+                });
+
+                // Per-card click for existing cards (kept)
+                Array.from(document.querySelectorAll('.agency-card')).forEach(function(card){
+                    card.addEventListener('click', function(){
+                        var value = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        currentAgency = value;
+                        currentType = type;
+                        if (agencySelect) {
+                            agencySelect.value = value;
+                        }
+                        syncToolbar();
+                        applyFilter();
+                        var destEl = document.getElementById('destinations');
+                        if (destEl) destEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                });
+
+                // Delegated click so cloned cards behave the same
+                var agencyGrid = document.querySelector('.agency-section .agency-grid');
+                if (agencyGrid) {
+                    agencyGrid.addEventListener('click', function(e){
+                        var card = e.target.closest('.agency-card');
+                        if (!card || !agencyGrid.contains(card)) return;
+                        var value = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        currentAgency = value;
+                        currentType = type;
+                        if (agencySelect) agencySelect.value = value;
+                        syncToolbar();
+                        applyFilter();
+                        var destEl = document.getElementById('destinations');
+                        if (destEl) destEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                }
+
+                // Initialize filter state
+                if (agencyTypeButtons.length) {
+                    var defaultBtn = agencyTypeButtons.find(function(btn){ return btn.classList.contains('active'); }) || agencyTypeButtons[0];
+                    currentType = defaultBtn ? defaultBtn.getAttribute('data-filter') || 'all' : 'all';
+                    syncToolbar();
+                }
+                applyFilter();
+            })();
+
+            /* Infinite horizontal scroll for Agency grid (Hamkor Agentliklar) */
+            (function(){
+                var grid = document.querySelector('.agency-section .agency-grid');
+                if (!grid) return;
+                var originals = Array.prototype.slice.call(grid.querySelectorAll('.agency-card'));
+                if (!originals.length) return;
+
+                function appendBatch() {
+                    var frag = document.createDocumentFragment();
+                    for (var i = 0; i < originals.length; i++) {
+                        frag.appendChild(originals[i].cloneNode(true));
+                    }
+                    grid.appendChild(frag);
+                }
+
+                function ensureLength() {
+                    var rounds = 0;
+                    while (grid.scrollWidth < grid.clientWidth * 3 && rounds < 4) {
+                        appendBatch();
+                        rounds++;
+                    }
+                }
+
+                function maybeExtend() {
+                    var remaining = grid.scrollWidth - (grid.scrollLeft + grid.clientWidth);
+                    if (remaining < 80) appendBatch();
+                }
+
+                function enable() {
+                    ensureLength();
+                    grid.addEventListener('scroll', maybeExtend, { passive: true });
+                }
+
+                if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                    enable();
+                } else {
+                    document.addEventListener('DOMContentLoaded', enable);
+                }
+                window.addEventListener('resize', ensureLength);
+            })();
+
+            // Payment Modal functionality
             // Payment Modal functionality
             (function(){
                 var paymentModal = document.getElementById('paymentModal');
@@ -7774,6 +7968,29 @@
                 function open(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
                 function close(el){ el.classList.remove('open'); document.body.style.overflow=''; }
                 
+                // Update header actions according to auth state
+                function updateHeaderAuth() {
+                    var acc = document.getElementById('accountLink');
+                    var loginBtn = document.getElementById('topBarLoginBtn');
+                    var regBtn = document.getElementById('topBarRegisterBtn');
+                    var user = null;
+                    try { user = JSON.parse(localStorage.getItem('ketmon_user') || 'null'); } catch(e) {}
+                    if (user && (user.name || user.email)) {
+                        if (acc) {
+                            acc.style.display = 'inline-flex';
+                            acc.textContent = user.name ? (user.name.split(' ')[0]) : 'Profil';
+                        }
+                        if (loginBtn) loginBtn.style.display = 'none';
+                        if (regBtn) regBtn.style.display = 'none';
+                    } else {
+                        if (acc) acc.style.display = 'none';
+                        if (loginBtn) loginBtn.style.display = '';
+                        if (regBtn) regBtn.style.display = '';
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', updateHeaderAuth);
+                updateHeaderAuth();
+
                 // Add event listeners to all login/register buttons (top bar only)
                 var topBarLoginBtn = document.getElementById('topBarLoginBtn');
                 var topBarRegisterBtn = document.getElementById('topBarRegisterBtn');
@@ -7954,21 +8171,15 @@
                 document.getElementById('loginForm').addEventListener('submit', function(e){
                     e.preventDefault();
                     var email = document.getElementById('loginEmail').value || '';
-                    var userData = JSON.parse(localStorage.getItem('ketmon_user') || '{}');
-                    
-                    close(loginModal);
-                    alert('Xush kelibsiz: ' + email);
-                    
-                    // Redirect based on role
-                    if (userData.role === 'agency') {
-                        setTimeout(function() {
-                            window.location.href = 'agency-panel.html';
-                        }, 500);
-                    } else if (userData.role === 'customer' || userData.email) {
-                        setTimeout(function() {
-                            window.location.href = 'profile.html';
-                        }, 500);
+                    var userData = JSON.parse(localStorage.getItem('ketmon_user') || 'null');
+                    // If user wasn't registered in this demo flow, create a minimal profile
+                    if (!userData || !userData.email) {
+                        userData = { name: email.split('@')[0], email: email, role: 'customer' };
+                        localStorage.setItem('ketmon_user', JSON.stringify(userData));
                     }
+                    close(loginModal);
+                    updateHeaderAuth();
+                    window.location.href = 'profile.html';
                 });
                 document.getElementById('registerForm').addEventListener('submit', function(e){
                     e.preventDefault();
@@ -7991,10 +8202,8 @@
                         localStorage.setItem('ketmon_user', JSON.stringify({...agencyData, name: aname, email: email}));
                         
                         close(registerModal);
-                        alert("Agentlik ro'yxatdan o'tdi! Agentlik paneliga yo'naltirilmoqdasiz...");
-                        setTimeout(function() {
-                            window.location.href = 'agency-panel.html';
-                        }, 1000);
+                        updateHeaderAuth();
+                        window.location.href = 'agency-panel.html';
                     } else {
                         var name = document.getElementById('regName').value || '';
                         var email = document.getElementById('regEmail').value || '';
@@ -8008,10 +8217,8 @@
                         localStorage.setItem('ketmon_user', JSON.stringify(userData));
                         
                         close(registerModal);
-                        alert("Ro'yxatdan o'tdingiz! Profilga yo'naltirilmoqdasiz...");
-                        setTimeout(function() {
-                            window.location.href = 'profile.html';
-                        }, 1000);
+                        updateHeaderAuth();
+                        window.location.href = 'profile.html';
                     }
                 });
 
@@ -8054,12 +8261,10 @@
                 // ensure default state
                 setRole('customer');
             })();
-
             // Agency filter interactions
             (function(){
                 var agencySelect = document.getElementById('agencyFilter');
                 var tourCards = Array.from(document.querySelectorAll('.destination-card'));
-                var agencyCards = Array.from(document.querySelectorAll('.agency-card'));
                 var agencyTypeButtons = Array.from(document.querySelectorAll('.agency-toolbar button'));
                 var currentAgency = 'all';
                 var currentType = 'all';
@@ -8081,8 +8286,9 @@
                         card.classList.toggle('hidden', !shouldShow);
                     });
 
-                    // Filter agencies
-                    agencyCards.forEach(function(card){
+                    // Filter agencies (query current cards to include any clones)
+                    var allAgencyCards = Array.from(document.querySelectorAll('.agency-card'));
+                    allAgencyCards.forEach(function(card){
                         var agency = card.getAttribute('data-agency');
                         var type = card.getAttribute('data-type') || 'all';
                         var typeAllowed = currentType === 'all' || type === currentType;
@@ -8111,7 +8317,8 @@
                     });
                 });
 
-                agencyCards.forEach(function(card){
+                // Per-card click for existing cards (kept)
+                Array.from(document.querySelectorAll('.agency-card')).forEach(function(card){
                     card.addEventListener('click', function(){
                         var value = card.getAttribute('data-agency');
                         var type = card.getAttribute('data-type') || 'all';
@@ -8122,9 +8329,28 @@
                         }
                         syncToolbar();
                         applyFilter();
-                        document.getElementById('destinations').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        var destEl = document.getElementById('destinations');
+                        if (destEl) destEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     });
                 });
+
+                // Delegated click so cloned cards behave the same
+                var agencyGrid = document.querySelector('.agency-section .agency-grid');
+                if (agencyGrid) {
+                    agencyGrid.addEventListener('click', function(e){
+                        var card = e.target.closest('.agency-card');
+                        if (!card || !agencyGrid.contains(card)) return;
+                        var value = card.getAttribute('data-agency');
+                        var type = card.getAttribute('data-type') || 'all';
+                        currentAgency = value;
+                        currentType = type;
+                        if (agencySelect) agencySelect.value = value;
+                        syncToolbar();
+                        applyFilter();
+                        var destEl = document.getElementById('destinations');
+                        if (destEl) destEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                }
 
                 // Initialize filter state
                 if (agencyTypeButtons.length) {
@@ -8135,338 +8361,46 @@
                 applyFilter();
             })();
 
-            // Contact form submission
+            /* Infinite horizontal scroll for Agency grid (Hamkor Agentliklar) */
             (function(){
-                var contactForm = document.getElementById('contactForm');
-                var contactStatus = document.getElementById('contactStatus');
-                if (!contactForm || !contactStatus) return;
+                var grid = document.querySelector('.agency-section .agency-grid');
+                if (!grid) return;
+                var originals = Array.prototype.slice.call(grid.querySelectorAll('.agency-card'));
+                if (!originals.length) return;
 
-                var copy = {
-                    uz: {
-                        success: "Xabaringiz qabul qilindi! Tez orada siz bilan bog'lanamiz.",
-                        invalid: "Iltimos, barcha maydonlarni to‘liq kiriting."
-                    },
-                    ru: {
-                        success: "Ваше сообщение принято! Мы свяжемся с вами в ближайшее время.",
-                        invalid: "Заполните, пожалуйста, все поля формы."
-                    },
-                    en: {
-                        success: "Thanks for reaching out! We will get back to you shortly.",
-                        invalid: "Please fill in every field before sending."
+                function appendBatch() {
+                    var frag = document.createDocumentFragment();
+                    for (var i = 0; i < originals.length; i++) {
+                        frag.appendChild(originals[i].cloneNode(true));
                     }
-                };
-
-                function locale(){
-                    return localStorage.getItem('ketmon_lang') || 'uz';
+                    grid.appendChild(frag);
                 }
 
-                contactForm.addEventListener('submit', function(e){
-                    e.preventDefault();
-                    var strings = copy[locale()] || copy.uz;
-                    var name = contactForm.querySelector('[name="name"]').value.trim();
-                    var email = contactForm.querySelector('[name="email"]').value.trim();
-                    var message = contactForm.querySelector('[name="message"]').value.trim();
-
-                    if (!name || !email || !message) {
-                        contactStatus.textContent = strings.invalid;
-                        contactStatus.classList.add('error');
-                        return;
+                function ensureLength() {
+                    var rounds = 0;
+                    while (grid.scrollWidth < grid.clientWidth * 3 && rounds < 4) {
+                        appendBatch();
+                        rounds++;
                     }
+                }
 
-                    contactStatus.textContent = strings.success;
-                    contactStatus.classList.remove('error');
-                    contactForm.reset();
-                });
+                function maybeExtend() {
+                    var remaining = grid.scrollWidth - (grid.scrollLeft + grid.clientWidth);
+                    if (remaining < 80) appendBatch();
+                }
+
+                function enable() {
+                    ensureLength();
+                    grid.addEventListener('scroll', maybeExtend, { passive: true });
+                }
+
+                if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                    enable();
+                } else {
+                    document.addEventListener('DOMContentLoaded', enable);
+                }
+                window.addEventListener('resize', ensureLength);
             })();
-
-            // AI assistant interaction
-            (function(){
-                var aiForm = document.getElementById('aiForm');
-                var aiResponse = document.getElementById('aiResponse');
-                if (!aiForm || !aiResponse) return;
-
-                var localeCopy = {
-                    uz: {
-                        title: "AI tavsiyasi",
-                        placeholder: "Savolingizni kiriting va AI yordamchidan tavsiyalar oling.",
-                        intro: function(budget, dest, season){
-                            return season + " mavsumi uchun " + dest + " yo'nalishiga taxminan " + budget + " budjetda quyidagi variantlar mos keladi:";
-                        },
-                        bullets: function(dest){
-                            return [
-                                dest + " bo‘yicha tasdiqlangan agentliklar: Atlas Travel, Samarqand Tours, ClubTravel UZ.",
-                                "Premium tajriba uchun Silk Road Elite va AziaLux Travel takliflarini solishtiring.",
-                                "TNPL va biznes xizmatlari uchun Global Voyage Hub’dan foydalaning."
-                            ];
-                        },
-                        closing: "Agentliklardan biri bilan bog‘lanib, paketni sozlang yoki qo‘shimcha savol bering.",
-                        defaultDest: "Dubay",
-                        season: {
-                            summer: "Yozgi",
-                            autumn: "Kuzgi",
-                            winter: "Qishki",
-                            spring: "Bahorgi",
-                            all: "Mavsumiy"
-                        },
-                        month: {
-                            january: "Yanvar",
-                            february: "Fevral",
-                            march: "Mart",
-                            april: "Aprel",
-                            may: "May",
-                            june: "Iyun",
-                            july: "Iyul",
-                            august: "Avgust",
-                            september: "Sentabr",
-                            october: "Oktabr",
-                            november: "Noyabr",
-                            december: "Dekabr"
-                        }
-                    },
-                    ru: {
-                        title: "AI рекомендация",
-                        placeholder: "Введите запрос и получите рекомендации от AI помощника.",
-                        intro: function(budget, dest, season){
-                            return season + " сезон для направления " + dest + " при бюджете около " + budget + ":";
-                        },
-                        bullets: function(dest){
-                            return [
-                                "Проверенные агентства для " + dest + ": Atlas Travel, Samarqand Tours, ClubTravel UZ.",
-                                "Для премиум-сервиса рассмотрите Silk Road Elite и AziaLux Travel.",
-                                "TNPL и бизнес-поездки удобнее бронировать через Global Voyage Hub."
-                            ];
-                        },
-                        closing: "Свяжитесь с подходящим агентством и уточните детали пакета.",
-                        defaultDest: "Дубай",
-                        season: {
-                            summer: "Летний",
-                            autumn: "Осенний",
-                            winter: "Зимний",
-                            spring: "Весенний",
-                            all: "Сезонный"
-                        },
-                        month: {
-                            january: "Январь",
-                            february: "Февраль",
-                            march: "Март",
-                            april: "Апрель",
-                            may: "Май",
-                            june: "Июнь",
-                            july: "Июль",
-                            august: "Август",
-                            september: "Сентябрь",
-                            october: "Октябрь",
-                            november: "Ноябрь",
-                            december: "Декабрь"
-                        }
-                    },
-                    en: {
-                        title: "AI Recommendation",
-                        placeholder: "Ask the AI assistant for personalised tour ideas.",
-                        intro: function(budget, dest, season){
-                            return "For a " + season + " trip to " + dest + " with a budget around " + budget + ", consider:";
-                        },
-                        bullets: function(dest){
-                            return [
-                                "Trusted partners for " + dest + ": Atlas Travel, Samarqand Tours, ClubTravel UZ.",
-                                "Compare premium experiences from Silk Road Elite and AziaLux Travel.",
-                                "Need TNPL or corporate options? Global Voyage Hub has tailored packages."
-                            ];
-                        },
-                        closing: "Reach out to a preferred agency to customise your itinerary.",
-                        defaultDest: "Dubai",
-                        season: {
-                            summer: "summer",
-                            autumn: "autumn",
-                            winter: "winter",
-                            spring: "spring",
-                            all: "seasonal"
-                        },
-                        month: {
-                            january: "January",
-                            february: "February",
-                            march: "March",
-                            april: "April",
-                            may: "May",
-                            june: "June",
-                            july: "July",
-                            august: "August",
-                            september: "September",
-                            october: "October",
-                            november: "November",
-                            december: "December"
-                        }
-                    }
-                };
-
-                function currentLocale(){
-                    return localStorage.getItem('ketmon_lang') || 'uz';
-                }
-
-                function formatBudget(value, locale){
-                    var num = parseInt(value, 10);
-                    if (isNaN(num) || num <= 0) num = 1500;
-                    var localeMap = { uz: 'en-US', ru: 'ru-RU', en: 'en-US' };
-                    var intlLocale = localeMap[locale] || 'en-US';
-                    try {
-                        return new Intl.NumberFormat(intlLocale, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
-                    } catch (e) {
-                        return "$" + num.toLocaleString('en-US');
-                    }
-                }
-
-                // Show/hide month field based on season selection
-                var seasonSelect = document.getElementById('aiSeason');
-                var monthField = document.getElementById('aiMonthField');
-                var monthSelect = document.getElementById('aiMonth');
-
-                function updateMonthField() {
-                    if (seasonSelect && monthField) {
-                        var season = seasonSelect.value;
-                        if (season) {
-                            monthField.style.display = 'block';
-                            // Filter months based on season
-                            var seasonMonths = {
-                                spring: ['march', 'april', 'may'],
-                                summer: ['june', 'july', 'august'],
-                                autumn: ['september', 'october', 'november'],
-                                winter: ['december', 'january', 'february']
-                            };
-                            var allowedMonths = seasonMonths[season] || [];
-                            if (monthSelect) {
-                                var options = monthSelect.querySelectorAll('option');
-                                options.forEach(function(opt) {
-                                    if (opt.value === '') {
-                                        opt.style.display = 'block';
-                                    } else {
-                                        opt.style.display = allowedMonths.includes(opt.value) ? 'block' : 'none';
-                                    }
-                                });
-                                monthSelect.value = '';
-                            }
-                        } else {
-                            monthField.style.display = 'none';
-                        }
-                    }
-                }
-
-                if (seasonSelect) {
-                    seasonSelect.addEventListener('change', updateMonthField);
-                }
-
-                aiForm.addEventListener('submit', function(e){
-                    e.preventDefault();
-                    var locale = currentLocale();
-                    var t = localeCopy[locale] || localeCopy.uz;
-
-                    if (aiForm.dataset.active === "true") {
-                        aiForm.reset();
-                        delete aiForm.dataset.active;
-                        aiResponse.textContent = t.placeholder;
-                        monthField.style.display = 'none';
-                        return;
-                    }
-
-                    var budgetInput = document.getElementById('aiBudget');
-                    var destinationInput = document.getElementById('aiDestination');
-                    var seasonInput = document.getElementById('aiSeason');
-                    var monthInput = document.getElementById('aiMonth');
-
-                    var budget = formatBudget(budgetInput ? budgetInput.value : '', locale);
-                    var destination = (destinationInput ? destinationInput.value : '').trim() || t.defaultDest;
-                    var seasonKey = seasonInput ? seasonInput.value : 'all';
-                    var seasonLabel = t.season[seasonKey] || t.season.all;
-                    var monthValue = monthInput ? monthInput.value : '';
-                    var monthLabel = '';
-                    if (monthValue && t.month && t.month[monthValue]) {
-                        monthLabel = t.month[monthValue];
-                    }
-
-                    var seasonMonthText = monthLabel ? seasonLabel + ' (' + monthLabel + ')' : seasonLabel;
-
-                    var bullets = t.bullets(destination);
-                    aiResponse.innerHTML = "<strong>" + t.title + "</strong><p>" + t.intro(budget, destination, seasonMonthText) + "</p><ul>" + bullets.map(function(item){ return "<li>" + item + "</li>"; }).join("") + "</ul><p>" + t.closing + "</p>";
-                    aiForm.dataset.active = "true";
-                });
-
-                // Initialize placeholder text according to current locale
-                var initLocale = currentLocale();
-                var initCopy = localeCopy[initLocale] || localeCopy.uz;
-                aiResponse.textContent = initCopy.placeholder;
-
-                // Initialize month field visibility
-                if (seasonSelect && monthField) {
-                    updateMonthField();
-                }
-
-                // Update month field when language changes
-                var originalChangeLang = window.changeLang;
-                if (originalChangeLang) {
-                    window.changeLang = function(lang) {
-                        originalChangeLang(lang);
-                        // Re-apply month field visibility after language change
-                        setTimeout(function() {
-                            if (seasonSelect && monthField) {
-                                updateMonthField();
-                            }
-                        }, 100);
-                    };
-                }
-            })();
-
-            // Newsletter submit interaction
-            (function(){
-                var formBtn = document.querySelector('.newsletter-form button');
-                if (formBtn) {
-                    formBtn.addEventListener('click', function(e){
-                        e.preventDefault();
-                        var email = document.querySelector('.newsletter-form input')?.value || '';
-                        if (!email) {
-                            alert('Email kiriting, iltimos.');
-                            return;
-                        }
-                        alert("Obuna bo'ldingiz: " + email);
-                    });
-                }
-            })();
-
-            // Carousel functionality
-            (function(){
-                function initCarousel(carouselId) {
-                    var carousel = document.getElementById(carouselId);
-                    if (!carousel) return;
-
-                    var items = carousel.querySelectorAll('> *');
-                    if (items.length === 0) return;
-
-                    // Calculate total width
-                    var totalWidth = 0;
-                    items.forEach(function(item) {
-                        totalWidth += item.offsetWidth + 20; // 20px gap
-                    });
-
-                    // Set animation duration based on width
-                    var duration = totalWidth / 50; // 50px per second
-                    carousel.style.animationDuration = duration + 's';
-                }
-
-                // Initialize carousels on load
-                document.addEventListener('DOMContentLoaded', function(){
-                    initCarousel('trendingCarousel');
-                    initCarousel('exploreCarousel');
-                    initCarousel('weekendCarousel');
-                });
-
-                // Re-initialize on window resize
-                window.addEventListener('resize', function(){
-                    setTimeout(function(){
-                        initCarousel('trendingCarousel');
-                        initCarousel('exploreCarousel');
-                        initCarousel('weekendCarousel');
-                    }, 100);
-                });
-            })();
-
             // Trip category buttons
             (function(){
                 var categoryBtns = document.querySelectorAll('.trip-category-btn');
