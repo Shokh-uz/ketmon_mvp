@@ -845,9 +845,18 @@
             }
 
             #paymentModal .modal-body {
-                padding: 18px 15px 20px !important;
+                padding: 14px 12px 16px !important;
                 flex: 1;
                 overflow-y: auto;
+            }
+            #paymentModal .payment-card-fields {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+            #paymentModal .form-field input,
+            #paymentModal .form-field textarea {
+                font-size: 14px !important;
+                min-height: 42px !important;
             }
 
             #paymentTourSummary {
@@ -2909,7 +2918,7 @@
         .season-month-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 32px;
             grid-column: span 1;
         }
 
@@ -5621,6 +5630,7 @@
                         <a id="topBarLoginBtn" href="#login" class="header-action-btn" data-text="nav_login">Kirish</a>
                         <a id="topBarRegisterBtn" href="#register" class="header-action-btn" data-text="nav_register">Ro'yxatdan o'tish</a>
                         <a id="accountLink" href="profile.html" class="header-action-btn" style="display:none;">Profil</a>
+                        <button id="logoutBtn" class="header-action-btn" style="display:none;" onclick="logout()">Chiqish</button>
                     </div>
                     <div class="lang-currency-wrapper">
                         <div class="lang-selector">
@@ -6157,10 +6167,6 @@
                 </div>
                 <form class="modal-form" id="loginForm">
                     <div class="form-field">
-                        <label for="loginName">Ism (ixtiyoriy)</label>
-                        <input id="loginName" type="text" placeholder="Ismingiz (ixtiyoriy)">
-                    </div>
-                    <div class="form-field">
                         <label for="loginEmail" data-text="login_email_label">Email</label>
                         <input id="loginEmail" type="email" placeholder="you@example.com" data-placeholder="login_email_placeholder" required>
                     </div>
@@ -6311,12 +6317,12 @@
 
         <!-- Payment Modal -->
         <div class="modal-backdrop" id="paymentModal">
-            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle" style="max-width: 700px;">
+                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle" style="max-width: 520px;">
                 <div class="modal-header">
                     <div class="modal-title" id="paymentModalTitle">To'lov</div>
                     <button class="modal-close" aria-label="Close" id="paymentModalClose">×</button>
                 </div>
-                <div class="modal-body" style="grid-template-columns: 1fr; padding: 25px;">
+                <div class="modal-body" style="grid-template-columns: 1fr; padding: 18px;">
                     <!-- Tour Summary -->
                     <div id="paymentTourSummary" style="background: var(--bg-secondary); border-radius: 12px; padding: 18px; margin-bottom: 20px; border: 1px solid var(--card-border);">
                         <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">Sayohat ma'lumotlari</h3>
@@ -7971,6 +7977,7 @@
                 // Update header actions according to auth state
                 function updateHeaderAuth() {
                     var acc = document.getElementById('accountLink');
+                    var logoutBtn = document.getElementById('logoutBtn');
                     var loginBtn = document.getElementById('topBarLoginBtn');
                     var regBtn = document.getElementById('topBarRegisterBtn');
                     var user = null;
@@ -7980,14 +7987,33 @@
                             acc.style.display = 'inline-flex';
                             acc.textContent = user.name ? (user.name.split(' ')[0]) : 'Profil';
                         }
+                        if (logoutBtn) logoutBtn.style.display = 'inline-flex';
                         if (loginBtn) loginBtn.style.display = 'none';
                         if (regBtn) regBtn.style.display = 'none';
                     } else {
                         if (acc) acc.style.display = 'none';
+                        if (logoutBtn) logoutBtn.style.display = 'none';
                         if (loginBtn) loginBtn.style.display = '';
                         if (regBtn) regBtn.style.display = '';
                     }
                 }
+                
+                // Logout function - clears auth data and updates header
+                window.logout = function() {
+                    try {
+                        localStorage.removeItem('ketmon_user');
+                        localStorage.removeItem('ketmon_token');
+                        localStorage.removeItem('ketmon_avatar');
+                        localStorage.removeItem('ketmon_agency');
+                    } catch(e) {
+                        console.error('Logout error:', e);
+                    }
+                    updateHeaderAuth();
+                    // If on profile page, redirect to home
+                    if (window.location.pathname.includes('profile.html')) {
+                        window.location.href = 'index.html';
+                    }
+                };
                 document.addEventListener('DOMContentLoaded', updateHeaderAuth);
                 updateHeaderAuth();
 
@@ -8171,12 +8197,21 @@
                 document.getElementById('loginForm').addEventListener('submit', function(e){
                     e.preventDefault();
                     var email = document.getElementById('loginEmail').value || '';
+                    var password = document.getElementById('loginPassword').value || '';
+                    
+                    // Validate inputs
+                    if (!email || !password) {
+                        alert('Iltimos, email va parolni kiriting.');
+                        return;
+                    }
+                    
                     var userData = JSON.parse(localStorage.getItem('ketmon_user') || 'null');
                     // If user wasn't registered in this demo flow, create a minimal profile
                     if (!userData || !userData.email) {
                         userData = { name: email.split('@')[0], email: email, role: 'customer' };
                         localStorage.setItem('ketmon_user', JSON.stringify(userData));
                     }
+                    
                     close(loginModal);
                     updateHeaderAuth();
                     window.location.href = 'profile.html';
@@ -8203,7 +8238,8 @@
                         
                         close(registerModal);
                         updateHeaderAuth();
-                        window.location.href = 'agency-panel.html';
+                        // Show profile for agency too to avoid 404 (panel not implemented yet)
+                        window.location.href = 'profile.html';
                     } else {
                         var name = document.getElementById('regName').value || '';
                         var email = document.getElementById('regEmail').value || '';
@@ -8428,6 +8464,217 @@
                 
                 // Initialize with festivals category (active by default)
                 filterDestinations('festivals');
+            })();
+
+            // AI Assistant functionality
+            (function(){
+                var aiForm = document.getElementById('aiForm');
+                var aiResponse = document.getElementById('aiResponse');
+                var aiSeason = document.getElementById('aiSeason');
+                var aiMonthField = document.getElementById('aiMonthField');
+                var aiMonth = document.getElementById('aiMonth');
+
+                // Season to months mapping
+                var seasonMonths = {
+                    'summer': ['june', 'july', 'august'],      // Yoz: Iyun, Iyul, Avgust
+                    'autumn': ['september', 'october', 'november'], // Kuz: Sentabr, Oktabr, Noyabr
+                    'winter': ['december', 'january', 'february'],  // Qish: Dekabr, Yanvar, Fevral
+                    'spring': ['march', 'april', 'may']        // Bahor: Mart, Aprel, May
+                };
+
+                // Store all month options
+                var allMonthOptions = [];
+                if (aiMonth) {
+                    var options = aiMonth.querySelectorAll('option');
+                    options.forEach(function(opt){
+                        allMonthOptions.push({
+                            value: opt.value,
+                            text: opt.textContent,
+                            dataText: opt.getAttribute('data-text'),
+                            element: opt.cloneNode(true)
+                        });
+                    });
+                }
+
+                function filterMonthsBySeason(season){
+                    if (!aiMonth) return;
+                    
+                    // Clear current options except the first (default "Tanlang")
+                    aiMonth.innerHTML = '';
+                    
+                    // Add default option
+                    var defaultOption = allMonthOptions[0];
+                    if (defaultOption) {
+                        var opt = defaultOption.element.cloneNode(true);
+                        aiMonth.appendChild(opt);
+                    }
+                    
+                    // Get months for selected season
+                    var monthsForSeason = seasonMonths[season] || [];
+                    
+                    // Add filtered month options
+                    allMonthOptions.forEach(function(month){
+                        if (month.value && monthsForSeason.includes(month.value)) {
+                            var opt = month.element.cloneNode(true);
+                            aiMonth.appendChild(opt);
+                        }
+                    });
+                }
+
+                // Show/hide month field based on season selection
+                if (aiSeason && aiMonthField) {
+                    aiSeason.addEventListener('change', function(){
+                        var season = this.value;
+                        // Show month field for any season selection
+                        if (season) {
+                            aiMonthField.style.display = 'block';
+                            // Filter months based on selected season
+                            filterMonthsBySeason(season);
+                            // Reset month to default empty value when season changes
+                            if (aiMonth) {
+                                aiMonth.value = '';
+                            }
+                        } else {
+                            aiMonthField.style.display = 'none';
+                            // Reset month to default empty value
+                            if (aiMonth) {
+                                aiMonth.value = '';
+                            }
+                        }
+                    });
+                }
+
+                // Handle form submission
+                if (aiForm && aiResponse) {
+                    aiForm.addEventListener('submit', function(e){
+                        e.preventDefault();
+                        
+                        var budget = document.getElementById('aiBudget').value;
+                        var destination = document.getElementById('aiDestination').value;
+                        var season = aiSeason ? aiSeason.value : '';
+                        var month = aiMonth ? aiMonth.value : '';
+
+                        // Validation
+                        if (!budget || parseFloat(budget) < 100) {
+                            aiResponse.textContent = 'Iltimos, budjetni kiriting (minimal 100 USD).';
+                            aiResponse.style.color = '#e74c3c';
+                            return;
+                        }
+
+                        // Show loading state
+                        aiResponse.innerHTML = '<div style="text-align: center; padding: 20px;">⏳ Tavsiyalar tayyorlanmoqda...</div>';
+                        aiResponse.style.color = '#0a4d68';
+
+                        // Simulate AI processing (in a real app, this would call an API)
+                        setTimeout(function(){
+                            var recommendations = generateRecommendations({
+                                budget: parseFloat(budget),
+                                destination: destination,
+                                season: season,
+                                month: month
+                            });
+                            
+                            displayRecommendations(recommendations);
+                        }, 1500);
+                    });
+                }
+
+                function generateRecommendations(params){
+                    var recommendations = [];
+                    var basePrice = params.budget;
+                    var destinations = ['Dubai', 'Istanbul', 'Bali', 'Thailand', 'Malaysia', 'Singapore', 'Maldives', 'Egypt', 'Türkiye', 'UAE'];
+                    
+                    // Filter destinations if specified
+                    if (params.destination) {
+                        var searchDest = params.destination.toLowerCase();
+                        destinations = destinations.filter(function(d){
+                            return d.toLowerCase().includes(searchDest) || 
+                                   (searchDest.includes('osiyo') && ['Bali', 'Thailand', 'Malaysia', 'Singapore', 'Maldives'].includes(d)) ||
+                                   (searchDest.includes('yevropa') && ['Istanbul', 'Türkiye'].includes(d)) ||
+                                   (searchDest.includes('o\'rta sharq') && ['Dubai', 'UAE', 'Egypt'].includes(d));
+                        });
+                        if (destinations.length === 0) {
+                            destinations = ['Dubai', 'Istanbul', 'Bali', 'Thailand'];
+                        }
+                    }
+
+                    // Generate 3-5 recommendations within budget
+                    var numRecs = Math.min(Math.max(3, Math.floor(basePrice / 500)), 5);
+                    var usedDests = {};
+                    
+                    for (var i = 0; i < numRecs; i++) {
+                        var dest = destinations[Math.floor(Math.random() * destinations.length)];
+                        var attempts = 0;
+                        while (usedDests[dest] && attempts < 20) {
+                            dest = destinations[Math.floor(Math.random() * destinations.length)];
+                            attempts++;
+                        }
+                        usedDests[dest] = true;
+
+                        var price = Math.round((basePrice * (0.7 + Math.random() * 0.6)) / 100) * 100;
+                        var duration = [3, 5, 7, 10, 14][Math.floor(Math.random() * 5)];
+                        
+                        recommendations.push({
+                            destination: dest,
+                            price: price,
+                            duration: duration + ' kun',
+                            description: getDestinationDescription(dest, params.season)
+                        });
+                    }
+
+                    // Sort by price closest to budget
+                    recommendations.sort(function(a, b){
+                        return Math.abs(a.price - basePrice) - Math.abs(b.price - basePrice);
+                    });
+
+                    return recommendations;
+                }
+
+                function getDestinationDescription(dest, season){
+                    var descriptions = {
+                        'Dubai': 'Zamonaviy shaharlar, qumli cho\'llar va hashamatli mehmonxonalar',
+                        'Istanbul': 'Tarixiy joylar, Bo\'g\'az ko\'rfazi va ajoyib oshxona',
+                        'Bali': 'Tropik plyajlar, mevali bog\'lar va madaniy meros',
+                        'Thailand': 'Jannat plyajlari, buddist ibodatxonalari va zamonaviy shaharlar',
+                        'Malaysia': 'Tropik orollar, ekologik turizm va xilma-xil madaniyat',
+                        'Singapore': 'Zamonaviy shahar, chiroyli parklar va xilma-xil oshxona',
+                        'Maldives': 'Kristal suvlar, baliq tutish va hashamatli kurortlar',
+                        'Egypt': 'Piramidalar, Suez kanali va qadimiy tarix',
+                        'Türkiye': 'Mediterranean qirg\'oqlari, tarixiy joylar va ajoyib oshxona',
+                        'UAE': 'Hashamatli shaharlar, qumli cho\'llar va yuqori darajadagi xizmatlar'
+                    };
+                    return descriptions[dest] || 'Ajoyib sayohat imkoniyati';
+                }
+
+                function displayRecommendations(recommendations){
+                    if (!aiResponse) return;
+
+                    if (recommendations.length === 0) {
+                        aiResponse.innerHTML = '<div style="color: #e74c3c;">Sizning kiritilgan ma\'lumotlar bo\'yicha tavsiyalar topilmadi. Iltimos, budjetni yoki yo\'nalishni o\'zgartiring.</div>';
+                        return;
+                    }
+
+                    var html = '<div style="margin-top: 20px;"><h4 style="color: #0a4d68; margin-bottom: 15px;">Tavsiya etilgan yo\'nalishlar:</h4>';
+                    
+                    recommendations.forEach(function(rec){
+                        html += '<div style="background: var(--bg-secondary); padding: 15px; margin-bottom: 12px; border-radius: 8px; border-left: 4px solid var(--accent-primary);">';
+                        html += '<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 10px;">';
+                        html += '<div style="flex: 1; min-width: 200px;">';
+                        html += '<h5 style="margin: 0 0 8px 0; color: #0a4d68; font-size: 18px;">' + rec.destination + '</h5>';
+                        html += '<p style="margin: 0 0 8px 0; color: #666; font-size: 14px;">' + rec.description + '</p>';
+                        html += '<div style="display: flex; gap: 15px; font-size: 14px; color: #888;">';
+                        html += '<span>⏱️ ' + rec.duration + '</span>';
+                        html += '<span>💰 $' + rec.price.toLocaleString() + '</span>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                    });
+
+                    html += '</div>';
+                    aiResponse.innerHTML = html;
+                    aiResponse.style.color = '#333';
+                }
             })();
         </script>
 
