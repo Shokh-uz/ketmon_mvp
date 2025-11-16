@@ -736,7 +736,8 @@
                 border-radius: 18px;
             }
             
-            .header-theme-toggle {
+            /* Theme toggle is now inside lang-currency-wrapper, so this rule applies to it */
+            .header-right-group .header-theme-toggle {
                 width: 42px;
                 height: 42px;
                 min-width: 42px;
@@ -753,7 +754,7 @@
             
             /* Header lang/currency buttons on mobile */
             .header-right-group .lang-currency-wrapper {
-                gap: 4px;
+                gap: 0;
                 flex-shrink: 0;
                 flex-wrap: nowrap;
                 display: flex;
@@ -780,6 +781,16 @@
                 width: 9px;
                 height: 9px;
                 margin-left: 3px;
+            }
+            
+            /* Theme toggle inside lang-currency-wrapper on mobile */
+            .header-right-group .lang-currency-wrapper .header-theme-toggle {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                min-height: 42px;
+                margin-left: 0;
+                flex-shrink: 0;
             }
             
             .lang-btn svg {
@@ -964,7 +975,7 @@
             }
             
             .header-right-group .lang-currency-wrapper {
-                gap: 3px;
+                gap: 0;
                 flex-wrap: nowrap;
             }
             
@@ -976,7 +987,8 @@
                 border-radius: 16px;
             }
             
-            .header-theme-toggle {
+            /* Theme toggle inside lang-currency-wrapper on extra small phones */
+            .header-right-group .lang-currency-wrapper .header-theme-toggle {
                 width: 38px;
                 height: 38px;
                 min-width: 38px;
@@ -1356,9 +1368,15 @@
         .header-right-group .lang-currency-wrapper {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0;
             margin-left: 0;
             flex-wrap: nowrap;
+            flex-shrink: 0;
+        }
+        
+        /* Theme toggle inside lang-currency-wrapper */
+        .header-right-group .lang-currency-wrapper .header-theme-toggle {
+            margin-left: 0;
             flex-shrink: 0;
         }
         
@@ -1405,9 +1423,14 @@
         .header-right-group {
             display: flex !important;
         }
+
+        /* (Removed) Mobile menu toggle */
         
         /* Hide desktop-nav on mobile, but keep lang/currency visible */
         @media (max-width: 968px) {
+            /* Align logo */
+            .main-header .container .logo { display: inline-flex; align-items: center; }
+
             .header-right-group {
                 gap: 6px !important;
                 flex-wrap: nowrap !important;
@@ -1446,7 +1469,7 @@
             }
             
             .header-right-group .lang-currency-wrapper {
-                gap: 5px;
+                gap: 0;
             }
             
             .header-right-group .lang-btn,
@@ -1457,7 +1480,8 @@
                 border-radius: 18px;
             }
             
-            .header-theme-toggle {
+            /* Theme toggle inside lang-currency-wrapper on tablet */
+            .header-right-group .lang-currency-wrapper .header-theme-toggle {
                 width: 38px;
                 height: 38px;
                 min-width: 38px;
@@ -1542,6 +1566,38 @@
             display: none;
         }
 
+        /* Mobile header layout — show only logo + language/currency + theme */
+        @media (max-width: 968px) {
+            nav#mainNav { display: none !important; }
+            .desktop-nav { display: none !important; }
+            .header-right-group .header-actions { display: none !important; }
+            .header-right-group .lang-currency-wrapper { display: flex !important; }
+
+            /* Place controls right next to the logo */
+            .main-header .container {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 6px;
+                flex-wrap: nowrap;
+            }
+            .main-header .container .logo { order: 0; }
+            .main-header .container .header-right-group { order: 1; margin-left: 6px; }
+            .main-header .container .header-right-group > *:not(.lang-currency-wrapper) { display: none !important; }
+            .main-header .container .lang-currency-wrapper { gap: 0; flex-wrap: nowrap; }
+            .main-header .container .lang-btn,
+            .main-header .container .currency-btn,
+            .main-header .container .header-theme-toggle {
+                flex-shrink: 0;
+            }
+
+            /* Keep original button look; just tighten spacing */
+            .lang-currency-wrapper { gap: 4px !important; }
+            .lang-selector, .currency-selector { margin: 0 !important; }
+            .lang-currency-wrapper > * + * { margin-left: 4px !important; }
+            .lang-currency-wrapper .header-theme-toggle { margin-left: 4px !important; }
+            .lang-btn, .currency-btn { padding-left: 10px !important; padding-right: 10px !important; }
+        }
 
         .logo {
             font-size: 36px;
@@ -5599,8 +5655,8 @@
                                 <button class="currency-dropdown-item" onclick="selectCurrency('rub')">RUB</button>
                             </div>
                         </div>
+                        <button class="header-theme-toggle" id="topBarThemeToggle" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
                     </div>
-                    <button class="header-theme-toggle" id="topBarThemeToggle" aria-label="Toggle theme" title="Tema o'zgartirish">🌙</button>
                 </div>
             </div>
         </div>
@@ -7476,6 +7532,8 @@
                     changeCurrency(saved);
                 });
             })();
+
+            /* Removed mobile navigation toggle */
 
             // Search button interaction
             (function(){
