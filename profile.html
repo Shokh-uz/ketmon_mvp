@@ -46,23 +46,62 @@
             font-weight: 800;
             background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .top-actions { display: flex; gap: 10px; }
         .btn, button {
             appearance: none;
-            border: 1px solid var(--brand);
-            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
-            color: #fff;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-weight: 600;
+            border: 1px solid rgba(10, 77, 104, 0.2);
+            background: #fff;
+            color: #0a4d68;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-weight: 500;
+            font-size: 13px;
             text-decoration: none;
             cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+        }
+        .btn:hover, button:hover {
+            background: #0a4d68;
+            color: #fff;
+            border-color: #0a4d68;
+            transform: translateY(-1px);
         }
         .btn.secondary {
             background: transparent;
-            color: var(--brand);
+            color: #0a4d68;
+        }
+        .btn.secondary:hover {
+            background: rgba(10, 77, 104, 0.1);
+            color: #0a4d68;
+            transform: translateY(-1px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+            box-shadow: 0 4px 15px rgba(10, 77, 104, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10, 77, 104, 0.35);
         }
         .profile-hero {
             background: linear-gradient(135deg, rgba(10,77,104,0.12) 0%, rgba(8,131,149,0.12) 100%);
@@ -149,7 +188,7 @@
                     <span id="avatarInitials" class="avatar-initials">U</span>
                 </div>
                 <div class="avatar-actions">
-                    <label class="btn secondary" for="avatarInput">Rasm yuklash</label>
+                    <label class="btn" for="avatarInput">Rasm yuklash</label>
                     <button id="removeAvatarBtn" class="btn secondary" type="button">O'chirish</button>
                     <input id="avatarInput" type="file" accept="image/*">
                 </div>
@@ -178,7 +217,7 @@
                 </div>
                 <div id="pfMeta" class="muted"></div>
                 <div style="margin-top:14px; display:flex; gap:10px;">
-                    <button id="logoutBtn" class="btn secondary">Chiqish</button>
+                    <button id="logoutBtn" class="btn-primary">Chiqish</button>
                 </div>
             </div>
             <div class="card">
