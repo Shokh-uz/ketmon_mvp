@@ -499,6 +499,269 @@ header {
     z-index: 1001 !important;
 }
 
+/* User Account Button and Dropdown */
+.user-account-selector {
+    position: relative;
+    z-index: 1001 !important;
+    overflow: visible !important;
+    margin-right: 8px;
+}
+
+.user-account-btn {
+    background: rgba(10, 77, 104, 0.1);
+    color: #0a4d68;
+    border: 1px solid rgba(10, 77, 104, 0.3);
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    min-height: 36px;
+    width: 36px;
+    height: 36px;
+}
+
+.user-account-btn:hover,
+.user-account-btn.active {
+    background: #0a4d68;
+    color: #fff;
+    border-color: #0a4d68;
+}
+
+.user-account-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+.user-account-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 10002 !important;
+    display: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 255, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(10, 77, 104, 0.15);
+    border-radius: 12px;
+    box-shadow: 
+        0 8px 32px rgba(10, 77, 104, 0.2),
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    min-width: 200px;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 12px 8px;
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.user-account-dropdown.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.user-account-dropdown-item {
+    background: transparent;
+    color: #0a4d68;
+    border: none;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(10, 77, 104, 0.1);
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 8px;
+    margin: 6px 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-account-dropdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.user-account-dropdown-item:hover::before {
+    left: 100%;
+}
+
+/* Primary button style for Login */
+.user-account-dropdown-item-primary {
+    background: linear-gradient(135deg, #0a4d68 0%, #088395 50%, #00d4ff 100%);
+    color: #ffffff !important;
+    box-shadow: 
+        0 6px 20px rgba(10, 77, 104, 0.35),
+        0 2px 8px rgba(0, 212, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: none;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-account-dropdown-item-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.user-account-dropdown-item-primary:hover {
+    background: linear-gradient(135deg, #088395 0%, #0a4d68 50%, #088395 100%);
+    color: #ffffff !important;
+    box-shadow: 
+        0 8px 24px rgba(10, 77, 104, 0.45),
+        0 4px 12px rgba(0, 212, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px) scale(1.02);
+}
+
+.user-account-dropdown-item-primary:active {
+    background: linear-gradient(135deg, #0a4d68 0%, #088395 50%, #00d4ff 100%);
+    transform: translateY(0) scale(1);
+    box-shadow: 
+        0 4px 12px rgba(10, 77, 104, 0.3),
+        0 1px 4px rgba(0, 212, 255, 0.2);
+}
+
+/* Secondary button style for Register */
+.user-account-dropdown-item-secondary {
+    background: linear-gradient(135deg, rgba(10, 77, 104, 0.08) 0%, rgba(8, 131, 149, 0.08) 100%);
+    color: #0a4d68 !important;
+    border: 2px solid rgba(10, 77, 104, 0.3);
+    margin-top: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(10, 77, 104, 0.1);
+}
+
+.user-account-dropdown-item-secondary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.user-account-dropdown-item-secondary:hover {
+    background: linear-gradient(135deg, rgba(10, 77, 104, 0.15) 0%, rgba(8, 131, 149, 0.15) 100%);
+    color: #0a4d68 !important;
+    border-color: #088395;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 6px 16px rgba(10, 77, 104, 0.25),
+        0 2px 8px rgba(8, 131, 149, 0.15);
+}
+
+.user-account-dropdown-item-secondary:active {
+    background: linear-gradient(135deg, rgba(10, 77, 104, 0.2) 0%, rgba(8, 131, 149, 0.2) 100%);
+    transform: translateY(0) scale(1);
+    box-shadow: 0 2px 8px rgba(10, 77, 104, 0.15);
+}
+
+/* Regular dropdown items (Profile, Logout) */
+.user-account-dropdown-item:not(.user-account-dropdown-item-primary):not(.user-account-dropdown-item-secondary):hover {
+    background: rgba(10, 77, 104, 0.12);
+    color: #0a4d68;
+}
+
+.user-account-dropdown-item:not(.user-account-dropdown-item-primary):not(.user-account-dropdown-item-secondary):active {
+    background: rgba(10, 77, 104, 0.2);
+    color: #0a4d68;
+}
+
+.user-account-selector.active .user-account-btn {
+    background: #0a4d68;
+    color: #fff;
+}
+
+/* Dark mode styles for user account button */
+[data-theme="dark"] .user-account-btn {
+    color: var(--text-inverse);
+    border-color: rgba(255,255,255,0.2);
+}
+
+[data-theme="dark"] .user-account-btn:hover,
+[data-theme="dark"] .user-account-btn.active {
+    background: rgba(255,255,255,0.1);
+    color: var(--text-inverse);
+    border-color: rgba(255,255,255,0.3);
+}
+
+[data-theme="dark"] .user-account-dropdown {
+    background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(15, 22, 41, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: rgba(0, 212, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 2px 8px rgba(0, 212, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .user-account-dropdown-item {
+    color: var(--text-inverse);
+}
+
+[data-theme="dark"] .user-account-dropdown-item-primary {
+    background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+}
+
+[data-theme="dark"] .user-account-dropdown-item-primary:hover {
+    background: linear-gradient(135deg, #088395 0%, #0a4d68 100%);
+    box-shadow: 0 6px 16px rgba(0, 212, 255, 0.4);
+}
+
+[data-theme="dark"] .user-account-dropdown-item-secondary {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(8, 131, 149, 0.1) 100%);
+    color: #00d4ff !important;
+    border-color: #00d4ff;
+}
+
+[data-theme="dark"] .user-account-dropdown-item-secondary:hover {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(8, 131, 149, 0.15) 100%);
+    border-color: #00f5ff;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+}
+
+[data-theme="dark"] .user-account-dropdown-item:not(.user-account-dropdown-item-primary):not(.user-account-dropdown-item-secondary):hover {
+    background: rgba(255,255,255,0.1);
+}
+
 .lang-currency-wrapper {
     position: relative;
     z-index: 1001 !important;
@@ -543,9 +806,9 @@ header {
 }
 
 .lang-btn {
-    background: transparent;
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(10, 77, 104, 0.1);
+    color: #0a4d68;
+    border: 1px solid rgba(10, 77, 104, 0.3);
     padding: 5px 15px;
     border-radius: 4px;
     cursor: pointer;
@@ -559,8 +822,9 @@ header {
 }
 
 .lang-btn:hover, .lang-btn.active {
-    background: #fff;
-    color: #0a4d68;
+    background: #0a4d68;
+    color: #fff;
+    border-color: #0a4d68;
 }
 
 .lang-dropdown {
@@ -1142,9 +1406,9 @@ header {
 }
 
 .currency-btn {
-    background: transparent;
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(10, 77, 104, 0.1);
+    color: #0a4d68;
+    border: 1px solid rgba(10, 77, 104, 0.3);
     padding: 5px 15px;
     border-radius: 4px;
     cursor: pointer;
@@ -1158,8 +1422,9 @@ header {
 }
 
 .currency-btn:hover, .currency-btn.active {
-    background: #fff;
-    color: #0a4d68;
+    background: #0a4d68;
+    color: #fff;
+    border-color: #0a4d68;
 }
 
 .currency-dropdown {
@@ -1647,6 +1912,25 @@ header {
     /* hide desktop nav and header action links on phones */
     .desktop-nav { display: none !important; }
     .header-actions { display: none !important; }
+    
+    /* User account button - visible on mobile */
+    .user-account-selector {
+        display: flex !important;
+        margin-right: 6px;
+    }
+    
+    .user-account-btn {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        padding: 6px;
+    }
+    
+    .user-account-btn svg {
+        width: 18px;
+        height: 18px;
+    }
 
     /* Hamburger button - visible only on mobile */
     .hamburger-btn {
@@ -2121,6 +2405,11 @@ header {
     
     /* Hide hamburger button on desktop */
     .hamburger-btn {
+        display: none !important;
+    }
+    
+    /* Hide user account button on desktop (use header-actions instead) */
+    .user-account-selector {
         display: none !important;
     }
 

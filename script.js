@@ -1247,6 +1247,8 @@ document.addEventListener('click', function (e) {
         var langDropdown = document.getElementById('langDropdown');
         var currencySelector = document.querySelector('.currency-selector');
         var currencyDropdown = document.getElementById('currencyDropdown');
+        var userAccountSelector = document.querySelector('.user-account-selector');
+        var userAccountDropdown = document.getElementById('userAccountDropdown');
 
         if (langSelector && langDropdown) {
             if (!langSelector.contains(e.target) && langDropdown.classList.contains('show')) {
@@ -1259,7 +1261,69 @@ document.addEventListener('click', function (e) {
                 closeCurrencyDropdown();
             }
         }
+
+        if (userAccountSelector && userAccountDropdown) {
+            if (!userAccountSelector.contains(e.target) && userAccountDropdown.classList.contains('show')) {
+                closeUserAccountDropdown();
+            }
+        }
     });
+    
+    // User Account Dropdown Functions
+    function toggleUserAccountDropdown(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        var dropdown = document.getElementById('userAccountDropdown');
+        var selector = document.querySelector('.user-account-selector');
+        if (dropdown && selector) {
+            var isOpen = dropdown.classList.contains('show');
+            // Close other dropdowns if open
+            var langDropdown = document.getElementById('langDropdown');
+            if (langDropdown) langDropdown.classList.remove('show');
+            var langSelector = document.querySelector('.lang-selector');
+            if (langSelector) langSelector.classList.remove('active');
+            var currencyDropdown = document.getElementById('currencyDropdown');
+            if (currencyDropdown) currencyDropdown.classList.remove('show');
+            var currencySelector = document.querySelector('.currency-selector');
+            if (currencySelector) currencySelector.classList.remove('active');
+            
+            if (isOpen) {
+                dropdown.classList.remove('show');
+                selector.classList.remove('active');
+            } else {
+                // Show dropdown first, then add show class for animation
+                dropdown.style.display = 'flex';
+                // Force reflow
+                dropdown.offsetHeight;
+                // Add show class for animation
+                setTimeout(function() {
+                    dropdown.classList.add('show');
+                    selector.classList.add('active');
+                }, 10);
+            }
+        }
+    }
+
+    function closeUserAccountDropdown() {
+        var dropdown = document.getElementById('userAccountDropdown');
+        var selector = document.querySelector('.user-account-selector');
+        if (dropdown) {
+            dropdown.classList.remove('show');
+            // Hide after animation completes
+            setTimeout(function() {
+                if (!dropdown.classList.contains('show')) {
+                    dropdown.style.display = 'none';
+                }
+            }, 300);
+        }
+        if (selector) selector.classList.remove('active');
+    }
+
+    // Make functions globally accessible
+    window.toggleUserAccountDropdown = toggleUserAccountDropdown;
+    window.closeUserAccountDropdown = closeUserAccountDropdown;
 
     // Init currency on load
     document.addEventListener('DOMContentLoaded', function () {
@@ -1730,6 +1794,11 @@ document.addEventListener('click', function (e) {
         var mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
         var mobileLoginBtn = document.getElementById('mobileLoginBtn');
         var mobileRegBtn = document.getElementById('mobileRegisterBtn');
+        // User account dropdown buttons
+        var userAcc = document.getElementById('userAccountLink');
+        var userLogoutBtn = document.getElementById('userAccountLogoutBtn');
+        var userLoginBtn = document.getElementById('userAccountLoginBtn');
+        var userRegBtn = document.getElementById('userAccountRegisterBtn');
         var user = null;
         try { user = JSON.parse(localStorage.getItem('ketmon_user') || 'null'); } catch (e) { }
         if (user && (user.name || user.email)) {
@@ -1748,6 +1817,14 @@ document.addEventListener('click', function (e) {
             if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'block';
             if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
             if (mobileRegBtn) mobileRegBtn.style.display = 'none';
+            // Update user account dropdown
+            if (userAcc) {
+                userAcc.style.display = 'block';
+                userAcc.textContent = user.name ? (user.name.split(' ')[0]) : 'Profil';
+            }
+            if (userLogoutBtn) userLogoutBtn.style.display = 'block';
+            if (userLoginBtn) userLoginBtn.style.display = 'none';
+            if (userRegBtn) userRegBtn.style.display = 'none';
         } else {
             if (acc) acc.style.display = 'none';
             if (logoutBtn) logoutBtn.style.display = 'none';
@@ -1758,6 +1835,11 @@ document.addEventListener('click', function (e) {
             if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
             if (mobileLoginBtn) mobileLoginBtn.style.display = 'block';
             if (mobileRegBtn) mobileRegBtn.style.display = 'block';
+            // Update user account dropdown
+            if (userAcc) userAcc.style.display = 'none';
+            if (userLogoutBtn) userLogoutBtn.style.display = 'none';
+            if (userLoginBtn) userLoginBtn.style.display = 'block';
+            if (userRegBtn) userRegBtn.style.display = 'block';
         }
     }
 
@@ -1800,6 +1882,39 @@ document.addEventListener('click', function (e) {
     }
     if (mobileRegisterBtn) {
         mobileRegisterBtn.addEventListener('click', function (e) { e.preventDefault(); open(registerModal); });
+    }
+    
+    // User account dropdown login/register buttons
+    var userAccountLoginBtn = document.getElementById('userAccountLoginBtn');
+    var userAccountRegisterBtn = document.getElementById('userAccountRegisterBtn');
+    var loginModal = document.getElementById('loginModal');
+    var registerModal = document.getElementById('registerModal');
+    
+    if (userAccountLoginBtn) {
+        userAccountLoginBtn.addEventListener('click', function (e) { 
+            e.preventDefault(); 
+            e.stopPropagation();
+            closeUserAccountDropdown();
+            if (loginModal) {
+                setTimeout(function() {
+                    loginModal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                }, 100);
+            }
+        });
+    }
+    if (userAccountRegisterBtn) {
+        userAccountRegisterBtn.addEventListener('click', function (e) { 
+            e.preventDefault(); 
+            e.stopPropagation();
+            closeUserAccountDropdown();
+            if (registerModal) {
+                setTimeout(function() {
+                    registerModal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                }, 100);
+            }
+        });
     }
 
     const hamburgerBtn = document.getElementById('hamburgerBtn');

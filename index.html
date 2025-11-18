@@ -56,6 +56,21 @@
                     <a id="accountLink" href="profile.html" class="header-action-btn" style="display:none;">Profil</a>
                     <button id="logoutBtn" class="header-action-btn" style="display:none;" onclick="logout()">Chiqish</button>
                 </div>
+                <!-- User Account Button with Dropdown -->
+                <div class="user-account-selector">
+                    <button type="button" class="user-account-btn" id="userAccountBtn" onclick="toggleUserAccountDropdown(event)" aria-label="User account">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+                    <div class="user-account-dropdown" id="userAccountDropdown">
+                        <a id="userAccountLoginBtn" href="#login" class="user-account-dropdown-item user-account-dropdown-item-primary" data-text="nav_login" onclick="closeUserAccountDropdown(); return false;">Kirish</a>
+                        <a id="userAccountRegisterBtn" href="#register" class="user-account-dropdown-item user-account-dropdown-item-secondary" data-text="nav_register" onclick="closeUserAccountDropdown(); return false;">Ro'yxatdan o'tish</a>
+                        <a id="userAccountLink" href="profile.html" class="user-account-dropdown-item" style="display:none;" onclick="closeUserAccountDropdown()">Profil</a>
+                        <button id="userAccountLogoutBtn" class="user-account-dropdown-item" style="display:none;" onclick="logout(); closeUserAccountDropdown();">Chiqish</button>
+                    </div>
+                </div>
                 <div class="lang-currency-wrapper">
                     <div class="lang-selector">
                         <button type="button" class="lang-btn active" id="langDropdownBtn" onclick="toggleLangDropdown(event)">
