@@ -2636,6 +2636,210 @@ nav a:hover::after {
     color: #fff;
 }
 
+/* Password Input Wrapper with Toggle Button */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    padding-right: 45px !important;
+    width: 100%;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.password-toggle-btn:hover {
+    color: var(--accent-primary);
+}
+
+.password-toggle-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.password-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+.eye-icon {
+    transition: opacity 0.2s ease;
+}
+
+/* Social Login Section */
+.social-login-section {
+    margin: 20px 0;
+}
+
+.social-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.social-divider::before,
+.social-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.social-divider span {
+    padding: 0 15px;
+}
+
+.social-login-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.social-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-height: 48px;
+}
+
+.social-login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.social-login-btn:active {
+    transform: translateY(0);
+}
+
+.google-btn {
+    border-color: rgba(66, 133, 244, 0.3);
+}
+
+.google-btn:hover {
+    background: rgba(66, 133, 244, 0.05);
+    border-color: #4285F4;
+}
+
+.facebook-btn {
+    border-color: rgba(24, 119, 242, 0.3);
+    color: #1877F2;
+}
+
+.facebook-btn:hover {
+    background: rgba(24, 119, 242, 0.05);
+    border-color: #1877F2;
+}
+
+.social-login-btn svg {
+    flex-shrink: 0;
+}
+
+/* Forgot Password Link */
+.forgot-password-link {
+    color: #0a4d68;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.forgot-password-link:hover {
+    color: #088395;
+    text-decoration: underline;
+}
+
+/* Secondary Button */
+.btn-secondary {
+    background: transparent;
+    color: #0a4d68;
+    border: 2px solid #0a4d68;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 44px;
+}
+
+.btn-secondary:hover {
+    background: rgba(10, 77, 104, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 77, 104, 0.2);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .password-toggle-btn {
+    color: var(--text-inverse);
+}
+
+[data-theme="dark"] .password-toggle-btn:hover {
+    color: #00d4ff;
+}
+
+[data-theme="dark"] .social-login-btn {
+    background: rgba(15, 22, 41, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+}
+
+[data-theme="dark"] .social-login-btn:hover {
+    background: rgba(15, 22, 41, 0.95);
+}
+
+[data-theme="dark"] .forgot-password-link {
+    color: #00d4ff;
+}
+
+[data-theme="dark"] .forgot-password-link:hover {
+    color: #00f5ff;
+}
+
+[data-theme="dark"] .btn-secondary {
+    color: var(--text-inverse);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
 /* Hero section buttons - ensure they stand out on dark background */
 .hero .btn-gradient {
     padding: 16px 40px;
