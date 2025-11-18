@@ -2961,4 +2961,432 @@ document.addEventListener('click', function (e) {
     }
 })();
 
+// Password Toggle Functionality
+function togglePasswordVisibility(inputId, button) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    
+    var eyeOpen = button.querySelector('.eye-open');
+    var eyeClosed = button.querySelector('.eye-closed');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        if (eyeOpen) eyeOpen.style.display = 'none';
+        if (eyeClosed) eyeClosed.style.display = 'block';
+        button.setAttribute('aria-label', 'Hide password');
+    } else {
+        input.type = 'password';
+        if (eyeOpen) eyeOpen.style.display = 'block';
+        if (eyeClosed) eyeClosed.style.display = 'none';
+        button.setAttribute('aria-label', 'Show password');
+    }
+}
+
+// Make function globally accessible
+window.togglePasswordVisibility = togglePasswordVisibility;
+
+// Social Login Functions
+// Configuration - Replace these with your actual credentials
+// IMPORTANT: Use your CLIENT ID (looks like: 123456789-xxxxx.apps.googleusercontent.com)
+// NOT the Client Secret (which starts with GOCSPX-)
+var GOOGLE_CLIENT_ID = '735852390296-378bisf38fhib67o72rjmdm5spv945cs.apps.googleusercontent.com'; // Replace with your Google Client ID
+var FACEBOOK_APP_ID = 'YOUR_FACEBOOK_APP_ID'; // Replace with your Facebook App ID
+
+// Helper function to handle successful social login
+function handleSocialLoginSuccess(userData, provider) {
+    try {
+        // Store user data
+        var user = {
+            name: userData.name || userData.displayName || '',
+            email: userData.email || '',
+            picture: userData.picture || userData.photoURL || '',
+            provider: provider, // 'google' or 'facebook'
+            id: userData.id || userData.sub || '',
+            loginMethod: 'social'
+        };
+        
+        // Store in localStorage
+        localStorage.setItem('ketmon_user', JSON.stringify(user));
+        
+        // Store password (for compatibility with existing system)
+        // Generate a random password for social logins
+        var passwords = JSON.parse(localStorage.getItem('ketmon_passwords') || '{}');
+        if (!passwords[user.email]) {
+            passwords[user.email] = 'social_' + Date.now(); // Placeholder password
+            localStorage.setItem('ketmon_passwords', JSON.stringify(passwords));
+        }
+        
+        // Store in all_users for compatibility
+        var allUsers = JSON.parse(localStorage.getItem('ketmon_all_users') || '[]');
+        var existingUserIndex = allUsers.findIndex(function(u) { return u.email === user.email; });
+        if (existingUserIndex >= 0) {
+            allUsers[existingUserIndex] = user;
+        } else {
+            allUsers.push(user);
+        }
+        localStorage.setItem('ketmon_all_users', JSON.stringify(allUsers));
+        
+        // Update header
+        if (typeof updateHeaderAuth === 'function') {
+            updateHeaderAuth();
+        }
+        
+        // Close login modal
+        var loginModal = document.getElementById('loginModal');
+        if (loginModal) {
+            loginModal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        
+        // Close user account dropdown
+        if (typeof closeUserAccountDropdown === 'function') {
+            closeUserAccountDropdown();
+        }
+        
+        // Show success message
+        alert('Muvaffaqiyatli kirdingiz! ' + (user.name || user.email));
+        
+        // Redirect to profile or refresh page
+        if (window.location.pathname.includes('profile.html')) {
+            window.location.reload();
+        }
+    } catch (error) {
+        console.error('Error handling social login:', error);
+        alert('Xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.');
+    }
+}
+
+// Google Sign-In Function
+function loginWithGoogle() {
+    // Check if Google Identity Services is loaded
+    if (typeof google === 'undefined' || !google.accounts) {
+        alert('Google Identity Services yuklanmagan. Iltimos, sahifani yangilang va qayta urinib ko\'ring.');
+        return;
+    }
+    
+    // Check if client ID is configured
+    if (GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID' || !GOOGLE_CLIENT_ID) {
+        alert('Google Client ID sozlanmagan. Iltimos, script.js faylida GOOGLE_CLIENT_ID ni o\'rnating.\n\nGoogle Cloud Console dan Client ID olish:\n1. https://console.cloud.google.com ga kiring\n2. API & Services > Credentials\n3. Create Credentials > OAuth client ID\n4. Web application tanlang va Client ID ni oling\n\nMUHIM: Client ID (123456789-xxxxx.apps.googleusercontent.com) ishlatish kerak, Client Secret (GOCSPX-...) emas!');
+        return;
+    }
+    
+    // Validate Client ID format (should end with .apps.googleusercontent.com)
+    // If it looks like a Client Secret (starts with GOCSPX-), show error
+    if (GOOGLE_CLIENT_ID.startsWith('GOCSPX-')) {
+        alert('XATO: Siz Client Secret ishlatyapsiz, Client ID emas!\n\nClient ID shunday ko\'rinadi: 123456789-xxxxx.apps.googleusercontent.com\nClient Secret esa shunday: GOCSPX-xxxxx\n\nIltimos, Google Cloud Console dan to\'g\'ri Client ID ni oling va qo\'ying.');
+        return;
+    }
+    
+    // Warn if Client ID doesn't look like a valid format
+    if (!GOOGLE_CLIENT_ID.includes('.apps.googleusercontent.com')) {
+        console.warn('Google Client ID format noto\'g\'ri ko\'rinadi. To\'g\'ri format: 123456789-xxxxx.apps.googleusercontent.com');
+    }
+    
+    // Use Google Sign-In with One Tap (newer, more reliable method)
+    try {
+        google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: function(response) {
+                // Handle the credential response
+                if (response.credential) {
+                    try {
+                        // Decode JWT token to get user info
+                        var base64Url = response.credential.split('.')[1];
+                        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                        }).join(''));
+                        
+                        var credential = JSON.parse(jsonPayload);
+                        
+                        // Extract user data
+                        var userData = {
+                            name: credential.name,
+                            email: credential.email,
+                            picture: credential.picture,
+                            sub: credential.sub
+                        };
+                        
+                        handleSocialLoginSuccess(userData, 'google');
+                    } catch (error) {
+                        console.error('Error decoding Google credential:', error);
+                        alert('Google ma\'lumotlarini o\'qishda xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.');
+                    }
+                } else {
+                    alert('Google kirish bekor qilindi.');
+                }
+            }
+        });
+        
+        // Try to show One Tap prompt first
+        google.accounts.id.prompt(function(notification) {
+            // If One Tap is not shown, use button click flow
+            if (notification.isNotDisplayed() || notification.isSkippedMoment() || notification.isDismissedMoment()) {
+                // Fallback: Use OAuth 2.0 popup flow
+                var tokenClient = google.accounts.oauth2.initTokenClient({
+                    client_id: GOOGLE_CLIENT_ID,
+                    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+                    callback: function(response) {
+                        if (response.error) {
+                            console.error('Google OAuth error:', response.error);
+                            var errorMsg = 'Google kirishda xatolik yuz berdi.';
+                            
+                            if (response.error === 'popup_closed_by_user') {
+                                errorMsg = 'Google kirish oynasi yopildi.';
+                            } else if (response.error === 'access_denied') {
+                                errorMsg = 'Google kirish rad etildi.';
+                            } else if (response.error.includes('400') || response.error.includes('invalid')) {
+                                errorMsg = 'Google Client ID noto\'g\'ri yoki sozlanmagan.\n\nIltimos, Google Cloud Console da:\n1. To\'g\'ri Client ID ishlatilganligini tekshiring\n2. Authorized JavaScript origins ga sahifangiz URL qo\'shilganligini tekshiring\n3. Authorized redirect URIs ga sahifangiz URL qo\'shilganligini tekshiring';
+                            }
+                            
+                            alert(errorMsg);
+                            return;
+                        }
+                        
+                        if (response.access_token) {
+                            // Fetch user info using the access token
+                            fetch('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + response.access_token)
+                                .then(function(res) {
+                                    if (!res.ok) {
+                                        if (res.status === 400) {
+                                            throw new Error('400: Noto\'g\'ri so\'rov. Client ID yoki OAuth sozlamalari noto\'g\'ri.');
+                                        }
+                                        throw new Error('Failed to fetch user info: ' + res.status);
+                                    }
+                                    return res.json();
+                                })
+                                .then(function(userData) {
+                                    if (userData.error) {
+                                        console.error('Google API error:', userData.error);
+                                        alert('Google ma\'lumotlarini olishda xatolik: ' + (userData.error.message || userData.error));
+                                        return;
+                                    }
+                                    handleSocialLoginSuccess(userData, 'google');
+                                })
+                                .catch(function(error) {
+                                    console.error('Error fetching Google user info:', error);
+                                    var errorMsg = 'Google ma\'lumotlarini olishda xatolik yuz berdi.';
+                                    if (error.message && error.message.includes('400')) {
+                                        errorMsg = '400 xatolik: Google Client ID noto\'g\'ri yoki OAuth sozlamalari xato.\n\nIltimos, Google Cloud Console da:\n1. To\'g\'ri Client ID ishlatilganligini tekshiring (Client Secret emas!)\n2. Authorized JavaScript origins ga sahifangiz URL qo\'shilganligini tekshiring\n3. Authorized redirect URIs ga sahifangiz URL qo\'shilganligini tekshiring';
+                                    }
+                                    alert(errorMsg);
+                                });
+                        }
+                    }
+                });
+                
+                // Request access token (this will open the popup)
+                tokenClient.requestAccessToken({ prompt: 'consent' });
+            }
+        });
+    } catch (error) {
+        console.error('Error initializing Google Sign-In:', error);
+        alert('Google kirishni boshlashda xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.\n\nXatolik: ' + error.message);
+    }
+}
+
+// Facebook Login Function
+function loginWithFacebook() {
+    // Check if Facebook SDK is loaded
+    if (typeof FB === 'undefined') {
+        alert('Facebook SDK yuklanmagan. Iltimos, sahifani yangilang.');
+        return;
+    }
+    
+    // Check if App ID is configured
+    if (FACEBOOK_APP_ID === 'YOUR_FACEBOOK_APP_ID') {
+        alert('Facebook App ID sozlanmagan. Iltimos, index.html va script.js fayllarida FACEBOOK_APP_ID ni o\'rnating.\n\nFacebook App ID olish:\n1. https://developers.facebook.com ga kiring\n2. My Apps > Create App\n3. App ID ni oling va sozlang');
+        return;
+    }
+    
+    // Check login status
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            // Already logged in, get user info
+            getFacebookUserInfo(response.authResponse.accessToken);
+        } else {
+            // Not logged in, trigger login
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    // User logged in, get user info
+                    getFacebookUserInfo(response.authResponse.accessToken);
+                } else {
+                    alert('Facebook bilan kirish bekor qilindi.');
+                }
+            }, {
+                scope: 'email,public_profile',
+                return_scopes: true
+            });
+        }
+    });
+}
+
+// Helper function to get Facebook user info
+function getFacebookUserInfo(accessToken) {
+    FB.api('/me', {
+        fields: 'id,name,email,picture',
+        access_token: accessToken
+    }, function(response) {
+        if (response.error) {
+            console.error('Facebook API error:', response.error);
+            alert('Facebook ma\'lumotlarini olishda xatolik yuz berdi.');
+            return;
+        }
+        
+        var userData = {
+            id: response.id,
+            name: response.name,
+            email: response.email || response.id + '@facebook.com',
+            picture: response.picture ? response.picture.data.url : ''
+        };
+        
+        handleSocialLoginSuccess(userData, 'facebook');
+    });
+}
+
+// Make functions globally accessible
+window.loginWithGoogle = loginWithGoogle;
+window.loginWithFacebook = loginWithFacebook;
+window.handleSocialLoginSuccess = handleSocialLoginSuccess;
+
+// Forgot Password Modal Functions
+function openForgotPasswordModal() {
+    var modal = document.getElementById('forgotPasswordModal');
+    if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeForgotPasswordModal() {
+    var modal = document.getElementById('forgotPasswordModal');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+}
+
+// Reset Password Modal Functions
+function openResetPasswordModal() {
+    var modal = document.getElementById('resetPasswordModal');
+    if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeResetPasswordModal() {
+    var modal = document.getElementById('resetPasswordModal');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+}
+
+// Make functions globally accessible
+window.openForgotPasswordModal = openForgotPasswordModal;
+window.closeForgotPasswordModal = closeForgotPasswordModal;
+window.openResetPasswordModal = openResetPasswordModal;
+window.closeResetPasswordModal = closeResetPasswordModal;
+
+// Forgot Password Form Handler
+document.addEventListener('DOMContentLoaded', function() {
+    var forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    var forgotPasswordModal = document.getElementById('forgotPasswordModal');
+    var forgotPasswordModalClose = document.getElementById('forgotPasswordModalClose');
+    var resetPasswordForm = document.getElementById('resetPasswordForm');
+    var resetPasswordModal = document.getElementById('resetPasswordModal');
+    var resetPasswordModalClose = document.getElementById('resetPasswordModalClose');
+    
+    // Forgot Password Form Submission
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById('forgotPasswordEmail').value;
+            
+            if (!email) {
+                alert('Iltimos, email manzilingizni kiriting.');
+                return;
+            }
+            
+            // Check if email exists in localStorage
+            var allUsers = JSON.parse(localStorage.getItem('ketmon_all_users') || '[]');
+            var userExists = allUsers.some(function(user) {
+                return user.email === email;
+            });
+            
+            if (userExists) {
+                // Simulate sending reset link
+                alert('Parolni tiklash havolasi ' + email + ' manziliga yuborildi. (Demo: havola yuborilmadi)');
+                closeForgotPasswordModal();
+                // In production, open reset password modal with token
+                setTimeout(function() {
+                    openResetPasswordModal();
+                }, 500);
+            } else {
+                alert('Bu email manzil bilan ro\'yxatdan o\'tilmagan.');
+            }
+        });
+    }
+    
+    // Close Forgot Password Modal
+    if (forgotPasswordModalClose) {
+        forgotPasswordModalClose.addEventListener('click', closeForgotPasswordModal);
+    }
+    
+    if (forgotPasswordModal) {
+        forgotPasswordModal.addEventListener('click', function(e) {
+            if (e.target === forgotPasswordModal) {
+                closeForgotPasswordModal();
+            }
+        });
+    }
+    
+    // Reset Password Form Submission
+    if (resetPasswordForm) {
+        resetPasswordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var newPassword = document.getElementById('resetPasswordNew').value;
+            var confirmPassword = document.getElementById('resetPasswordConfirm').value;
+            
+            if (newPassword.length < 6) {
+                alert('Parol kamida 6 ta belgidan iborat bo\'lishi kerak.');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('Parollar mos kelmaydi. Iltimos, qayta kiriting.');
+                return;
+            }
+            
+            // In production, update password via API
+            // For demo, we'll just show success message
+            alert('Parol muvaffaqiyatli yangilandi!');
+            closeResetPasswordModal();
+            
+            // Optionally redirect to login
+            setTimeout(function() {
+                var loginModal = document.getElementById('loginModal');
+                if (loginModal) {
+                    loginModal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                }
+            }, 500);
+        });
+    }
+    
+    // Close Reset Password Modal
+    if (resetPasswordModalClose) {
+        resetPasswordModalClose.addEventListener('click', closeResetPasswordModal);
+    }
+    
+    if (resetPasswordModal) {
+        resetPasswordModal.addEventListener('click', function(e) {
+            if (e.target === resetPasswordModal) {
+                closeResetPasswordModal();
+            }
+        });
+    }
+});
+
 
